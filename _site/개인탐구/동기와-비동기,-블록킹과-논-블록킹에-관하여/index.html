@@ -1,0 +1,775 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>동기와 비동기, 블록킹과 논블록킹에 관하여 | KSJ Archive</title>
+<meta name="description" content="이 글에 담긴 것    동기와 비동기   블록킹과 논블록킹   둘을 합쳐서 이해하기">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="동기와 비동기, 블록킹과 논블록킹에 관하여">
+<meta property="og:url" content="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%8F%99%EA%B8%B0%EC%99%80-%EB%B9%84%EB%8F%99%EA%B8%B0,-%EB%B8%94%EB%A1%9D%ED%82%B9%EA%B3%BC-%EB%85%BC-%EB%B8%94%EB%A1%9D%ED%82%B9%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/">
+
+
+  <meta property="og:description" content="이 글에 담긴 것    동기와 비동기   블록킹과 논블록킹   둘을 합쳐서 이해하기">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-08-04T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%8F%99%EA%B8%B0%EC%99%80-%EB%B9%84%EB%8F%99%EA%B8%B0,-%EB%B8%94%EB%A1%9D%ED%82%B9%EA%B3%BC-%EB%85%BC-%EB%B8%94%EB%A1%9D%ED%82%B9%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="동기와 비동기, 블록킹과 논블록킹에 관하여">
+    <meta itemprop="description" content="이 글에 담긴 것  동기와 비동기  블록킹과 논블록킹  둘을 합쳐서 이해하기">
+    <meta itemprop="datePublished" content="2022-08-04T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%8F%99%EA%B8%B0%EC%99%80-%EB%B9%84%EB%8F%99%EA%B8%B0,-%EB%B8%94%EB%A1%9D%ED%82%B9%EA%B3%BC-%EB%85%BC-%EB%B8%94%EB%A1%9D%ED%82%B9%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="u-url" itemprop="url">동기와 비동기, 블록킹과 논블록킹에 관하여
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-04T00:00:00+09:00">04 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#이-글에-담긴-것">이 글에 담긴 것</a></li><li><a href="#공부하던-부분">공부하던 부분</a></li><li><a href="#의문점">의문점</a></li><li><a href="#정리">정리</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>동기와 비동기</li>
+  <li>블록킹과 논블록킹</li>
+  <li>둘을 합쳐서 이해하기</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>라이브 세션(웹, 네트워크)</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>대부분 그렇듯 왜 글만 읽고 이해를 하지 못하는 상황에 이르렀는가??</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<p>스레드 개념</p>
+
+<p>스레드 관리</p>
+
+<p>비동기 - 두개이상의 스레드 공동의 자원 줄세우기 -&gt; 동기화</p>
+
+<p>자바에서의 동기화</p>
+
+<p>동기화 도구</p>
+
+<p>스레드 풀</p>
+
+<p>스레드에서 안전한 콜렉션
+    스레드 안전</p>
+
+<p>포크/조인</p>
+
+<p>jdk servlet jsp jdbc</p>
+
+<p>자바 프로그램 + 서블릿api -&gt; 자버 웹 프로그램
+    html 코드 출력문제</p>
+
+<ul>
+  <li>jsp
+  스파게티 코드문제</li>
+</ul>
+
+<p>spring mvc</p>
+
+<hr />
+
+<p>사용자 인터페이스 -&gt; 프로그램 -&gt; 사용자 인터페이스
+하나의 컴퓨터에서 이루어짐</p>
+
+<p>3티어 아키텍쳐
+클라이언트 프로그램 - 서버 프로그램
+클라이언트와 서버와의 동기화 문제로 인해 - 소프트웨어 업데이트 (설치와 재설치 -&gt; 다른프로그램 영향)</p>
+
+<p>소켓이나 rpc사용했었음 (데이터 전송)
+이걸 웹을 통해서 문서를 전달헤도 되겠네?? 해서 (http)</p>
+
+<p>현재는 그래서 cs-&gt;웹 개발
+클라이언트에서의 프로그램 역할을 브라우져가 하게 된 것</p>
+
+<p>여기에 더하여 js를 통해서 브라우저 단에다가 어플리케이션을 만드는중 -&gt; 프론트엔드</p>
+
+<hr />
+
+<p>[웹서버 프로그램과 서블릿]</p>
+
+<p>과거에는 요청 -&gt; 그대로 웹문서 찾아다 -&gt; 돌려줌</p>
+
+<p>근데 미리 만들어 있는 웹문서가 가능?? 내용이 달라질 수 있어
+그래서 데이터를 위한 코드가 되어있어
+그 코드를 실행해서 db를 뒤져</p>
+
+<p>비즈니스로직 -&gt; 디비
+웹 어플레케이션서버 was(웹 안에 있는 비즈니스로직 - 디비로부터 데이터 찾아오는애)</p>
+
+<p>실행한경 웹서버 + 웹 어플리케이션 서버 + 서버 어플리케이션(어플리케이션에서 실행되는애)</p>
+
+<p>서블릿은 조각나있는 서버 어플리케이션을 말하는듯?</p>
+
+<hr />
+
+<p>톰캣 9 (웹 서버 + was)
+인덱스 - 디폴트</p>
+
+<p>웹서버는 특정폴더에 저장하고, 이거를 리소스 이름 입력시 돌려주는구나</p>
+
+<p>context - 물리적으로 다른 사이트인데 문맥은 유지
+    root아래의 디렉토리를 옮긴다.
+    config에서 server.xml
+    <Context path="~~~" docBase="전체경로"></Context>
+    이러면 아래 있는거마냥 나온다.</p>
+
+<hr />
+<p>class ~~ extends 무엇 -&gt; 무엇으로 찾아간다.
+그 안에
+main 대신 service 라는 함수를 읽어서 실행하는데
+이를 실행시킬때는 콘솔에서
+    public class ~~ extends HttpServlet
+    {
+        public void service(HttpServletRequest request, HttpServletResponse respons)
+        throws IOException, ServletException
+        {
+            Systme.out.println(“hello Servlet”);
+        }
+    }</p>
+
+<p>javac class-path 파일명
+톰캣 - lib -&gt; serblet-api</p>
+
+<p>이러면 클래스파일이 만들어지는데 클래스는</p>
+
+<p>web-inf 밑의 클래스로 들어간다. (웹인포는 서버에서만 사용가능 클라이언트에서는 요청 불가)
+그래서 요청과 코드를 매핑한다.</p>
+
+<p>web.xml의 매핑에다가 매핑정보를 써준다.</p>
+<servlet>
+    <servlet-name> ~~ </servlet-name>
+    <servlet-class> ~~ </servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name> ~~ </servlet-name>
+    <url-pattern> /~~ </url-pattern>
+</servlet-mapping>
+
+<p>이러고 url-pattern으로 웹에서 검색하면 뭐 하얀화면만뜬다
+왜??
+위에서 서버콘솔에만 출력되게 했기 때문에</p>
+
+<hr />
+<p>클라이언트에게 나오게 하는 법</p>
+
+<p>OutputStream os = response.getOutputStream();
+printStream out = new PrintStream(os,true);</p>
+
+<p>-&gt;
+PrintWriter out = response.getWriter();</p>
+
+<hr />
+
+<p>이걸 실행하기 힘드니까 이클립스를 사용한거구나</p>
+
+<p>코드수정
+컴파일
+배포
+톰캣 서버 재시작
+요청</p>
+
+<p>이거를 한번에 해주는거 이클립스 인텔리제이</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC" class="page__taxonomy-item p-category" rel="tag">개인탐구</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-08-04T00:00:00+09:00">04 Aug, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EB%8F%99%EA%B8%B0%EC%99%80+%EB%B9%84%EB%8F%99%EA%B8%B0%2C+%EB%B8%94%EB%A1%9D%ED%82%B9%EA%B3%BC+%EB%85%BC%EB%B8%94%EB%A1%9D%ED%82%B9%EC%97%90+%EA%B4%80%ED%95%98%EC%97%AC%20http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2F%25EB%258F%2599%25EA%25B8%25B0%25EC%2599%2580-%25EB%25B9%2584%25EB%258F%2599%25EA%25B8%25B0%2C-%25EB%25B8%2594%25EB%25A1%259D%25ED%2582%25B9%25EA%25B3%25BC-%25EB%2585%25BC-%25EB%25B8%2594%25EB%25A1%259D%25ED%2582%25B9%25EC%2597%2590-%25EA%25B4%2580%25ED%2595%2598%25EC%2597%25AC%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2F%25EB%258F%2599%25EA%25B8%25B0%25EC%2599%2580-%25EB%25B9%2584%25EB%258F%2599%25EA%25B8%25B0%2C-%25EB%25B8%2594%25EB%25A1%259D%25ED%2582%25B9%25EA%25B3%25BC-%25EB%2585%25BC-%25EB%25B8%2594%25EB%25A1%259D%25ED%2582%25B9%25EC%2597%2590-%25EA%25B4%2580%25ED%2595%2598%25EC%2597%25AC%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2F%25EB%258F%2599%25EA%25B8%25B0%25EC%2599%2580-%25EB%25B9%2584%25EB%258F%2599%25EA%25B8%25B0%2C-%25EB%25B8%2594%25EB%25A1%259D%25ED%2582%25B9%25EA%25B3%25BC-%25EB%2585%25BC-%25EB%25B8%2594%25EB%25A1%259D%25ED%2582%25B9%25EC%2597%2590-%25EA%25B4%2580%25ED%2595%2598%25EC%2597%25AC%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Wrapper%ED%81%B4%EB%9E%98%EC%8A%A4%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="Wrapper 클래스에 관하여
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB-%EC%84%A4%EA%B3%84/" class="pagination--pager" title="Section 2 DB 스키마 설계
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%8F%99%EA%B8%B0%EC%99%80-%EB%B9%84%EB%8F%99%EA%B8%B0,-%EB%B8%94%EB%A1%9D%ED%82%B9%EA%B3%BC-%EB%85%BC-%EB%B8%94%EB%A1%9D%ED%82%B9%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/동기와 비동기, 블록킹과 논 블록킹에 관하여"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

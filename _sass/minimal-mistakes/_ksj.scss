@@ -1,0 +1,32 @@
+html{background-color: rgb(33, 37, 41)}
+
+.greedy-nav{background-color: rgb(33, 37, 41)}
+.page__footer{background-color: rgb(33, 37, 41);
+  border-top : 1px solid #51555d;}
+
+.fa-calendar-alt{display : none !important;}
+
+.archive {
+  @include breakpoint($x-large) {
+    /*width: calc(100% - 200px);*/
+    padding-right: 0;
+  }
+}
+.archive__item a{text-decoration: none; font-size: 20px;}
+
+.archive__item-title {margin: 0; display: inline-block; padding-right: 80px;}
+
+.archive__item-excerpt {display: none;}
+
+.list__item .page__meta, .list__item .comment__date {
+line-height: 30px;
+height: 30px;
+position: absolute;
+right: 0;
+top: 0;
+}
+.author__avatar img{border-radius: 5px; padding: 0 !important;}
+
+.fa-calendar-alt:before {
+  content: normal;
+}

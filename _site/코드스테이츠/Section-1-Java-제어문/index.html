@@ -1,0 +1,913 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 1 Java - 제어문 | KSJ Archive</title>
+<meta name="description" content="[week3] 간단정리">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 1 Java - 제어문">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Java-%EC%A0%9C%EC%96%B4%EB%AC%B8/">
+
+
+  <meta property="og:description" content="[week3] 간단정리">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-05T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Java-%EC%A0%9C%EC%96%B4%EB%AC%B8/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 1 Java - 제어문">
+    <meta itemprop="description" content="[week3]간단정리">
+    <meta itemprop="datePublished" content="2022-07-05T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Java-%EC%A0%9C%EC%96%B4%EB%AC%B8/" class="u-url" itemprop="url">Section 1 Java - 제어문
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-07-05T00:00:00+09:00">05 Jul, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</a></li><li><a href="#정리">정리</a><ul><li><a href="#1조건문">1.조건문</a><ul><li><a href="#a-if문">a. if문</a></li><li><a href="#b-switch문">b. switch문</a></li></ul></li><li><a href="#2반복문">2.반복문</a><ul><li><a href="#a-for">a. for</a></li><li><a href="#b-while">b. while</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week3]</p>
+<h2 id="간단정리">간단정리</h2>
+
+<ul>
+  <li>제어문은 코드의 흐름을 관리하기 위한 것</li>
+  <li>조건문
+    <ul>
+      <li>if 는 조건(참 거짓)을 통해 흐름 제어
+        <ul>
+          <li>if(){}</li>
+          <li>else if{}</li>
+          <li>else</li>
+        </ul>
+      </li>
+      <li>switch는 리터럴을 바탕으로 흐름 제어
+        <ul>
+          <li>switch()</li>
+          <li>case:</li>
+          <li>default:</li>
+          <li>break;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>반복문
+    <ul>
+      <li>for 은 반복횟수를 특정 가능하다면
+        <ul>
+          <li>for(초기화 ; 범위 ; 증감)</li>
+        </ul>
+      </li>
+      <li>while은 무한루프도 가능
+        <ul>
+          <li>while()</li>
+        </ul>
+      </li>
+      <li>do-while은 일단 한번 실행 후
+        <ul>
+          <li>do{~~}while()</li>
+        </ul>
+      </li>
+      <li>continue - 해당 반복만 탈출</li>
+      <li>break - 해당 반복문 탈출</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<ul>
+  <li>확실히 코드의 흐름을 생각하면서 작성하니 크게 어렵지 않았다. 일단은 조건문 if,switch와 반복문 for,while do-while에 익숙해 지자. 그 다음 코드의 효율성을 꾀하는 방법들을 알아보도록 하자.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</h2>
+
+<ul>
+  <li>조건문과 반복문은 왜 쓰이는가?</li>
+  <li>If문과 switch는 왜 나뉘어져있는가?</li>
+  <li>for와 while은 어떻게 다른가?</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1조건문">1.조건문</h3>
+<p>실생활에서 우리가 하는 약속을 하나 가정해보자. 음.. 누구나 다 한번쯤은 들어봤을 약속이라면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>이번에 성적을 ~~이상 달성하면 ~~사줄게
+</code></pre></div></div>
+
+<p>이 문장을 프로그래밍 관점에서 본다면 어떻게 코드화 할 수 있을까??</p>
+
+<p>분명한건 <strong>앞의 조건에 따라서 결과가 달라진다</strong>는 것이다.</p>
+
+<h4 id="a-if문">a. if문</h4>
+<p>조건문 하면 2대장이 있다. if문과 switch문이다. 그 중에 먼저 if문을 알아보자.</p>
+
+<p>if문의 기본 구조는 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 조건이 하나일 경우</span>
+
+<span class="k">if</span><span class="o">(</span><span class="n">조건식</span><span class="o">){</span>
+    <span class="c1">// 조건이 참일경우</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>그러면 이번에는 앞선 문장을 구체화보고 적용해보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>이번에 평균 90점을 넘으면 아이패드 사줄게
+</code></pre></div></div>
+
+<p>는</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">average</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="o">){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"아이패드사준다."</span><span class="o">)</span> 
+<span class="o">}</span>
+
+<span class="c1">// 엄밀히 말하면 아이패드 사주는 행동도 굉장히 많이 쪼갤 수 있겠지만 단순화 했다.</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>하지만 인생은 녹록치 않아왔다. 조건은 반대의 경우도 상정하기 마련인다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>90점 넘으면 아이패드 사주는데 못 넘으면 용돈 동결이야.
+</code></pre></div></div>
+
+<p>는</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">average</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="o">){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"아이패드사준다."</span><span class="o">)</span> 
+<span class="o">}</span>
+<span class="k">else</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"용돈동결이야"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이렇게 else로 조건이 거짓을 경우도 코딩이 가능하다.</p>
+
+<p>그렇다면 <br />
+조건이 여러개라면????</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>90점 넘으면 아이패드, 80점 넘으면 음.. 용돈 인상, 이거도 못하면 용돈 동결이야
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">average</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="o">){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"아이패드사준다."</span><span class="o">)</span> 
+<span class="o">}</span>
+<span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">average</span><span class="o">&gt;</span><span class="mi">80</span><span class="o">){</span>                <span class="c1">// 90점 넘으면 여기서도 해당되는거 아닌가요?? 할 수 있는데</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"용돈인상이야"</span><span class="o">)</span> <span class="c1">// 어쨌든 코드는 한줄 한줄 실행된다</span>
+<span class="o">}</span>                                   <span class="c1">// 즉 90점 넘는 애들은 위 if문에서 이미 다 걸러졌다.</span>
+<span class="k">else</span><span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"용돈동결이야"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이렇게 else if로 조건을 세분화 해줄 수 있다.</p>
+
+<p>이렇게 조건이 세분화되어서 분기되는 경우는 switch문으로도 작성이 가능하다.</p>
+
+<h4 id="b-switch문">b. switch문</h4>
+<p>switch문의 기본 구조는 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">switch</span><span class="o">(</span><span class="n">변수</span><span class="o">){</span>
+    <span class="k">case</span> <span class="o">~</span> <span class="o">:</span>
+        <span class="c1">// 이 케이스에 해당될 경우 실행될 코드</span>
+        <span class="k">break</span><span class="o">;</span> <span class="c1">// 다음 케이스 실행하지 않고 탈출</span>
+    <span class="k">case</span> <span class="o">~</span> <span class="o">:</span>
+        <span class="c1">// 이 케이스에 해당될 경우 실행될 코드</span>
+        <span class="k">break</span><span class="o">;</span> <span class="c1">// 다음 케이스 실행하지 않고 탈출</span>
+    <span class="k">case</span> <span class="o">~</span> <span class="o">:</span>
+        <span class="c1">// 이 케이스에 해당될 경우 실행될 코드</span>
+        <span class="k">break</span><span class="o">;</span> <span class="c1">// 다음 케이스 실행하지 않고 탈출</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="k">default</span><span class="o">:</span> <span class="c1">//괄호 다 해당 안되면</span>
+        <span class="c1">// 실행될 코드</span>
+        <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이를 이용해서 else if문과 똑같은 결과를 내는 코드를 작성하면</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">average</span> <span class="o">=</span> <span class="o">~~</span> <span class="o">;</span> <span class="c1">// 계산식이 들어가도 되겠고 뭐든 할당된다고 가정하자</span>
+
+<span class="k">switch</span><span class="o">(</span><span class="n">average</span><span class="o">/</span><span class="mi">10</span><span class="o">){</span>  <span class="c1">// 10으로 나누 몫만 가져오게 한 이유는 case는 범위가 아니라 해당되는 수만 지칭하기 때문이다.</span>
+    <span class="k">case</span> <span class="mi">10</span><span class="o">,</span><span class="mi">9</span> <span class="o">:</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"아이패드사준다"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">8</span> <span class="o">:</span> <span class="c1">// 실행문이 하나일 경우 case 8 -&gt; ~~ 이렇게 작성이 가능하다 (람다식 스타일)</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"용돈인상이야"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span> <span class="o">:</span>
+        <span class="n">system</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"용돈동결이야"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이렇게 작성되겠다.</p>
+
+<hr />
+
+<h3 id="2반복문">2.반복문</h3>
+<p>반복문도 2대장이 있다. 하나는 for문 하나는 while문이다.</p>
+
+<p>이번에도 추상적인 가정을 하나 하자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>할당량 채우면 끝내도 돼
+</code></pre></div></div>
+
+<h4 id="a-for">a. for</h4>
+<p>for문은 반복 횟수를 특정할 수 있을 경우에 쓴다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">초기화</span> <span class="o">;</span> <span class="n">범위</span> <span class="o">;</span> <span class="n">변화</span><span class="o">){</span>
+    <span class="c1">//실행코드</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>사장님이 할당량 채우면 집에 가라한다. 그리고 나는 숙련공이라서 100번 반복하면 완료할 수 있는지 알 수 있다.</p>
+
+<p>이런 경우</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"작업한다"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"집에간다"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>위와 같이 작성하게 되겠다.</p>
+
+<h4 id="b-while">b. while</h4>
+<p>근데 사실 나는 미숙련공이라 몇번만에 끝날지 모른다. 이 경우는 반복을 어떻게 처리할까??</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="o">(</span><span class="n">조건식</span><span class="o">){</span>
+    <span class="c1">//실행코드</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>while문을 이용하면 된다. 괄호에는 if문처럼 조건식이 들어가게된다.</p>
+
+<p>그러면</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">working</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">working</span><span class="o">){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"작업한다"</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">작업이</span> <span class="n">끝나면</span><span class="o">){</span>
+        <span class="n">working</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"집에간다"</span><span class="o">);</span>
+<span class="err">```</span><span class="n">java</span>
+
+<span class="n">물론</span> <span class="n">작업횟수를</span> <span class="n">아는</span> <span class="n">경우에도</span> <span class="n">while문은</span> <span class="n">사용</span> <span class="n">가능하다</span><span class="o">.</span> 
+
+<span class="n">다음과</span> <span class="n">같이</span>
+
+<span class="err">```</span><span class="n">java</span>
+<span class="kt">int</span> <span class="n">assignment</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+<span class="k">while</span><span class="o">(</span><span class="n">assignment</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"작업한다."</span><span class="o">);</span>
+    <span class="n">assignment</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>while문은 엄밀히 따지면</p>
+<ol>
+  <li>조건을 따진 후</li>
+  <li>실행문을 실행한다.</li>
+</ol>
+
+<p>하지만 때에 따라서는</p>
+<ol>
+  <li>실행문을 실행한다.</li>
+  <li>조건을 따진다.</li>
+</ol>
+
+<p>의 경우가 필요할 때도 있을 것이다. 무슨 차이냐고?? 순서가 다르잖아 ㅎㅎ</p>
+
+<p>그런게 아니고 실행문을 실행하고 반복문에 돌입한다 라는 차이가 생긴다</p>
+
+<p>이 경우에는 do while문을 사용한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">do</span><span class="o">{</span>
+    <span class="c1">//실행문</span>
+<span class="o">}</span><span class="k">while</span><span class="o">(</span><span class="n">조건식</span><span class="o">)</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-07-05T00:00:00+09:00">05 Jul, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+1+Java+-+%EC%A0%9C%EC%96%B4%EB%AC%B8%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-Java-%25EC%25A0%259C%25EC%2596%25B4%25EB%25AC%25B8%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-Java-%25EC%25A0%259C%25EC%2596%25B4%25EB%25AC%25B8%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-Java-%25EC%25A0%259C%25EC%2596%25B4%25EB%25AC%25B8%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/For-each%EB%AC%B8%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="for each문에 관하여
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Java-%EB%B0%B0%EC%97%B4/" class="pagination--pager" title="Section 1 Java - 배열
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Java-%EC%A0%9C%EC%96%B4%EB%AC%B8/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 1 Java - 제어문"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

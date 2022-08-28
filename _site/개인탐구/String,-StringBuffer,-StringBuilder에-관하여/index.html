@@ -1,0 +1,763 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>String 형제들에 관하여 (Builder, Buffer) | KSJ Archive</title>
+<meta name="description" content="이 글에 담긴 것    String을 정복하고자 하는 마음">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="String 형제들에 관하여 (Builder, Buffer)">
+<meta property="og:url" content="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/String,-StringBuffer,-StringBuilder%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/">
+
+
+  <meta property="og:description" content="이 글에 담긴 것    String을 정복하고자 하는 마음">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-08-04T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/String,-StringBuffer,-StringBuilder%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="String 형제들에 관하여 (Builder, Buffer)">
+    <meta itemprop="description" content="이 글에 담긴 것  String을 정복하고자 하는 마음">
+    <meta itemprop="datePublished" content="2022-08-04T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/String,-StringBuffer,-StringBuilder%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="u-url" itemprop="url">String 형제들에 관하여 (Builder, Buffer)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-04T00:00:00+09:00">04 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#이-글에-담긴-것">이 글에 담긴 것</a></li><li><a href="#공부하던-부분">공부하던 부분</a></li><li><a href="#의문점">의문점</a></li><li><a href="#정리">정리</a></li><li><a href="#설명">설명</a></li><li><a href="#string-method-자주-쓸만한">String method (자주 쓸만한)</a></li><li><a href="#stringbuilder-stringbuffer-자주-쓸만한">StringBuilder, StringBuffer (자주 쓸만한)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>String을 정복하고자 하는 마음</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>모든 코딩문제</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>도대체 나는 언제까지 String 관련 메서드들을 찾아볼 것인가??</li>
+  <li>이제는 좀 builder buffer 개념을 명확히 할 때가 되지 않았나..</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<p>String은 한번 생성되면 할당된 공간이 변화하지 않는다.</p>
+
+<p>하지만</p>
+
+<p>StringBuilder와 StringBuffer의 경우는 할당된 공간의 가변적이다.</p>
+
+<p>그렇다면 왜 굳이 StringBuilder와 StringBuffer를 구분할까??</p>
+
+<p>그 차이는 멀티쓰레드 환경에서의 동기화 지원여부에 있다. Builder는 단일쓰레드 환경에 맞게 설계되어 있다.</p>
+
+<h2 id="설명">설명</h2>
+<p>지금까지 String에서 문자열을 합할때는 + 를 이용했다. 그리고 그냥 더해지겠거니 생각을 했는데…</p>
+
+<p>이런 로직에 의해 더해지는 거였다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>만약 kim, shinjae로 kimshinjae를 만들고싶다면
+String은 할당된 공간이 변하지 않기때문에
+kim과 shinjae를 합해서 저장하는 새로운 공간을 할당하는 것이었다.
+</code></pre></div></div>
+
+<p>하지만 builder와 buffer는 초기에 buffer크기를 설정하고 할당된 공간을 가변적으로 이용한다.</p>
+
+<h2 id="string-method-자주-쓸만한">String method (자주 쓸만한)</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"실험용 선언하고 갈게요."</span><span class="o">);</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str.split("regex")
+    regex로 나누어 '배열'로 반환
+
+str.contains("찾고싶은거")
+    존재 여부를 '논리형'으로 반환
+
+str.substring(from) or (from, to)   
+    부분 문자열 반환
+
+str.equals("문자열")
+    문자열과 같은지 여부를 '논리형'으로 반환
+
+str.replace("old","new")
+    헌것을 새것으로 바꿈
+
+str.toLowerCase()
+    소문자로
+
+str.toUpperCase()
+    대문자로
+
+str.trim()
+    '양쪽의 공백' 제거
+
+str.valueOf(여러 타입의 값들)
+    문자열로 변환한다.
+    이거는 래퍼클래스에서도 사용됨
+        ex) Integer.valueOf()
+
+str.length()
+    문자열 길이 반환
+    배열의 길이랑 착각 X
+
+str.isEmpty()
+    0인지 아닌지를 구별하여 '논리형'반환
+
+str.indexOf(문자)
+    문자의 인덱스를 반환한다. 없으면 -1
+
+str.concat("string")
+    문자열 합치기/
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="stringbuilder-stringbuffer-자주-쓸만한">StringBuilder, StringBuffer (자주 쓸만한)</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"실험용 선언하고 갈게요."</span><span class="o">);</span>
+<span class="nc">StringBuilder</span> <span class="n">strbi</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+<span class="n">or</span>
+<span class="nc">StringBuffer</span> <span class="n">strbu</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+</code></pre></div></div>
+<p><em>String과 같은 메서드는 *표시</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>메서드는 같아서 strbu로 가보자
+
+strbu.toString()
+    문자열로 변환 (String으로 변환)
+
+* strbu.substring(from) or (from, to)
+    부분 문자열 반환
+
+strbu.insert(index, string)
+    인덱스에 문자열 추가
+
+strbu.delete(from, to)
+    from ~ to 문자열 삭제
+
+strbu.append("String")
+    문자열 붙이기
+
+strbu.capacity()
+    문자열 크기 구하기
+
+strbu.reverse()
+    문자열 뒤집기
+
+* strbu.length()
+    문자열 길이
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC" class="page__taxonomy-item p-category" rel="tag">개인탐구</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-08-04T00:00:00+09:00">04 Aug, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=String+%ED%98%95%EC%A0%9C%EB%93%A4%EC%97%90+%EA%B4%80%ED%95%98%EC%97%AC+%28Builder%2C+Buffer%29%20http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2FString%2C-StringBuffer%2C-StringBuilder%25EC%2597%2590-%25EA%25B4%2580%25ED%2595%2598%25EC%2597%25AC%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2FString%2C-StringBuffer%2C-StringBuilder%25EC%2597%2590-%25EA%25B4%2580%25ED%2595%2598%25EC%2597%25AC%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2FString%2C-StringBuffer%2C-StringBuilder%25EC%2597%2590-%25EA%25B4%2580%25ED%2595%2598%25EC%2597%25AC%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB/" class="pagination--pager" title="Section 2 DB
+">이전</a>
+    
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Wrapper%ED%81%B4%EB%9E%98%EC%8A%A4%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="Wrapper 클래스에 관하여
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/String,-StringBuffer,-StringBuilder%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/String, StringBuffer, StringBuilder에 관하여"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

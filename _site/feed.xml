@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-28T14:23:05+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">KSJ Archive</title><subtitle>archive of my backend path </subtitle><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><entry><title type="html">PatchDto에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="PatchDto에 관하여" /><published>2022-08-27T00:00:00+09:00</published><updated>2022-08-27T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>patchDto의 필드변수 설정</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>API계층 Dto 만들기</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>patchdto의 필드변수는 어떤 것들이 들어가야 하는가??</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<p>먼저 DTO는 왜 만드는가를 생각해보아야 한다. 예제를 통해 알아보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">postGate</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">"number"</span><span class="o">)</span> <span class="kt">int</span> <span class="n">number</span><span class="o">,</span>
+                                   <span class="nd">@RequestParam</span><span class="o">(</span><span class="s">"rentStatus"</span><span class="o">)</span> <span class="kt">boolean</span> <span class="n">rentStatus</span><span class="o">,</span>
+                                   <span class="nd">@RequestParam</span><span class="o">(</span><span class="s">"price"</span><span class="o">)</span> <span class="kt">int</span> <span class="n">price</span><span class="o">){</span>
+
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"number"</span><span class="o">,</span> <span class="n">number</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"rented"</span><span class="o">,</span> <span class="n">rentStatus</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"price"</span><span class="o">,</span> <span class="n">price</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ResponseEntity</span><span class="o">(</span><span class="n">map</span><span class="o">,</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">CREATED</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 코드는 혼자 만들어보고 있는 aiport gate관리 서버의 코드 중 일부이며, HTTP MESSAGE의 post request가 발생했을때 서버의 엔드포인트인 컨트롤러에 도달하게 되는데, 그 컨트롤러에 속해있는 post를 관리하는 핸들러 메서드이다. 이때 핸들러 메서드의 선언부를 보면 <strong><em>@Requestparam</em></strong>이라는 애너테이션이 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@RequestParam
+    
+    @Requestparam 1.("가져올 데이터의 이름") 2.[데이터 타입] 3.[데이터를 담을 변수]
+        - 이 때 1과 3이 같다면 1은 생략 가능하다.
+        - 위 예시를 바탕으로하면 URI는 다음과 같을 것이다.
+            컨트롤러 레벨에서의 애너테이션이 @Requestmapping("v1/gates")라면
+            localhost:8080/v1/gates?number=(무엇무엇)&amp;rentstatus=(무엇무엇)&amp;price=(무엇무엇)
+</code></pre></div></div>
+
+<p>이처럼 @Requestparam 애너테이션의 경우 변수와 데이터를 1개씩 매칭시키는데, 만약 데이터의 양이 많아진다면?? 코드가 굉장히 길어질 것이다. 때문에 dto라는 requestbody를 받는 객체를 만들어서 대신 사용할 수 있다.</p>
+
+<h3 id="dto클래스-만들기">dto클래스 만들기</h3>
+
+<p>그러면 다음과 같이 dto클래스를 먼저 만든다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatePostDto</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">rentStatus</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNumber</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNumber</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isRentStatus</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">rentStatus</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRentStatus</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">rentStatus</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">rentStatus</span> <span class="o">=</span> <span class="n">rentStatus</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이때 필드변수는 requestbody가 있는. 즉, @Requestparam의 데이터를 선언하면 된다. 이를 이용하면 코드가 엄청 간단해진다.</p>
+
+<h3 id="dto-적용-핸들러-메서드">dto 적용 핸들러 메서드</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">postGate</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">GatePostDto</span> <span class="n">gatePostDto</span><span class="o">){</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ResponseEntity</span><span class="o">(</span><span class="n">gatePostDto</span><span class="o">,</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">CREATED</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>첫째로 파라미터에 앞서 만든 GatePostDto객체를 받아오기 때문에 굉장히 간단해졌다.
+둘째로 첫째의 영향으로 map을 선언해서 데이터들을 담을 필요가 없어졌다.</p>
+
+<h3 id="의문점---patch는">의문점 - patch는??</h3>
+
+<p>여기서 의문점이 발생했다.
+patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 ‘C - create’라면 patch는 일부 데이터를 변경하는 ‘U - update’이기 때문이다. 따라서 이러한 고민을 가지게 되었다.</p>
+
+<blockquote>
+  <p>patch dto를 만들면 필드면수는 어떤 것들로 채워야하는가??</p>
+</blockquote>
+
+<p>아무리 찾아봐도 없었다. 나중에 데이터베이스에 저장하게 될 하나의 레코드를 전부 다 넣어야할까?? 아니면 뭐 법칙이 있나?? 여러가지 생각이 많이 들었다. 그런 고민을(지금보면 쓸데없지만..) 하다가 결국 도달하 결론은 이것이다.</p>
+
+<h3 id="결론">결론</h3>
+
+<blockquote>
+  <p>바꾸고 싶은 데이터 파라미터만 필드로 선언한다.</p>
+</blockquote>
+
+<p>공항의 gate의 경우를 보자. 가격과 렌트 유무를 정보로 가지고 있다. 그렇다면?? 그 두가지는 가격정책에 의해서, 항공사의 대여 유무에 의해서 바뀔 수 있는 데이터이다. 따라서 patchdto의 경우는 다음과 같이 작성하면 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatePatchDto</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">gateId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">rentStatus</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getGateId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">gateId</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setGateId</span><span class="o">(</span><span class="kt">long</span> <span class="n">gateId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">gateId</span> <span class="o">=</span> <span class="n">gateId</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isRentStatus</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">rentStatus</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRentStatus</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">rentStatus</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">rentStatus</span> <span class="o">=</span> <span class="n">rentStatus</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>여기서 gateId는 컨트롤러의 patch핸들러 메서드 상에서 @Pathvariable(“~~”)의 ~로 받아 변수에 저장한 값일 것이다. 이유는 하나의 상태를 post하게 되면 게이트들을 구분하는 하나의 identification이 있어야 할 것이고, 생성 될 것이니까.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Spring" /><summary type="html"><![CDATA[이 글에 담긴 것 patchDto의 필드변수 설정]]></summary></entry><entry><title type="html">Spring MVC 혼자 해보기 - Controller</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="alternate" type="text/html" title="Spring MVC 혼자 해보기 - Controller" /><published>2022-08-26T00:00:00+09:00</published><updated>2022-08-26T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring%20MVC%20%ED%98%BC%EC%9E%90%20%ED%95%B4%EB%B3%B4%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>혼자 연습해보는 과정</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>Spring 전반</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>내것을 직접 해봐야 이해가 더 빠르지 않겠는가</li>
+</ol>
+
+<h2 id="시작">시작</h2>
+
+<p>원래 학습 자료에 있던 커피 실습을 조금만 수정하여 상황을 가정하고 진행해보려 한다.</p>
+
+<p>교환학생 시기 체코 프라하의 공항은 대한항공이 대주주였기에 항공사가 공항 터미널 관리에도 관여하는 것으로 알고 있었다.<em>(틀린 정보일 수 있으니 공항터미널 정보 찾는 분들은 다른 글 찾기를 바랍니다.)</em> 따라서 경험을 바탕으로?? 당시 대한항공의 입장에서 탑승게이트를 항공사에 대여하고 관리하는 서버 애플리케이션을 만든다고 가정하겠다.</p>
+
+<h3 id="경계-설정기능">경계 설정(기능)</h3>
+
+<blockquote>
+  <p>공항의 탑승 게이트를 항공사들에게 대여함</p>
+</blockquote>
+
+<p>하나의 문장으로부터 탄생하는 어플리케이션들이 많을 것이라 생각한다. 위 문장을 바탕으로 내가 구현해야 할 기능들을 나열해보겠다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>공항 측
+    탑승 게이트 정보 등록
+    등록한 게이트 정보 수정
+    등록한 게이트 정보 삭제
+    등록한 게이트 정보 조회
+    대여 신청 조회
+    대여 완료 처리
+
+항공사 측
+    탑승 게이트 조회
+    탑승 게이트 대여 신청
+        대여 신청 등록
+        대여 신청 취소
+        대여 신청 조회
+</code></pre></div></div>
+
+<p>이를 분석해보면 4개의 객체를 만들 수 있겠다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 공항    2. 항공사    3. 게이트    4. 대여
+</code></pre></div></div>
+
+<p>다만 공항과 항공사를 하나의 Member 로 가정하고 하겠다. (추후 보안에서 ROLE로 기능을 구분할 수 있다 한다.)
+게이트는 ‘Gate’로 대여는 ‘rental’로 설정하겠다.</p>
+
+<h3 id="controller">Controller</h3>
+
+<p>필요한 member 정보</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>회사명
+담당자
+이메일
+전화번호
+</code></pre></div></div>
+
+<p>필요한 gate 정보</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>게이트 넘버
+게이트 대여여부
+가격
+</code></pre></div></div>
+
+<p>필요한 rental 정보</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Spring" /><summary type="html"><![CDATA[이 글에 담긴 것 혼자 연습해보는 과정]]></summary></entry><entry><title type="html">Section 2 Spring MVC - Controller</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="alternate" type="text/html" title="Section 2 Spring MVC - Controller" /><published>2022-08-19T00:00:00+09:00</published><updated>2022-08-19T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%203%20%20Spring%20controller</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/"><![CDATA[<p>[week9]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등</li>
+  <li>API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week9] 간단정리 내가 할 것 웹 어플리케이션 설계, 구성, 테스트 등 API 계층 클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API 웹 구성(presentation(api) - application(service) - data access)]]></summary></entry><entry><title type="html">Section 1 회고</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="alternate" type="text/html" title="Section 1 회고" /><published>2022-08-18T00:00:00+09:00</published><updated>2022-08-18T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%202%20%ED%9A%8C%EA%B3%A0</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/"><![CDATA[<p>[week5]</p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>선선한 바람이 불어와
+나뭇잎이 들썩거리길래
+나뭇잎을 집어보니
+바람은 그곳에 없었다.
+
+하지만 바람에 더해진
+향긋한 향기가 느껴져
+꽃을 마주보았을때
+향기는 더 강해졌다.
+</code></pre></div></div>
+
+<p>나의 바람은 바람만으로 남으면 안 될 것이다. 바람에 노력이라는 향기를 더해서 더더욱 발전해야 겠다. 요즘 나는 바람만 있다. 허풍이다.</p>
+
+<p><br />
+<br /></p>
+
+<h2 id="배운-것들-키워드">배운 것들 키워드</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>재귀함수
+알고리즘
+    그리디
+자료구조
+    스택
+    큐
+    트리
+네트워크
+    TCP/IP
+    HTTP
+    REST API
+데이터베이스
+Spring 기초
+    POJO
+    IoC
+    DI
+    AOP
+    POS
+</code></pre></div></div>
+
+<h2 id="진행-상황">진행 상황</h2>
+<p><br /></p>
+
+<h3 id="1-운동">1. 운동</h3>
+<p>운동은 역시나 지속중이다. 다만 한번 러닝을하다가 다친 이후는 1주일간 운동을 하지 못했었다. 그리고 후유증으로 약간의 나태해짐이 더해진 것을 느낀다. 근 1주일은 아침이 아닌 저녁에 가고 있다.. 다시 아침운동으로 진행해보자.
+<br /></p>
+
+<h3 id="2-페어참여--주말-활용">2. 페어참여 / 주말 활용</h3>
+<p>점점 페어가 재미있으면서도 동시에 부담이 된다. 내가 지식을 확실히 소화하지 못하고 하는 페어는 그 시간을 100퍼센트 활용하지 못하는 것 같다. 주말을 활용해서 조금이라도 더 복습을 해야하는데 이상하게 주말만 되면 뭐같은 안도감에 주말을 효율적으로 활용하지 못하고 있다. 
+<br /></p>
+
+<h3 id="3-git-적응">3. git 적응</h3>
+<p>깃허브 페이지를 통한 블로깅과 여유시간 기초 개인 코딩을 해보면서 깃을 꾸준히 써왔다. 이부분은 잘 하고 있다. 조만간 깃에 대한 추가적인 학습을 할 예정이다.(협업 관련)
+<br /></p>
+
+<h3 id="4-1일-1커밋">4. 1일 1커밋</h3>
+<p>학습이 어려워지면서 1일 1커밋은 잘 못하고 있다. 블로깅 자체에 매몰되지 않으려, 지식을 안 상태에서 나만의 언어로 작성하려 노력하다보니 그것만으로도 벅찬게 사실이다.
+<br /></p>
+
+<h3 id="5-진도-따라가기">5. 진도 따라가기</h3>
+<p>100 중 65퍼센트정도만 따라온 것 같다. 항상 느끼는게 하루 밀리면 부담은 배가 된다. 제발 제대로 하자..</p>
+
+<p><br /></p>
+
+<h3 id="3-영어-공부하기">3. 영어 공부하기</h3>
+<p>아무래도 내 개인적인 공부도 해야 더 알차게 보낼 수 있을 것 같다. 몇년째 미뤄온 숙원사업이다.</p>
+
+<p><br /></p>
+
+<h2 id="다시-나아가자">다시 나아가자</h2>
+
+<h3 id="나태함을-극복하자">나태함을 극복하자</h3>
+<p>항상 초심일 필요는 없다고 생각한다. 스스로를 옭아매는 초심은 더 구렁텅이로 빠지게 만든다고 생각하기 때문이다. 하지만 현재는 초심과 사이가 너무 나빠졌다. 다시 친해져야겠다.</p>
+
+<h3 id="다음을-생각하자section-1과-같다">다음을 생각하자.(Section 1과 같다.)</h3>
+<p>일단 교환학생을 붙으면 좋을 줄 알았었다.
+일단 시험을 붙으면 좋을 줄 알았었다.
+일단 1차 면접을 뚫으면 좋을 줄 알았었다.
+하지만 언제나 다음 단계는 있었다. 한단계 더 보려고 노력하자.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="회고" /><summary type="html"><![CDATA[[week5]]]></summary></entry><entry><title type="html">애너테이션(annotation)에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="애너테이션(annotation)에 관하여" /><published>2022-08-15T00:00:00+09:00</published><updated>2022-08-15T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>애너테이션은 무엇인가??</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>자바 복습</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>애너테이션에 대한 체계가 잡히질 않는다. 잡아봐야겠지??</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>애너테이션 - 주석
+</code></pre></div></div>
+
+<p>이라 함은 지금까지는 코드의 가독성을 상승시켜 개발, 유지, 보수에 도움이 되도록 하는 ‘사람’을 위한 글이라고 생각하고 잇었다. 그런데 웬걸?? ‘프로그램’을 위해서 애너테이션을 제공한다라??</p>
+
+<p>학습은 했다. 하지만 나는 멍청하다. 그래서 다시 정리한다. 쓰다보니 문도박사급의 언어력을 구사하고 있는 것 같다.</p>
+
+<p>무튼, 한글을 읽는다고 모든 것이 바로 이해되는 것은 아니다. 그렇다면 나는 이미 위인전에 나왔겠지</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ex) 네 행동의 준칙이 언제나 보편적 입법의 원리가 되도록 하라.
+</code></pre></div></div>
+
+<p>물론 위 급의 글은 아니다. 비슷하다는 이야기다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Java" /><summary type="html"><![CDATA[이 글에 담긴 것 애너테이션은 무엇인가??]]></summary></entry><entry><title type="html">maven과 gradle에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/maven%EA%B3%BC-gradle%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="maven과 gradle에 관하여" /><published>2022-08-13T00:00:00+09:00</published><updated>2022-08-13T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/maven%EA%B3%BC%20gradle%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/maven%EA%B3%BC-gradle%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>maven과 gradle을 이해하는 것 (파고들어서 분석하고 그런 것은 아니니 그런 것을 원한다면 돌아가세요)</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>자바 복습</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>내 머리속의 개념들의 모호함을 구체화해야 하지 않겠는가??</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+<p>어제 정리한 runtime, compiletime, build와 같이 맨날 궁금해 해놓고 구체화 하지 않은 지식 중 하나이다. 마치 맨날 경제 뉴스를 보면서</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>아 이제는 경제용어를 좀 공부해서 활용해봐야지
+</code></pre></div></div>
+
+<p>하면서도 미루고만 있었던 과거의 경영학을 배우던 나와 과거의 나에게 탓을 돌리고 있는 현재의 내가 그래왔듯이</p>
+
+<p>maven과 gradle은 왜 존재하는 것일까??</p>
+
+<h3 id="중간답">중간답</h3>
+<p>일단 찾아보니 생각보다 금방 명료해졌다. build란 무엇인가 정리할때 스택오버플로우에서 다음과 같은 답변을 봤었다.</p>
+
+<p>빌드란</p>
+
+<p>1.Generating sources (sometimes).
+2.Compiling sources.
+3.Compiling test sources.
+4.Executing tests (unit tests, integration tests, etc).
+5.Packaging (into jar, war, ejb-jar, ear).
+6.Running health checks (static analyzers like Checkstyle, Findbugs, PMD, test coverage, etc).
+7.Generating reports.</p>
+
+<p>이와 같은 과정이고, 컴파일은 빌드에 속하는 부분이라고..</p>
+
+<p>maven과 gradle은 위 순서들을 자동으로. 즉, 개발자가 일일이 하지 않아도 되도록 해주는 <strong><em>빌드관리도구</em></strong>이다.</p>
+
+<p>그렇다면 생각보다 답이 금방 나온 김에… maven과 gradle을 조금만 더 파보도록 하자</p>
+
+<p><img src="https://dev-coco.tistory.com/65" alt="이분꺼 보고 같이 공부하시죠" /></p>
+
+<p>나도 추후에 다시 돌아와서 채워보도록 해야겠다.(20220813)</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Java" /><summary type="html"><![CDATA[이 글에 담긴 것 maven과 gradle을 이해하는 것 (파고들어서 분석하고 그런 것은 아니니 그런 것을 원한다면 돌아가세요)]]></summary></entry><entry><title type="html">Run time, Compile time, Build에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Runtime,-Compile-time,-build%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="Run time, Compile time, Build에 관하여" /><published>2022-08-12T00:00:00+09:00</published><updated>2022-08-12T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Runtime,%20Compile%20time,%20build%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Runtime,-Compile-time,-build%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>런타임, 컴파일타임, 빌드를 구분하자</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>자바 복습</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>저 세가지 완벽하게 구분을 할 줄 알아?</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<p>학습을 진행하면 할 수록 기초가 부족하다는 생각이 너무 많이 든다. 그렇다고 한가지 한가지 모든 것들을 처음부터 차곡차곡 주춧돌 쌓아 나의 지식의 체계를 건설하자니 시간이 오래 걸린다.(원래는 이런식의 공부를 좋아해서 지금 더 힘들다.)</p>
+
+<p>하지만 코딩 공부는 그런식으로는 할 수 없는 것 같다. 내가 목표로 하는 효율적인 웹 서버를 만드는 것, 그것은 결국 하이퍼링크로 문서들을 뛰어넘는 그런 일종의 데이터들을 위한 것이듯 나의 공부도 그런 식이 되어야 하는 것 같다.</p>
+
+<p>무튼 더 나아가려 하는데 초장부터 내가 확실히 구분하지 못하는 단어들, 정의들이 나온다는 것은 썩 유쾌한 일은 아니다. 그래서 나올때마다 바로바로 정리해서 머릿속에 넣기로 했다. 하이퍼링크를 뛰어넘어 다니듯..</p>
+
+<h2 id="결론">결론</h2>
+
+<p>기초 원리부터 따닥따닥 따져가면서 볼 필요도 없을 것 같다. 위키선생님께 여쭤본 결과 다음과 같이 명료하게 정리가 된다.</p>
+
+<blockquote>
+  <p>런타임 - 사용자에 의해 프로그램이 실행되는 동안</p>
+</blockquote>
+
+<blockquote>
+  <p>컴파일 타임 - 고급언어인 프로그래밍 언어를 컴퓨터가 이해 할 수 있는 기계어로 변환하는 동안</p>
+</blockquote>
+
+<p>그렇게 되면 런타임오류와 컴파일타임 오류의 구분도 이해가 된다.</p>
+
+<p>만약 내가 계산기 프로그램을 만들었는데 나눗셈의 경우 ‘0으로 나누는 경우’를 생각하지 못했다면?? 문법적인 오류는 없으니까 컴파일되고, 사용자에 의해 실행될 것이다. 그리고 사용자에 의해 실행되었을때 0으로 나누면 에러가 발생할 것이다. 이 경우가 런타임 에러가 된다.</p>
+
+<p>하지만 내가 int형 변수를 선언해야 하는데 inf라고 썼다든가, 혹은 if()의 괄호 안에 조건을 채워넣지 않는 등의 syntax으로가 나게 된다면 이는 컴파일 과정에서 오류를 발생시킬 것이다. 이것이 컴파일 오류가 된다.</p>
+
+<p>그렇다면 build는 무엇??   <br />
+스택오버플로우에서 친절한 답변을 찾아왔다.</p>
+
+<p>”
+The “Build” is a process that covers all the steps required to create a “deliverable” of your software. In the Java world, this typically includes:</p>
+
+<p>1.Generating sources (sometimes).
+2.Compiling sources.
+3.Compiling test sources.
+4.Executing tests (unit tests, integration tests, etc).
+5.Packaging (into jar, war, ejb-jar, ear).
+6.Running health checks (static analyzers like Checkstyle, Findbugs, PMD, test coverage, etc).
+7.Generating reports.</p>
+
+<p>So as you can see, compiling is only a (small) part of the build (and the best practice is to fully automate all the steps with tools like Maven or Ant and to run the build continuously which is known as Continuous Integration).
+“</p>
+
+<p>컴파일(프로그래밍언어-&gt;기계어 변환)은 빌드의 한 과정일 뿐이다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Java" /><summary type="html"><![CDATA[이 글에 담긴 것 런타임, 컴파일타임, 빌드를 구분하자]]></summary></entry><entry><title type="html">Section 2 Spring Framework - DI</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-DI/" rel="alternate" type="text/html" title="Section 2 Spring Framework - DI" /><published>2022-08-11T00:00:00+09:00</published><updated>2022-08-11T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%202%20Spring%20Framework%20-%20DI</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-DI/"><![CDATA[<p>[week8]</p>
+<h2 id="간단정리">간단정리</h2>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>컨테이너란 무엇인가</li>
+  <li>빈이란 무엇인가</li>
+  <li>DI이제 다시 설명해봐라</li>
+  <li>component 스캔은 무엇을 뜻하는가?</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+<p>스프링 프레임워크는 POJO라는 특징을 DI, AOP, PSA의 방식들을 통해서 달성했다. 아무래도 낯설은 개념이라서 음 이런거군 하고 이해는 했지만 돌아서면 제대로 기억이 나지 않는 것도 사실이다. 그런데 중요하긴 한가보다. 다음 챕터에 다시 DI와 AOP가 등장했다.</p>
+
+<p>DI와 AOP에 들어가기에 앞서 기본 개념부터 알고 들어가야겠다. 다행히도 이전에 정리했던 글 덕분에 큰 틀을 바탕으로 접근하는데 도움이 된다고 느낀다.</p>
+
+<p><a href="https://shinjaekim.github.io/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/">Spring Framework 아키텍쳐에 관하여</a></p>
+
+<h3 id="1-container">1. container</h3>
+
+<p>컨테이너라 하면 커다란 수출선에 쌓인 형형색색의 물체들이 떠오르는데… 왜 스프링에서 컨테이너라는 단어가 쓰일까??</p>
+
+<p>일단 수출선의 컨테이너 안에는 여러가지 물건들이</p>
+<ul>
+  <li>저장되었다가</li>
+  <li>수출선이 움직이는 동안 보관되었다가</li>
+  <li>목적지에 도착하면 하역된다.</li>
+</ul>
+
+<p>자바에서의 컨테이너 또한 현실세계에서의 컨테이너와 비슷한 역할을 한다.</p>
+
+<p><strong><em>담는 물체는 빈(bean)이라 불리는 객체이고 Bean을 생성하고, 관리하고, 제거하는 등의 역할을 담당한다.</em></strong></p>
+
+<h4 id="a-applicaitioncontext">a. ApplicaitionContext</h4>
+
+<p>컨테이너의 의미를 알았다면 정확히 무엇이 컨테이너의 역할을 할까??</p>
+
+<p>바로 <strong><em>ApplicationContext</em></strong>이다. <br />
+그리고 ApplicaitionContext는 xml 혹은 애너테이션 기반의 자바 클래스로 설정 가능하다. 당연히 후자를 기반으로 사용할 것이다.</p>
+
+<p>방법이 두개라는 것은 둘을 비교할 수 있다는 뜻이 된다. 하나의 원문을 가져와보도록 하자</p>
+
+<blockquote>
+  <p>the introduction of annotation-based configuration raised the question of whether this approach is “better” than XML. The short answer is “it depends.” The long answer is that each approach has its pros and cons, and, usually, it is up to the developer to decide which strategy suits them better. Due to the way they are defined, annotations provide a lot of context in their declaration, leading to shorter and more concise configuration. However, XML excels at wiring up components without touching their source code or recompiling them. Some developers prefer having the wiring close to the source while others argue that annotated classes are no longer POJOs and, furthermore, that the configuration becomes decentralized and harder to control.</p>
+  <blockquote>
+    <p>요약하면 무엇이 뛰어난 지는 개발자의 상황에 달려있다는 것이다. 애너테이션을 활용하면 더 짧고 간결한 구성을 설계할 수 있다. 그리고 XML은 코드를 건드리지 않고 컴포넌츠들을 관계시키는데 더 뛰어나다고 한다.</p>
+  </blockquote>
+</blockquote>
+
+<h5 id="beanfactory">BeanFactory</h5>
+
+<p>그런데 말입니다… 
+여기서 궁금한 점이 하나 생겼습니다. 앞서 정리한 스프링 프레임워크에서 beanfactory라는 것을 슬쩍 본 기억이 나는데, beanfactory는 그럼 또 뭘까요??</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ApplicaitonContext 는 BeanFacotry의 하위 인터페이스
+</code></pre></div></div>
+
+<p>찾아보니 기능은 같다고 한다.(엄밀히 말하면 아닐수도) 다만, ApplicationContext가 BeanFactory의 하위 인터페이스이기에 부가적인 기능을 더 가지고 있다. 이 소리는 굳이 BeanFactory를 쓸 필요는 없다는 말로 해석해도 될 것 같다. 부가기능까지 가진 더 좋은놈을 냅두고 굳이??</p>
+
+<ul>
+  <li>BeanFactory
+    <ul>
+      <li>스프링 컨테이너의 최상위 인터페이스</li>
+      <li>getBean() : 빈을 인스턴스화</li>
+      <li>@Bean이 붙은 메서드의 명을 스프링 빈의 이름으로 사용해 등록함</li>
+    </ul>
+  </li>
+  <li>ApplicaitonContext
+    <ul>
+      <li>위 기능들은 당연히 가지고 있고</li>
+      <li>MessageSource: 메세지 다국화를 위한 인터페이스</li>
+      <li>EnvironmentCapable: 개발, 운영 등 환경변수 등으로 나눠 처리하고, 애플리케이션 구동 시 필요한 정보들을 관리하기 위한 인터페이스</li>
+      <li>ApplicationEventPublisher: 이벤트 관련 기능을 제공하는 인터페이스</li>
+      <li>ResourceLoader: 파일, 클래스 패스, 외부 등 리소스를 편리하게 조회</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="b-역할">b. 역할</h4>
+
+<p>일단 위에서 말했듯 역할을 간단하게 표현하면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bean을 생성하고, 관리하고, 제거하는 등의 역할을 담당한다
+</code></pre></div></div>
+
+<p>가 된다.
+이를 자세히 표현하면 Spring container는
+1.빈을 인스턴스화 시킨다.
+2.빈의 구성, 주기를 관리한다.</p>
+
+<p>1,2를 통해서 이를 통해서 개발자가 원하는 만큰의 객체를 가질 수가 있다.</p>
+
+<p>3.의존성 주입을 통해 애플리케이션의 컴포넌트를 관리한다.
+    - 서로 다른 빈을 연결해서 애플리케이션의 빈을 연결하며
+    - 이를 통해 의존성으로 인해 발생하는 문제로부터 자유로울 수 있다.
+    - 메서드가 언제, 어디서 호출되어야 하는지, 메서드를 호출하기 위해 필요한 매개변수를 준비해서 전달하지 않는다??</p>
+
+<p>3번의 3번째 이유를 제외하고는 이해가 간다.</p>
+
+<p>먼저 지금까지 객체를 인스턴스화 할때는 ‘new’를 사용했다.</p>
+
+<p>하지만 여러 인스턴스들을 만들어 사용하는 경우 이런경우 문제가 생길 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>객체를 인스턴스화 하여 여러 관계가 설정되어있는데 하나의 인스턴스를 수정한다면??
+</code></pre></div></div>
+
+<p>방대해진 코드를 어디서부터 수정해야할지 감이 잡히는가??</p>
+
+<p><strong><em>이런 이유로 스프링 컨테이너를 사용하며, 스프링 컨테이너는 구현클래스에 있는 의존을 제거하고 인터페이스에만 의존하여 설계할 수 있도록 해준다.</em></strong></p>
+
+<h4 id="c-방법론-컨테이너-인스턴스화">C. 방법론 (컨테이너 인스턴스화)</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Annotation</span>
+<span class="nc">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="nc">AppConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">// XML</span>
+<span class="nc">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">"services.xml"</span><span class="o">,</span> <span class="s">"daos.xml"</span><span class="o">);</span>
+</code></pre></div></div>
+<p>ApplicationContext 생성자에(괄호안에) 제공된 위치경로의 다양한 외부 리소스로부터 구성 메타데이터를 로드함</p>
+
+<p><br /></p>
+
+<h3 id="2-bean">2. Bean</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>스프링 컨테이너가 관리하는 자바 객체
+</code></pre></div></div>
+
+<p>앞서 의존성을 낮추기 위해 컨테이너를 통해서 빈을 생성하고, 주기를 관리하고, 제거한다고 했다. 이때 관리하는 대상이 바로 빈이다.</p>
+
+<p>(추후에 정리할 것)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spring 컨테이너가 관리하는 자바 객체를 의미하며, 하나 이상의 빈을 관리합니다.
+
+빈(bean)은 인스턴스화된 객체를 의미합니다.
+
+스프링 컨테이너에 등록된 객체를 스프링 빈이라고 합니다.
+
+@Bean이 적힌 메서드를 모두 호출해서 반환된 객체를 스프링 컨테이너에 등록합니다.
+
+빈은 클래스의 등록정보, 게터/세터 메서드를 포함합니다.
+
+빈은 컨테이너에 사용되는 설정 메타데이터로 생성됩니다.
+
+설정 메타데이터
+
+XML 또는 자바 애너테이션, 자바 코드로 표현합니다.
+컨테이너의 명령과 인스턴스화, 설정, 조립할 객체를 정의합니다.
+
+@Configuration : 구성정보를 담당하는것을 설정할때 @Configuration 을 붙여줍니다.
+@Bean : 각 메서드에 @Bean을 붙이면 스프링 컨테이너에 자동으로 등록이 됩니다.
+</code></pre></div></div>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week8] 간단정리]]></summary></entry><entry><title type="html">Spring Framework 아키텍쳐에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="Spring Framework 아키텍쳐에 관하여" /><published>2022-08-10T00:00:00+09:00</published><updated>2022-08-10T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring%20framework%20%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>프레임워크 아키텍쳐에 대한 이해</li>
+  <li>왜 스프링을 사용하는지</li>
+  <li>IoC와 DI 존재의 이유</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>스프링 프레임워크 아키텍쳐</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>스프링 프레임워크부터 좀 제대로 이해하고 넘어가야 하지 않겠는가?</li>
+</ol>
+
+<h2 id="따로-정리하는-이유와-글의-방향">따로 정리하는 이유와 글의 방향</h2>
+<p>스프링 프레임워크의 POJO, IoC/DI, AOP, PSA가 왜 있는지는 알고 써야지 추후 더 빠른 레벨업을 할 수 있을 것 같다고 생각했다. 그리고 아키텍쳐를 분석한다면 위의 목적을 달성할 수 있지 않을까 라는 막연한 희망이 있다. 따라서 이번 블로깅은 번역의 방법으로 진행하며 이해해보려한다.</p>
+
+<p>꽤 길어질 것 같다.</p>
+
+<p><a href="https://docs.spring.io/spring-framework/docs/5.0.0.M5/spring-framework-reference/html/overview.html">원문 - 2. Introduction to the Spring Framework</a></p>
+
+<h3 id="1-스프링의-정의">1. 스프링의 정의</h3>
+
+<blockquote>
+  <p>The Spring Framework is a Java platform that provides comprehensive infrastructure support for developing Java applications. Spring handles the infrastructure so you can focus on your application.</p>
+  <blockquote>
+    <p><strong><em>“스프링 프레임워크는 자바 어플리케이션을 개발을 돕는 (포괄적인 인프라구조를 제공하는)플랫폼이다.</em></strong>    <br />
+그래서 개발자는 구조가 아닌 제작하고자 하는 애플리케이션에만 집중 할 수 있다.”</p>
+  </blockquote>
+</blockquote>
+
+<p>어떻게??</p>
+
+<blockquote>
+  <p>Spring enables you to build applications from “plain old Java objects” (POJOs) and to apply enterprise services non-invasively to POJOs. This capability applies to the Java SE programming model and to full and partial Java EE.</p>
+  <blockquote>
+    <p><strong><em>“스프링은 POJO에 집중해서 애플리케이션을 만드는걸 가능하게 해준다.”</em></strong></p>
+  </blockquote>
+</blockquote>
+
+<ul>
+  <li><em>앞서 공부한바로 POJO는 순수한 자바객체를 말하니까, 지금까지의 원문을 통합하면 순수한 자바언어에만 집중해서 애플리케이션을 개발할 수 있는 구조를 제공해준다. 라고 생각하면 되겠다.</em></li>
+</ul>
+
+<p>그 구체적 예시로 4가지를 말하는데</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.트랜잭션 API를 통하지 않고 자바 메소드가 직접 데이터베이스 트랜잭션을 싱행하고
+2.로컬 자바 메소드를 remote API 없이 remote procedure의 역할을 하게하고     
+3.로컬 자바 메소드를 JMX API 없이 management operation의 역할을 하게하고
+4.로컬 자바 메소드를 JMS API없이 message handlerd의 역할을 하게한다.
+</code></pre></div></div>
+
+<ul>
+  <li><em>어느정도 이해는 가지만 용어 자체를 아직 확실히는 모르겠으니까 따로 정리하든지 하자</em></li>
+</ul>
+
+<h4 id="1-1-자바-어플리케이션이-뭔데">1-1. 자바 어플리케이션이 뭔데??</h4>
+
+<p>잠시 한쪽으로 빠져서, 스프링이 만든다는 자바 어플리케이션이 뭔지 궁금했는데 고맙게도 바로 밑에 나와있었다.</p>
+
+<blockquote>
+  <p>A Java application — a loose term that runs the gamut from constrained, embedded applications to n-tier, server-side enterprise applications — typically consists of objects that collaborate to form the application proper. Thus the objects in an application have dependencies on each other.</p>
+  <blockquote>
+    <p>“느슨하게 말하면 제약된, 임베디드 어플리케이션부터 n티어, 서버측면 기업어플리케이션까지의 전반을 말하는데,  <br />
+<strong><em>일반적으로 적절한 어플리케이션을 형성하기 위해 협력하는 객체들을 포함한다. 그래서 서로간에 의존성이 있다.”</em></strong></p>
+  </blockquote>
+</blockquote>
+
+<ul>
+  <li><em>그러니까 스프링 프레임워크의 아키텍쳐는 여러가지 객체들을 포함하고 있을 것 같다는 생각이 든다.</em></li>
+</ul>
+
+<h4 id="1-2-요약">1-2. 요약</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>스프링은 개발자가 객체에만 집중하게 해준다.
+</code></pre></div></div>
+
+<p>“스프링의 정의”를 모아서 정리해보자면, 하나의 애플리케이션을 만드는 데에는 객체들이 협력하는데, 각 객체들이 협력할때의 관계와 과정, 구조를 설정해줘야 할 것이다. 하지만 스프링은 이런 단계를 자동으로 해줌으로서 개발자의 피로를 덜어준다. 개발자는 POJO의 원칙에 집중해서 순수한 java로 객체들을 만드는데 집중하기만 하면 된다.</p>
+
+<hr />
+
+<h3 id="2-ioc--di">2. IoC / DI</h3>
+
+<p>학습에서도 짚고 넘어갔듯 IoC는 <strong>‘제어의 역전’</strong>을 뜻한다. 일반적인 자바 언어로 작성할때는 제어의 흐름이 개발자에게 있게 되지만 프레임워크로 작성하면 제어의 흐름은 프레임워크에게 있다. 이것은 앞서 정리했듯이 자바 어플리케이션의 구조는 여러 객체로 이루어져있고 프레임워크가 이 객체들간의 관계를 형성하는 전체적인 구조를 제공하여 개발을 돕기 때문이다. 여러 객체들끼리 관계가 있기 때문에 제어의 역전이라는 측면은 <strong>‘의존성 주입’</strong>이라는 개념까지 이어질 수 있는 것이다.</p>
+
+<p>원문을 통해서 더 파고들어보자</p>
+
+<blockquote>
+  <p>Although the Java platform provides a wealth of application development functionality, it lacks the means to organize the basic building blocks into a coherent whole, leaving that task to architects and developers.</p>
+  <blockquote>
+    <p>물론 자바에도 어플개발을 위한 기능들이 있다고 한다.  <br />
+<strong><em>“하지만 이 기능들은 기초블록들을 하나의 일관성 있는 전체로 조직하는 수단으로써는 부족하다고 한다”.</em></strong></p>
+  </blockquote>
+</blockquote>
+
+<ul>
+  <li><em>이 문단의 마지막에 ‘자바의 디자인 패턴’에 대해 말하던데 나중에 찾아보자 0812</em></li>
+</ul>
+
+<blockquote>
+  <p>The Spring Framework Inversion of Control (IoC) component addresses this concern by providing a formalized means of composing disparate components into a fully working application ready for use. The Spring Framework codifies formalized design patterns as first-class objects that you can integrate into your own application(s). Numerous organizations and institutions use the Spring Framework in this manner to engineer robust, maintainable applications.</p>
+  <blockquote>
+    <p><strong><em>“이에 반해 프레임워크는 이질적인 요소들을 하나의 어플리케이션으로서 작동되도록 하는 형식화된 수단을 제공한다”</em></strong>  <br />
+더 읽어보면 디자인 패턴들을 first class 객체에 성문화했고, 그래서 어플리케이션 제작을 할때 바로바로 사용할 수 있는데 이런 이유로 탄탄하고 유지보수 가능한 어플리케이션을 만들때 여러 기관들이 스프링을 사용한다.</p>
+  </blockquote>
+</blockquote>
+
+<h4 id="2-1-요약">2-1 요약.</h4>
+
+<p>자바 어플리케이션은 여러 이질적인 객체들이 협력하여 작동하기 때문에 의존성이 발생하게 된다. 이런 관계 설정은 자바가 제공하는 수단들로만 하기에는 부족하다. 하지만 스프링은 이런 걸 대신 해주는 구조를 제공하는데 이런 이유로 제어의 역전이 발생한다.</p>
+
+<hr />
+
+<h3 id="3-모듈">3. 모듈</h3>
+
+<blockquote>
+  <p>The Spring Framework consists of features organized into about 20 modules. These modules are grouped into Core Container, Data Access/Integration, Web, AOP (Aspect Oriented Programming), Instrumentation, Messaging, and Test, as shown in the following diagram.</p>
+  <blockquote>
+    <p><strong><em>“스프링은 약 20개의 모듈로 구성되는데, 모듈들은 Core Contaienr, Data Acess/Integration, Web, AOP, Instrumentation, Messaging, Test로(8개) 그룹화된다.”</em></strong></p>
+  </blockquote>
+</blockquote>
+
+<ul>
+  <li>모듈마다 역할이 있는데 뭐 이게 더 큰틀에서 기능별로 그룹화 되는구나 로 이해했다.</li>
+</ul>
+
+<p><img src="/assets/images/framework%20architecture.png" alt="아키텍쳐" /></p>
+
+<h4 id="3-1-core-container">3-1 Core Container</h4>
+
+<blockquote>
+  <p>The Core Container consists of the spring-core, spring-beans, spring-context, spring-context-support, and spring-expression (Spring Expression Language) modules.</p>
+  <blockquote>
+    <p>코어 컨테이너는 spring-core, spring-beans, spring-context, spring-context-support, and spring-expression 총 네가지의 모듈로 구성된다.</p>
+  </blockquote>
+</blockquote>
+
+<p>(1). spring-core, spring-context 모듈</p>
+
+<blockquote>
+  <p>The spring-core and spring-beans modules provide the fundamental parts of the framework, including the IoC and Dependency Injection features. The BeanFactory is a sophisticated implementation of the factory pattern. It removes the need for programmatic singletons and allows you to decouple the configuration and specification of dependencies from your actual program logic.</p>
+  <blockquote>
+    <p><strong><em>“프레임워크의 근본적인 부분들을 제공한다.”</em></strong> 그리고 BeanFactory라는 것이 있는데 이것은 팩토리 패턴을 정교하게 구현한 것이라고 한다. 이후 내용은 실질적인 프로그램 로직으로부터 의존성의 구성과 사양을 분리할 수 있고, 프로그래밍방식의 싱글톤이 필요하지 않다.</p>
+  </blockquote>
+</blockquote>
+
+<p>일단 앞서 말한 의존성 주입과 제어의 역전과 같은 근본적인 부분을 제공한다라는 것은 직역만해도 알겠다. 하지만 BeanFactory와 이후 문장들은 따로 찾아봐야 할 것 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BeanFactory 
+    bean -&gt; 스프링이 제어권을 가져서 직접 생성하고 의존관계를 부여하는 객체
+    그러니까 빈팩토리는 이러한 빈들을 생성하는 클래스를 말한다.
+
+singleton pattern
+    객체 생성 측면에서 자원을 효율적으로 소모하기 위해 등장한 디자인 패턴
+    "필요한 객체를 한번 생성해두면 어플리케이션이 종료될때까지 추가적인 생성을 하지 않음"
+    
+    why?
+
+        하나의 요청 - 하나의 로직
+    이렇게 대응관계가 있다고 했을때 이 서버에서 로직을 담당하는 객체가 매번의 요청마다 새롭게 생성된다면
+    자원 관리측면에서 비효율적일 것이다.
+
+    (이후 더 파고들어볼 것)
+</code></pre></div></div>
+
+<ul>
+  <li><em>이쯤 와서 너무 얕봤다는 생각이 들긴 했다. 이해를 하려면 하나하나의 정의들이 무엇인지 알아야 할텐데, 걷기도 전에 뛰는 느낌?? 하이퍼링크식으로 엮여 있어서 할게 기하급수적으로 늘어난다. 따라서 모듈을 정리하고 관련 키워드들을 적어둔 후 학습이 진행될때마다 돌아오자.</em></li>
+</ul>
+
+<p>(2) spring-context, spring-context-support 모듈</p>
+
+<blockquote>
+  <p>The Context (spring-context) module builds on the solid base provided by the Core and Beans modules: it is a means to access objects in a framework-style manner that is similar to a JNDI registry</p>
+  <blockquote>
+    <p>(1)번 모듈에서 제공하는 경고한 기반을 바탕으로 한다. 이것은 JNDI registry와 유사한 프레임워크 스타일로 객체에 접근하는 수단이다.??</p>
+  </blockquote>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keyword
+    JNDI registry
+    resource bundle
+    event propagation
+    Java EE features such as EJB, JMX
+    ApplicationContext
+</code></pre></div></div>
+
+<blockquote>
+  <p>spring-context-support provides support for integrating common third-party libraries into a Spring application context, in particular for caching (EhCache, JCache) and scheduling (CommonJ, Quartz).</p>
+  <blockquote>
+    <p><strong><em>“spring-context-support 모듈은 caching과 scheduling과 같은 외부 라이브러리를 스프링 applicationcontext로 통합한다.”</em></strong></p>
+  </blockquote>
+</blockquote>
+
+<p>(3) spring-expression 모듈</p>
+
+<blockquote>
+  <p>The spring-expression module provides a powerful Expression Language for querying and manipulating an object graph at runtime.</p>
+  <blockquote>
+    <p><strong><em>“런타임시에 쿼리와 객체 그래프 조작을 위한 강력한 언어표현을 제공한다”</em></strong></p>
+  </blockquote>
+</blockquote>
+
+<ul>
+  <li><em>(점점 읽어도 이해가 안되니까 번역기 식으로 변역하고 있다)</em></li>
+</ul>
+
+<h4 id="3-2-aop-and-instrumentation">3-2 AOP and Instrumentation</h4>
+
+<p>(1) spring-aop 모듈</p>
+
+<blockquote>
+  <p>The spring-aop module provides an AOP Alliance-compliant aspect-oriented programming implementation allowing you to define, for example, method interceptors and pointcuts to cleanly decouple code that implements functionality that should be separated. Using source-level metadata functionality, you can also incorporate behavioral information into your code, in a manner similar to that of .NET attributes.</p>
+  <blockquote>
+    <p><strong><em>“분리되어 구현되어야 하는 코드들을 포인트컷이나 메서드 인터셉터를 정의하는 관심지향 프로그래밍 구현 제공한다.”</em></strong></p>
+  </blockquote>
+</blockquote>
+
+<ul>
+  <li><em>(여기서 분리되어야 하는 코드들이라 함은 앞서 AOP학습에서 공부했던 공통기능을 담당하는 코드가 아닐까 생각해본다.)</em></li>
+</ul>
+
+<p>(2) spring-aspects 모듈</p>
+<blockquote>
+  <p>The separate spring-aspects module provides integration with AspectJ.</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keword
+    Aspect J
+</code></pre></div></div>
+
+<p>(3) spring-instrument 모듈</p>
+<blockquote>
+  <p>The spring-instrument module provides class instrumentation support and classloader implementations to be used in certain application servers. The spring-instrument-tomcat module contains Spring’s instrumentation agent for Tomcat.</p>
+  <blockquote>
+    <p>spring-instrumnet는 특정 어플리케이션 서버에서 사용될 class instrumnetaion support and classloader implemntations를 제공한다?? 톰캣 모듈은 스프링의 ~ 여기서 instrumentation을 어떻게 이해해야할지..</p>
+  </blockquote>
+</blockquote>
+
+<h4 id="3-3-messaging">3-3 Messaging</h4>
+
+<blockquote>
+  <p>Spring Framework 4 includes a spring-messaging module with key abstractions from the Spring Integration project such as Message, MessageChannel, MessageHandler, and others to serve as a foundation for messaging-based applications. The module also includes a set of annotations for mapping messages to methods, similar to the Spring MVC annotation based programming model.</p>
+  <blockquote>
+    <p>spring Integration 프로젝트의 추상화를 포함하는 Message, MessageChannel, MessageHandler가 있는데, 이것들이 메시지 기반 애플리케이션을 위해 기능하면서, 또 메시지를 메소드에 매핑하기위한 주석을 포함한다.</p>
+  </blockquote>
+</blockquote>
+
+<h4 id="3-4-data-access--integration">3-4 Data Access / Integration</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keyword
+    JDBC
+    JPA
+    Hibernate
+</code></pre></div></div>
+
+<h4 id="3-5-web">3-5 Web</h4>
+
+<h4 id="3-6-test">3-6 test</h4>
+
+<p>독해는 되는데 뭘 이야기하는지 몰라서 멈추기로 했다.</p>
+
+<p>이 기능들을 다 이해하고 쓴다면 이런식의 가상시나리오 아키텍쳐를 그릴 수 있다.</p>
+
+<p><img src="/assets/images/spring%20scenarios.png" alt="시나리오" /></p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Spring" /><summary type="html"><![CDATA[이 글에 담긴 것 프레임워크 아키텍쳐에 대한 이해 왜 스프링을 사용하는지 IoC와 DI 존재의 이유]]></summary></entry><entry><title type="html">Section 2 Spring Framework - 아키텍쳐, 스프링부트</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" rel="alternate" type="text/html" title="Section 2 Spring Framework - 아키텍쳐, 스프링부트" /><published>2022-08-10T00:00:00+09:00</published><updated>2022-08-10T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%202%20Spring%20Framework%20-%20%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/"><![CDATA[<p>[week8]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>아키텍쳐는 조감도, 프레임워크는 설계도</li>
+  <li>스프랑 부트는 진입장벽이 되었던 설정또한 자동으로 해준다.</li>
+  <li>모듈은 기능들을 목적에 맞게 그룹화 한것이다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>낯설어서 어렵다.</p>
+
+<p>순서대로 차곡차곡 쌓아서 가는 공부를 좋아하고 또 그렇게 해야 마음이 편한 편이다. 이런 이유로 막 여기저기 왔다갔다 하는 느낌이 드는 공부를 하고 있자니 뭔가 머리속에서 커다란 체계가 잡히지 않는 느낌이다. 주말을 이용해서 큰 흐름을 정리하는 흐름표를 만들어야겠다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>아키텍쳐에 대해 설명해봐라</li>
+  <li>그러면 모듈은 무엇이냐</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+<p>앞서 공부할때 이런 표현을 보았었다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>아키텍쳐 = 조감도
+프레임워크 = 설계도
+</code></pre></div></div>
+
+<p>가장 추상적인 조감도로부터 여러가지 설계도를 만들 수 있을 것이다. 이 뜻은 ‘서버’라는 가장 큰 조감도로부터 ‘프레임워크’라는 설계도를 이용한다는 것이다. 그리고 프레임워크라는 설계도로부터 개발자마다의 개성이 담긴 코드를 작성할 수 있을 것이다.</p>
+
+<p>이렇게 이해를 하고있었는데.. 학습 자료를 보니 이렇게 표현한다.</p>
+
+<blockquote>
+  <p>Spring Framework의 아키텍쳐를 통해 Spring Framework에 지원하는 여러가지 기능을 포함하고 있는 Spring 모듈에 대해서 살펴보도록 하겠습니다.</p>
+</blockquote>
+
+<p>스프링 프레임워크의 아키텍쳐를 통해 스프링 모듈을 알아볼건데.. 스프링 모듈은 스프링 프레임워크에 지원하는 여러가지 기능을 포함하고 있다.</p>
+
+<p>말 순서만 바꾼거긴하다. 하지만 그게 중요한 것은 아니고..</p>
+
+<p>이 말은 스프링 프레임워크가 아키텍쳐보다 상위에 있는 개념이라는거 아닌가?? 제대로된 정리를 위해서 더 파고들어보자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>알아볼 것 1
+스프링프레임워크와 아키텍쳐의 관계, 그리고 모듈
+</code></pre></div></div>
+
+<p>또한 앞선 학습에서 웹 애플리케이션 개발 방법론의 진화에 대해서 살펴봤었다.</p>
+
+<p>JSP -&gt; SERVLET -&gt; Spring MVC -&gt; Spring Boot</p>
+
+<p>마침 이번 학습에는 스프링부트에 대해서 말을한다. 그러니 알아볼 것을 하나 더 추가하자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>알아볼 것 2
+스프링부트
+</code></pre></div></div>
+
+<h3 id="1-아키텍쳐">1. 아키텍쳐</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>건축에서 유래 - 건물이나 구조물에 대한 컨셉
+</code></pre></div></div>
+
+<p>만들고자 하는 건물의 컨셉을 정한 이후 점차 구체화해나간다.. 여기까지는 앞서 이해했던 내용이 맞다. 그리고 거기에 한가지 추가하자면 <strong>아키텍쳐는 단순해야</strong>한다. <strong><em>컨셉을 정할때는 이해당사자들이 이해하는데 무리가 없도록</em></strong>하니까</p>
+
+<p>근데 나는 건축을 하는 것이 아니다. 아키텍쳐를 컴퓨티 관점에서 해석해야한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>시스템 아키텍쳐
+소프트웨어 아키텍처 / 애플리케이션 아키텍처
+</code></pre></div></div>
+
+<h4 id="a-컴퓨터-시스템-아키텍쳐">a. 컴퓨터 시스템 아키텍쳐</h4>
+<p>먼저 컴퓨터 시스템에서의 아키텍쳐는 무엇이겠는가.</p>
+
+<blockquote>
+  <p>시스템 - 각 구성요소들이 상호작용하거나 상호의존하여 복잡하게 얽힌 통일된 하나의 집합체 (unified whole)</p>
+</blockquote>
+
+<p>시스템은 거시적, 미시적관점에 따라 그 범위가 굉장히 상이하다. 때문에 친숙한 시스템을 하나 가져오자면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3티어 아키텍쳐
+
+client &lt;----&gt; server &lt;----&gt; database
+</code></pre></div></div>
+
+<p>이는 전혀 모르는 사람이 봐도 약간의 설명만 더한다면 굉장히 이해하기 쉽다. 즉, 이해하는데 client, server, database와 관련된 기술들을 알 필요가 없다.</p>
+
+<p>이것을 확장시켜서 요구에 따라 서버의 수를 증축 등을 표현한 확장 아키텍쳐도 설계할 수 있을것이다. 어쨋든 이해하기 표현한다해도 아키텍쳐를 설계하는 사람에게는 어느정도의 지식이 필요한 것은 사실이다.</p>
+
+<h4 id="b-소프트웨어-아키텍쳐">b. 소프트웨어 아키텍쳐</h4>
+<p>앞선 시스템에서는 하드웨어를 포함했다. 하지만 소프트웨어 아키텍쳐는 이름에서도 알 수 있듯 소프트웨어만 포함한다. 가장 대표적인 예시는 Java 플랫폼 아키텍쳐라고 한다.</p>
+
+<p><a href="/assets/images/javaplatform.png">아키텍쳐</a></p>
+
+<h4 id="c-애플리케이션-아키텍쳐">c. 애플리케이션 아키텍쳐</h4>
+<p>어쨌든 백엔드 개발자로서 웹에서 동작하는 웹애플리케이션을 만들게 될 것이다. 웹 애플리케이션은 소프트웨어의 일종이지만 분리한 이유는 모든 소프트웨어는 웹 애플리케이션이 아니기 때문이다.</p>
+
+<p>이 부분은 앞서 정리해두길 천만 다행이었다. 이해하기 힘들었는데 이해하고 보니 한눈에 들어온다.
+<img src="https://shinjaekim.github.io/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/" alt="네트워크" />
+<img src="https://shinjaekim.github.io/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9B%B9-%EA%B5%AC%EC%84%B1-HTTP/" alt="웹 구성 HTTP" />
+<img src="https://shinjaekim.github.io/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/REST-API,-Postman/" alt="REST API" />
+<img src="https://shinjaekim.github.io/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/HTTP%EC%99%80-TCP-IP-%ED%9D%90%EB%A6%84%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" alt="HTTP TCPIP" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>API 계층
+서비스 계층 - 업무 도메인을 비지니스 로직으로
+데이터 액세스 계층
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="2-모듈">2. 모듈</h3>
+<p>아아 이해했다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>알아볼것 1
+스프링프레임워크와 아키텍쳐의 관계, 그리고 모듈
+</code></pre></div></div>
+
+<p>이게 의문이었는데 해결했다. 앞서 표현했듯 아키텍쳐는 미시적 거시적 관점에 따라서 범위가 굉장히 상이하다. 스프링 프레임워크로 서버 아키텍쳐를 설계할 수 있다면, 스프링 프레임워크 자체도 하나의 아키텍쳐로부터 구체화되어 설계된 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>서버 아키텍쳐 - 스프링 프레임워크를 도구로
+스프링 프레임워크 아키텍쳐 - 여러가지 모듈들을 도구로
+</code></pre></div></div>
+
+<p>그렇다면 모듈은 무엇인가??</p>
+
+<blockquote>
+  <p>모듈 - 여러가지 기능들을 목적에 맞게 그룹화 하여 묶어 놓은 것 / 패키지단위(하위에 여러 클래스)</p>
+</blockquote>
+
+<p>지금까지 자바에서 사용하던 라이브러리들도 모듈이라고 보면 되겠다.</p>
+
+<p><a href="/assets/images/framework%20architecture.png">프레임워크 아키텍쳐</a></p>
+
+<hr />
+
+<h3 id="spring-boot">Spring Boot</h3>
+<p>지금까지 학습한바로 웹 어플리케이션 개발 방법은 발전해왔다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JSP - SERVLET - Spring MVC - Spring Boot
+</code></pre></div></div>
+
+<p>그러면 <em>파악 가능한 것은 현재의 스프링 버전이 Boot이다???</em> 맞는지 확인해보자</p>
+
+<blockquote>
+  <p>Spring Boot는 Spring Framework의 편리함에도 불구하고 Spring 설정의 복잡함으로 인해 Spring 기반 애플리케이션 개발을 시작하기도 전에 어려움을 겪는 문제점을 해결하기 위해 생겨난 Spring Project 중 하나</p>
+</blockquote>
+
+<p>스프링 부트를 이용하게 되면 Spring의 복잡한 설정의 어려움으로부터 벗어날 수 있다고 한다. 아직 사용도 안해봐서 와닿지 않으니까 알려준대로 정리를 해보자</p>
+
+<ul>
+  <li>
+    <p>XML 기반의 복잡한 설계 방식 지양</p>
+  </li>
+  <li>
+    <p>의존 라이브러리의 자동 관리</p>
+  </li>
+  <li>
+    <p>애플리케이션 설정의 자동 구성</p>
+  </li>
+  <li>
+    <p>프로덕션급 애플리케이션의 손쉬운 빌드</p>
+  </li>
+  <li>
+    <p>내장된 WAS를 통한 손쉬운 배포</p>
+  </li>
+</ul>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week8] 간단정리 아키텍쳐는 조감도, 프레임워크는 설계도 스프랑 부트는 진입장벽이 되었던 설정또한 자동으로 해준다. 모듈은 기능들을 목적에 맞게 그룹화 한것이다.]]></summary></entry></feed>

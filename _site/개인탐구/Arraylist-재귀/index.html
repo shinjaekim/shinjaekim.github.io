@@ -1,0 +1,816 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Arraylist.add &amp; 재귀호출에 관하여 (얕은복사 / 깊은복사) | KSJ Archive</title>
+<meta name="description" content="이 글에 담긴 것    재귀호출의 흐름 파악   반복문에서의 Arraylist.add   얕은복사와 깊은복사">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Arraylist.add &amp; 재귀호출에 관하여 (얕은복사 / 깊은복사)">
+<meta property="og:url" content="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Arraylist-%EC%9E%AC%EA%B7%80/">
+
+
+  <meta property="og:description" content="이 글에 담긴 것    재귀호출의 흐름 파악   반복문에서의 Arraylist.add   얕은복사와 깊은복사">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-08-01T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Arraylist-%EC%9E%AC%EA%B7%80/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Arraylist.add &amp; 재귀호출에 관하여 (얕은복사 / 깊은복사)">
+    <meta itemprop="description" content="이 글에 담긴 것  재귀호출의 흐름 파악  반복문에서의 Arraylist.add  얕은복사와 깊은복사">
+    <meta itemprop="datePublished" content="2022-08-01T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Arraylist-%EC%9E%AC%EA%B7%80/" class="u-url" itemprop="url">Arraylist.add &amp; 재귀호출에 관하여 (얕은복사 / 깊은복사)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-01T00:00:00+09:00">01 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#이-글에-담긴-것">이 글에 담긴 것</a></li><li><a href="#공부하던-부분">공부하던 부분</a></li><li><a href="#의문점">의문점</a></li><li><a href="#코드">코드</a><ul><li><a href="#1-실수한-코드">1. 실수한 코드</a></li><li><a href="#2-성공-코드">2. 성공 코드</a></li></ul></li><li><a href="#문제점-분석">문제점 분석</a></li><li><a href="#진행상황">진행상황</a></li><li><a href="#원인">원인</a></li><li><a href="#해결">해결</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>재귀호출의 흐름 파악</li>
+  <li>반복문에서의 Arraylist.add</li>
+  <li>얕은복사와 깊은복사</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>가위바위보 경우의 수를 도출하는 중복 순열 문제를 풀고 있었다.</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>왜 원하는 값들이 배열에 담기는데 add를 호출하는 순간 값이 덮어지는가??
+    <ul>
+      <li>왜 값들이 다 같은 값만 나오는가??</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="코드">코드</h2>
+<p>실수하면서 시간을 투자했던 코드와 성공한 코드를 동시에 기록하였다. 먼저 분석에 들어가기 전에 스스로 코드를 보고 다시 복기해보자.</p>
+
+<h3 id="1-실수한-코드">1. 실수한 코드</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">rounds</span><span class="o">){</span>                          <span class="c1">// 재귀함수의 탈출부분(베이스)</span>
+            
+    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">currentCase</span><span class="o">);</span>                    <span class="c1">//****핵심부분****</span>
+                                                <span class="c1">// 의도 - 완성배열을 넣어주고</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>                              <span class="c1">// 리스트를 반환한다.</span>
+<span class="o">}</span>
+
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">rps</span><span class="o">.</span><span class="na">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>     <span class="c1">// 경우의 수 배열의 생성</span>
+
+    <span class="n">currentCase</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">rps</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>            <span class="c1">//현재 인덱스(0)에 값을 넣어주고</span>
+    <span class="n">caseList</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">currentCase</span><span class="o">,</span> <span class="n">rounds</span><span class="o">,</span> <span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// 다음 인덱스를 가리키면서 재귀호출을 하겠다.</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-성공-코드">2. 성공 코드</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">rounds</span><span class="o">){</span>                          <span class="c1">// 재귀함수의 탈출부분(베이스)</span>
+    
+    <span class="nc">String</span><span class="o">[]</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">rounds</span><span class="o">];</span>      <span class="c1">//****이번 글의 핵심부분****//</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">currentCase</span><span class="o">.</span><span class="na">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+        <span class="n">input</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">currentCase</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>                           <span class="c1">// 리스트를 반환해주고</span>
+<span class="o">}</span>
+
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">rps</span><span class="o">.</span><span class="na">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+
+    <span class="n">currentCase</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">rps</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>            <span class="c1">//현재 인덱스(0)에 값을 넣어주고</span>
+    <span class="n">caseList</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">currentCase</span><span class="o">,</span> <span class="n">rounds</span><span class="o">,</span> <span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// 다음 인덱스를 가리키면서 재귀호출을 하겠다.</span>
+
+<span class="o">}</span>
+
+    
+
+</code></pre></div></div>
+
+<p>정말 이해하고나니 쉬운 부분인데 늪에 빠졌을때는 도대체 뭐가 문제인가 싶었다. 일단 코드가 길기에 다시 돌아와서 볼 경우를 위하여 성공코드에 주석을 달아놓았다.</p>
+
+<p>가장 문제가 되었던 부분은 <strong><em>‘얕은복사’와 ‘깊은복사’의 개념</em></strong>을 정확히 파악하지 못했던 것이다. 파악이라 한다면 이해를 못했다라기보다는 사용시에 미숙했다는 것이 맞겠다.</p>
+
+<p><br /></p>
+
+<h2 id="문제점-분석">문제점 분석</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>깊은 복사는 값을 복사한다.
+
+얕은 복사는 주소를 복사한다.
+</code></pre></div></div>
+
+<p>간만에 돌아와서 이게 무슨말인지 모르겠다면 깊게 생각해보고 들어가자</p>
+
+<p><br /></p>
+
+<h2 id="진행상황">진행상황</h2>
+
+<p>문제가 되었던 부분은 이곳이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">rounds</span><span class="o">){</span>                          <span class="c1">// 재귀함수의 탈출부분(베이스)</span>
+            
+    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">currentCase</span><span class="o">);</span>   <span class="c1">//****핵심부분****</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>                           <span class="c1">// 리스트를 반환해주고</span>
+<span class="o">}</span>
+
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">rps</span><span class="o">.</span><span class="na">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+
+    <span class="n">currentCase</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">rps</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>            <span class="c1">//현재 인덱스(0)에 값을 넣어주고</span>
+    <span class="n">caseList</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">currentCase</span><span class="o">,</span> <span class="n">rounds</span><span class="o">,</span> <span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// 다음 인덱스를 가리키면서 재귀호출을 하겠다.</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>분명 for문에서 경우의 수를 담는 currentCase 배열에 알맞은 값을 넣었다.</p>
+
+<p>확인한 바로도 한 반복마다 확인할 때는</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>첫번째
+rock rock rock rock rock
+
+두번째
+rock rock rock rock paper
+</code></pre></div></div>
+
+<p>이런 식으로 잘 담겼다.</p>
+
+<p>그런데.. 결과값은 항상 마지막 값만 주구장창 복사되었다. <br />
+<strong>이전에 넣은 값들도 마지막 값만 나온 것이다.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>위의 예시에선
+rock rock rock rock paper
+rock rock rock rock paper 
+
+마지막 까지 돌리면  
+scissors scissors scissors scissors scissors
+scissors scissors scissors scissors scissors
+scissors scissors scissors scissors scissors
+.
+.
+.
+scissors scissors scissors scissors scissors
+scissors scissors scissors scissors scissors 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="원인">원인</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>하나의 배열 currentCase에만 주구장창 값을 넣었기 때문이다. 즉 얕은복사를 했기 때문이다.
+</code></pre></div></div>
+
+<p>result 리스트에 값이 달라진 currentCase 배열을 계속 넣어주더라도??</p>
+
+<p><strong><em>얕은 복사를 했기 때문에 결국 리스트 요소들이 참조하는 주소는 같다.</em></strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>currentCase 참조 / currentCase 참조 / currentCase 참조 / currentCase 참조 ...
+</code></pre></div></div>
+
+<p>따라서 마지막에 값을 바꿔서 넣어주면 모든 currentCase 값들이 바뀔 것이다.</p>
+
+<h2 id="해결">해결</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>경우의 수마다 객체를 따로 생성해준다.
+</code></pre></div></div>
+
+<p>아래의 수정한 코드를 보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">rounds</span><span class="o">){</span>                          <span class="c1">// 재귀함수의 탈출부분(베이스)</span>
+    
+    <span class="nc">String</span><span class="o">[]</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">rounds</span><span class="o">];</span>      <span class="c1">//****이번 글의 핵심부분****//</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">currentCase</span><span class="o">.</span><span class="na">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+        <span class="n">input</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">currentCase</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>                           <span class="c1">// 리스트를 반환해주고</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>따라서 위와 같이 재귀의 베이스에 도착할때마다 그때의 값을 새로운 배열객체에 넣어준다. 그렇게되면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input1 참조, input2 참조, input3 참조, input4 참조 ....
+
+(input옆 숫자는 주소가 다르다는 것을 표현하기 위함임)
+</code></pre></div></div>
+
+<p>이렇게 될 것이다. 따라서 값들을 의도한대로 넣을 수 있다.</p>
+
+<p>-끝- 후련.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC" class="page__taxonomy-item p-category" rel="tag">개인탐구</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-08-01T00:00:00+09:00">01 Aug, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Arraylist.add+%26+%EC%9E%AC%EA%B7%80%ED%98%B8%EC%B6%9C%EC%97%90+%EA%B4%80%ED%95%98%EC%97%AC+%28%EC%96%95%EC%9D%80%EB%B3%B5%EC%82%AC+%2F+%EA%B9%8A%EC%9D%80%EB%B3%B5%EC%82%AC%29%20http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2FArraylist-%25EC%259E%25AC%25EA%25B7%2580%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2FArraylist-%25EC%259E%25AC%25EA%25B7%2580%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EA%25B0%259C%25EC%259D%25B8%25ED%2583%2590%25EA%25B5%25AC%2FArraylist-%25EC%259E%25AC%25EA%25B7%2580%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%98%81%EB%8B%A8%EC%96%B4%EC%9E%A5/%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B4%80%EB%A0%A8-%EC%98%81%EB%8B%A8%EC%96%B4-%EC%A0%95%EB%A6%AC/" class="pagination--pager" title="컴퓨터 영단어장
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%983/" class="pagination--pager" title="Section 2 알고리즘 - 순열, 조합
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Arraylist-%EC%9E%AC%EA%B7%80/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Arraylist 재귀"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,962 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 1 Linux | KSJ Archive</title>
+<meta name="description" content="[week2] 간단정리">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 1 Linux">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Linux/">
+
+
+  <meta property="og:description" content="[week2] 간단정리">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-06-30T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Linux/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 1 Linux">
+    <meta itemprop="description" content="[week2]간단정리">
+    <meta itemprop="datePublished" content="2022-06-30T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Linux/" class="u-url" itemprop="url">Section 1 Linux
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-06-30T00:00:00+09:00">30 Jun, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-linux">1. LINUX</a><ul><li><a href="#a-리눅스">a. 리눅스</a></li><li><a href="#b-명령어">b. 명령어</a></li><li><a href="#c-관리자권한">c. 관리자권한</a></li></ul></li><li><a href="#2-패키지와-패키지-관리자">2. 패키지와 패키지 관리자</a><ul><li><a href="#a-command-line-tools">a. command line tools</a></li><li><a href="#b-권한">b. 권한</a></li></ul></li><li><a href="#3-환경변수">3. 환경변수</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week2]</p>
+<h2 id="간단정리">간단정리</h2>
+
+<p>(간단정리가 힘들지만 summary를 한번..)</p>
+
+<ul>
+  <li>리눅스는 서버에 유용한 운영체제로 리눅스 상의 명령어들로 GUI에서 할 수 있는 모든 작업들을 할 수 있다.</li>
+  <li>리눅스 운영체제에서 사용되는 프로그램을 깔기 위한 패키지 매니저가 존재한다.</li>
+  <li>폴더와 파일의 사용 권한은 ls -l을 통하여 확인해 볼 수 있다.
+    <ul>
+      <li>or d / 소유자(rwx) / 그룹(rwx) / 다른사람들(rwx)</li>
+    </ul>
+  </li>
+  <li>환경변수</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<ul>
+  <li>
+    <p>리눅스가 운영체제라는 것은 알고 있었다. (운영체제를 따로 공부해봐야겠다.) 학부생 시절 복수전공으로 운영체제에서 좋은 학점을 받았지만 그게 다였다. 기억나는건 큰 틀의 뼈대일뿐 제대로 기억나는 것은 없었다. 리눅스에 대해 자세히 알지 못한것도 마찬가지였다. 하지만 유닉스 기반의 운영체제로 서버에 가장 많이 사용되는 운영체제라는 것을 알게 되었다. 이에 더하여 터미널을 작동해보았는데,</p>
+  </li>
+  <li>
+    <p>“재밌다. 적응하면 마우스 사용량이 줄어들어 내가 생각하던 찐 개발자가 될 수 있을 것 같다. 제대로 익혀봐야겠다는 생각이 들었다.”</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</h2>
+
+<ul>
+  <li>리눅스에 대해서 내가 알고있는 것은?
+    <ul>
+      <li>명령어까지 싸그리 말해보자</li>
+    </ul>
+  </li>
+  <li>CLI란 무엇인가?</li>
+  <li>패키지에 대하여 아는대로</li>
+  <li>사용권한??</li>
+  <li>환경변수??</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1-linux">1. LINUX</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- CLI - command line interface
+    - 인터페이스 - 운영체제 조작
+    - GUI - graphic user interface : 지금까지 나의 컴퓨터 사용 법
+</code></pre></div></div>
+
+<p>(220819)
+현재 내가 이 마크다운 언어를 작성하고 있는 VScode, 인텔리제이 그리고 지금까지 써왔던 무수히 많은 프로그램들은 GUI(Graphic User Interface)이다. 하지만 내가 이 글을 수정하고 git에 commit할 때 사용하는 터미널은 CLI(Command Line Interface)이다. 한 작업을 a라고 가정했을때 GUI에 비하여 그래픽 요소를 사용하지 않기 때문에, 즉, 하나의 작업을 하는데 가용해야하는 자원이 더 적기때문에 <strong><em>더 안정적이며, 속도가 빠르다</em></strong> 물론 제어하기에 더 직관적인 것은 GUI일 것이다.</p>
+
+<p>하지만 CLI를 사용하도록 유혹하는 요소가 단순히 빠르고 안정적이다 이 두가지뿐이라면 차라리 난 GUI를 쓰겠다. 하드웨어의 발전으로 내가 일반적으로 컴퓨터를 할 때 사용하는 프로그램들 사이에서는 유의미한 차이를 만들어내지 않을 것이라 생각하기 때문이다.</p>
+
+<p>다만, 일반인이 아니라 백엔드, 그리고 서버를 배우고 있는 사람으로서는 CLI를 익혀야 한다. 내가 관리하는 서버컴퓨터의 수가 많아진다면?? 당연히 그 수만큼의 입출력장치(모니터, 마우스, 키보드)를 부착하는 것이 가능할까?? 컴퓨터 한대 한대를 조작하기 위해서?? CLI를 통해 서버 컴퓨터로 접속을 하면 여러대의 서버 컴퓨터를 활용할 수 있음에도??</p>
+
+<p>CLI가 낫다 GUI가 낫다를 논하는 것이 아니다. 일단은 이렇게 생각하고 접근하자.</p>
+
+<blockquote>
+  <p>CLI는 컴퓨터와 소통하는 가장 기본적인 방법이다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h4 id="a-리눅스">a. 리눅스</h4>
+
+<ul>
+  <li>맥이 편리한 이유는 리눅스와 맥OS가 둘다 유닉스 기반이기 때문
+    <ul>
+      <li>명령어를 똑같이 사용할 수 있다.</li>
+      <li>터미널을 통하여 기존 GUI로 하던 것 다 할 수 있다.</li>
+    </ul>
+  </li>
+  <li>서버에 쓰이는 운영체제이다
+    <ul>
+      <li>예로 아마존의 서버 클라우드(aws) ec2에 터미널을 통하여 쉽게 접근 가능</li>
+      <li>개인 pc (CLI 구동) → 서버에 접근</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<blockquote>
+  <p>(왜 서버에 쓰일까 생각을 해봤다. 이건 나만의 생각이다. 과거에는 개인용 pc가 상용화 되어 있지 않았을 뿐더라 성능이 좋지 못했다. 따라서 하나의 pc를 여러명이 썼는데, 그당시 쓰던 것이 리눅스였지 않을까, 또한 그러한 상황과 컴퓨터 개발 초기 서버를 구축하던 상황이 맞물려 리눅스는 오픈소스로 동시작업이 편리한 운영체제로 굳혀지지 않았을까)</p>
+
+</blockquote>
+
+<p><br /></p>
+
+<ul>
+  <li>코드는 디렉토리(폴더)에 묶음 패키지로 있다. 이를 구동시키기 위해서 리눅스를 공부하는 것이다.</li>
+  <li>CLI의 특징은 GUI와 달리 그래픽에 자원을 소모하지 않기 때문에 빠르게 동작한다.</li>
+</ul>
+
+<h4 id="b-명령어">b. 명령어</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>코드 스테이츠 자료로 알게 된 것
+    pwd
+        - print working directory
+        - 현재 폴더(경로)를 보여준다
+    ls
+        - list
+        - 현재 directory안에 있는 폴더와 파일 리스트를 보여준다
+        - -l → 속성?들을 보여준다.
+        - -a → 숨겨진 모든 폴더와 파일들을 보여준다.
+    mkdir
+        - make directory
+        - 폴더를 만든다.
+            - 같은 이름이 있으면 만들지 않는다.
+    cd
+        - change directory
+        - 선택한 폴더로 이동한다.
+    touch
+        - 파일을 생성한다.
+        - 어원을 생각해보자. 만약 이미 생성된 이름의 파일을 touch로 생성하면 최근 작성일자가 업데이트된다.
+    &gt;
+        - 실행결과를 파일로 저장한다.
+        - ls &gt; lslist.txt -&gt; 실행하면 lilist의 파일안에 ls의 실행결과가 저장되어 생성된다.
+    cat
+        - 파일의 내용을 출력한다.
+    cp
+        - copy
+        - 폴더나 파일을 복사한다.
+            - 알고리즘적?으로 생각해보자.         
+              우리의 추상체계에 있는 복사는 말그대로 똑같은 것이 하나가 갑자기 띵동 생겨나는 것이다.    
+              하지만 컴퓨터 안에서는 파일을 임시 저장하고 하나를 생성하는 것이다. 그렇기에 파일의 크기가 크면 복사하는데 시간이 더 걸리는 것이다.
+    rm
+        - remove
+        - 파일이나 폴더를 삭제한다.
+            - 폴더를 삭제하려는 경우에는 속성을 주어야한다.
+                - r → recursion
+                - f → force 물어보지 않고 삭제한다.
+    mv
+        - move
+        - 폴더나 파일의 이름을 변경한다.
+            - mv helloworld helloworld2 → 이름이 helloworld2로 변경
+        - 폴더나 파일의 위치를 변경한다.
+            - mv helloworld ksj
+        - 이것 또한 다른 관점에서 생각해보자.   
+          우리의 추상체계에서 '옮긴다'는 물리적인 동작이다.      
+          하지만 컴퓨터는 사람과 같은 물리적인 동작을 하지 않는다.      
+          순서에 의해 실행할 뿐이다. 먼저 옮길 파일을 복사하여 임시저장하고, 원래의 파일을 지운 후, 도착폴더에서 파일을 생성한다.
+
+내가 찾아본 명령어
+    man
+        - manual을 뜻한다
+        - man 명령어 → 명령어의 설명을 표기해준다.
+        - q로 나간다.
+    open
+        - open . → 현재 directory를 gui로 보여준다.
+        - 아직 마우스가 함께해야 편한 나에게는 여러모로 도움을 줄 것 같다.
+    find
+        - find 타입 이름
+        - 전체영역에서 이름을 포함하는 모든 타입의 파일을 보여준다. (익숙해져보자)
+    mkdir -p
+        - 폴더를 하나만 만드는게 아니라 경로(트리를 만들수 있다.)
+    echo
+        - echo 입력내용 파일이름
+            - 입력내용을 가진 파일을 생성한다.
+    clear
+        - 터미널을 깨끗하게 만들어준다.
+    bye
+        - 진행중인 모든 작업을 정리한다
+
+nano 사용
+    nano 파일이름
+    터미널 환경에서의 텍스트 에디터
+        - visual studio나 intellij 같은 ide ???? ← 이건 팩트체크 해보자
+        - 사용하는 이유 : 서버는 원격에서 조종해야 하는 일이 발생할 수 있다.
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="c-관리자권한">c. 관리자권한</h4>
+
+<ul>
+  <li>새로운 프로그램을 설치하고 지울때는 관리자 권한으로 실행됨
+      - 우리집에서는 내가 관리자이자 사용자이다. 물품들을 마음대로 사용하고, 이동하고, 또한 새로운 가구들을 구매하여 배치할 수 있다.
+      - 한 가족이 한 집에 살게 되면 복잡해진다. 서로의 영역을 함부로 건들지 않도록 하는 관리규칙과 허가가 (= 관리자가 하는 일) 필요하다.
+      - 타인이 운영하는 카페에 가면 나는 철저한 사용자이다. 주인장(관리자)의 허가 없이 함부러 새로운 가구를 비치할 수 없다. 만약 단골이 되어 이쁜 꽃을 선물한다면 관리자에게 권한을 얻어 배치 하도록 하자.
+    <ul>
+      <li><strong>절대 경로와 상대 경로</strong>
+        <ul>
+          <li>절대주소
+            <ul>
+              <li>pwd로 확인 가능한 경로 = 기준점으로 부터의 절대적인 위치
+                <ul>
+                  <li>기준점 (/ →루트폴더) 맥에서는 User
+                    <ul>
+                      <li>관리자의 영역</li>
+                      <li>sudo를 이용하여 관리자의 권한 획득 가능</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>상대주소
+            <ul>
+              <li>현재위치에서의 상대주소
+                <ul>
+                  <li>. → 현재주소</li>
+                  <li>.. → 현재주소의 상위주소</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>나에게 대입하여 생각해보자. 나의 집은 00 (house폴더) 이다. 내가 밖에 나가 돈다고 해도 절대 변하지 않으며 그 주소를 누군가에게 알려줄때는 우리집은 00이야 (users/username/house)야 라고 말할 것이다. 하지만 내가 있는 위치는?? 매번 변한다. 내가 있는 위치(작업하고 있는 위치)는  . 으로 표현 가능한 것이다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-패키지와-패키지-관리자">2. 패키지와 패키지 관리자</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 리눅스에서도 프로그램을 깔아야 하지 않겠는가
+- 패키지는 하나의 프로그램을 구동하기위한 directory의 압축파일이라 생각하자
+    - 하나의 패키지에는 다음과 같은 것들이 들어있다.
+        - 프로그램 파일
+        - 프로그램 설치파일
+        - 프로그램 설치 설명서
+        - 프로그램에 대한 정보를 담은 파일
+- 이러한 패키지들의 관리를 편하게 해주는 것이 패키지 매니저이다.
+    - homebrew → 아이폰의 appstore 생각하자.
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="a-command-line-tools">a. command line tools</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 커맨드 라인 도구 설치 (command line tools)
+    - xcode-select —install
+- Homebrew 패키지 매니저 설치
+    - homebrew 사이트의 스크립트 복사 후 터미널에 복붙
+    - Installation successful! 이 보이면 설치 완료
+    - *설치과정에서의 시행착오*
+        - *문제의 이유*
+            - *터미널을 처음 만지다 보니 설치과정에서 멈춰있는 것을 버그로 생각해 도중에 꺼버렸다.*
+        - *중간 과정*
+            - *control c 를 눌러 종료 후 다시 스크립트를 복붙하여 설치를 진행하였다.*
+        - *문제 발생*
+            - *brew —version 에서는 버전이 뜬다. 하지만 추후 brew install wget이 작동하지 않는다.*
+            - *오류메세지*
+                - *No available formula or cask with the name*
+        - *해결*
+            - *구글링*
+            - *$ rm -rf $(brew —repo homebrew/core)*
+                - *repo → repository (저장소)*
+                    - *homebrew의 패키지 파일 저장소인듯하다.*
+                    - [https://www.lesstif.com/sonatype-nexus/software-repository-36209229.html](https://www.lesstif.com/sonatype-nexus/software-repository-36209229.html)  → 정독해보자 추후에도 도움이 될거같다. why? maven, gradle에 대한 설명
+                - *homebrew의 core directory 삭제*
+        - *재설치*
+        - *결과 - 정상작동*
+        - *해결과정을 따른 이유*
+            - *문제의 원인이 설치 도중 종료한 것이었다. 그렇다면 프로그램 파일들이 복사되다가 도중에 중단되었다고 유추하였고, 이를 해결하는 방법은 아예 백지상태로 돌리는 것이라고 생각했다.*
+        - *앞으로 다른 비슷한 문제가 발생하면 core directory를 삭제하겠다.*
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="b-권한">b. 권한</h4>
+
+<ul>
+  <li>권한
+    <ul>
+      <li>
+        <ul>
+          <li>or d / 소유자(rwx) / 그룹(rwx) / 다른사람들(rwx)</li>
+        </ul>
+      </li>
+      <li>chmod
+        <ul>
+          <li>권한 변경 명령어
+            <ul>
+              <li>u g o a /  + - = / r w x 사용</li>
+              <li>Absolute form 활용
+                <ul>
+                  <li>4 = r / 2 = w / 1 = x</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-환경변수">3. 환경변수</h3>
+
+<ul>
+  <li>환경변수
+    <ul>
+      <li>특정 키워드가 어떠한 역할 혹은 경로를 저장하도록 만들어 줌</li>
+      <li>지역변수와 전역변수</li>
+      <li>“프로세스가 컴퓨터에서 동작하는 방식에 영향을 미치는, 동적인 값들의 모임이다.”                    -위키백과-</li>
+    </ul>
+  </li>
+  <li>지역 환경변수
+    <ul>
+      <li>지정된 지역에서만 쓰이는 환경변수</li>
+      <li>ksj=helloworld</li>
+    </ul>
+  </li>
+  <li>전역 환경변수
+    <ul>
+      <li>export ksj=helloworld</li>
+      <li>변수에 공백이 존재할 경우 값 전체를 따옴표로 감싼다.</li>
+    </ul>
+  </li>
+  <li>env → 모든 환경변수를 볼 수 있다.</li>
+  <li><strong>이부분은 추가공부가 필요하다. 어떤 의미인지 이해는 했다. 하지만 더 정확히 알아두어야 하는 중요한 부분같다.</strong></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#%EA%B8%B0%EC%B4%88" class="page__taxonomy-item p-category" rel="tag">기초</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-06-30T00:00:00+09:00">30 Jun, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+1+Linux%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-Linux%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-Linux%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-Linux%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Training-HTML,-CSS/" class="pagination--pager" title="Section 1 Training - HTML, CSS
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Git/" class="pagination--pager" title="Section 1 Git
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Linux/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 1 Linux"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

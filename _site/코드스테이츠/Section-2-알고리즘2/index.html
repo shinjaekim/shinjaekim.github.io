@@ -1,0 +1,775 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 2 알고리즘 - 정렬, 탐색 | KSJ Archive</title>
+<meta name="description" content="[week6] 간단정리    정렬            순서에 맞게 배치한다.           탐색            찾는다.           시뮬레이션            문제에서 말하는 바를 제대로 파악할 것           완전 탐색            주먹구구식 무대뽀, 모든걸 다 찾아본다.           이진 탐색            생각을 했다. 반씩 쪼개면서 찾는다. (정렬되어 있어야 한다.)">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 2 알고리즘 - 정렬, 탐색">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%982/">
+
+
+  <meta property="og:description" content="[week6] 간단정리    정렬            순서에 맞게 배치한다.           탐색            찾는다.           시뮬레이션            문제에서 말하는 바를 제대로 파악할 것           완전 탐색            주먹구구식 무대뽀, 모든걸 다 찾아본다.           이진 탐색            생각을 했다. 반씩 쪼개면서 찾는다. (정렬되어 있어야 한다.)">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-29T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%982/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 2 알고리즘 - 정렬, 탐색">
+    <meta itemprop="description" content="[week6]간단정리  정렬          순서에 맞게 배치한다.        탐색          찾는다.        시뮬레이션          문제에서 말하는 바를 제대로 파악할 것        완전 탐색          주먹구구식 무대뽀, 모든걸 다 찾아본다.        이진 탐색          생각을 했다. 반씩 쪼개면서 찾는다. (정렬되어 있어야 한다.)      ">
+    <meta itemprop="datePublished" content="2022-07-29T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%982/" class="u-url" itemprop="url">Section 2 알고리즘 - 정렬, 탐색
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-07-29T00:00:00+09:00">29 Jul, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-시뮬레이션">1. 시뮬레이션</a></li><li><a href="#2-완전-탐색-알고리즘">2. 완전 탐색 알고리즘</a><ul><li><a href="#a-이용-예시">a. 이용 예시</a></li></ul></li><li><a href="#3-이진-탐색-알고리즘">3. 이진 탐색 알고리즘</a><ul><li><a href="#a-외의-탐색-알고리즘">a. 외의 탐색 알고리즘</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week6]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>정렬
+    <ul>
+      <li>순서에 맞게 배치한다.</li>
+    </ul>
+  </li>
+  <li>탐색
+    <ul>
+      <li>찾는다.</li>
+    </ul>
+  </li>
+  <li>시뮬레이션
+    <ul>
+      <li>문제에서 말하는 바를 제대로 파악할 것</li>
+    </ul>
+  </li>
+  <li>완전 탐색
+    <ul>
+      <li>주먹구구식 무대뽀, 모든걸 다 찾아본다.</li>
+    </ul>
+  </li>
+  <li>이진 탐색
+    <ul>
+      <li>생각을 했다. 반씩 쪼개면서 찾는다. (정렬되어 있어야 한다.)
+<br /></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="느낀점">느낀점</h2>
+
+<p>매번 반복하지만 복수전공 학부생 당시 배웠던 내용이라 새록새록하다. 그 당시 분명 시간을 엄청 투자해서 열심히 공부했었는데 졸업 이후 다른 분야를 돌아다니고 다시 복귀하니 머릿속의 내 알고리즘 체계는 틀만 남은 폐허가 되었다. 정말 견고해 보이는 아파드도 10년을 관리 안하면 부식되고 위험해진다고 한다. 하물며 머릿속의 지식은 어떨까</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+
+<ul>
+  <li>시뮬레이션에 대해 답해보자</li>
+  <li>완전 탐색은 어떤 장점과 단점이 있는가??</li>
+  <li>이진 탐색은 어떠한 장점을 가지는가??</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>프로그래밍 언어의 문법을 정확히 알아라
+조건에 부합하도록 로직을 짜라
+빠르게 작성하자.
+</code></pre></div></div>
+
+<p>구현이라 함은 무언가 생각한 바로 유의미한 결과를 도출하는 것이라고 생각한다. 데이터를 <strong>정렬</strong> 하고, <strong>탐색</strong>하는 등의 <strong>문제를 보면 어떻게 구현할지</strong>를 생각해 봐야할 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>완전탐색 - 가능한 경우의 수 전부 확인
+시뮬레이션 - 복잡한 구현 요구 사항을 바탕으로 시뮬레이션
+</code></pre></div></div>
+
+<h3 id="1-시뮬레이션">1. 시뮬레이션</h3>
+<p>예시는 내가 직접 만들어서 해보고 싶다. 일단 먼저 시뮬레이션을 접하게 되면 중요한 것은 <strong>독해</strong> 능력이다. 로직을 설명해주기 때문에 로직을 정확히 이해하고 그에 맞는 코드를 하나하나씩 작성해가면 될 것이다. 코드가 길어진다고 해도 포기하지말자.</p>
+
+<hr />
+
+<h3 id="2-완전-탐색-알고리즘">2. 완전 탐색 알고리즘</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Brute Force - 시행착오 방법론
+</code></pre></div></div>
+
+<p><strong><em>될때까지 한다</em></strong>를 떠올리자. 프라하에서 공부할때 한번은 쇼핑몰 라커에 짐을 보관하고 비밀번호를 까먹은 적이 있었다. 물론 어느정도 내가 평소에 사용하던 값들이 있었기 때문에 0000부터 9999까지 다 해보지는 않았지만 될때까지 내가 사용했으리라 추측되는 비밀번호들을 하나씩 다 입력했었다. 이게 그 예시가 될 것 같다. (추측해서 추려냈다는 것은 엄격히 말하면 지적 능력을 사용했기 때문에 완전탐색은 아니다. 그래도 하나씩 대입해보며 해봤다는 것을 떠올리자.)</p>
+
+<p>이런 이유로 완전 탐색 알고리즘은 성능이 좋은 컴퓨터에서 사용해야 할 것이다. 시간복잡도에 대한 계산 없이 일단 때려박는 무식한 방법이기 때문이다. <strong><em>딱히 좋은 다른 알고리즘이 없을때</em></strong>, <strong><em>여러가지 경우의 수들을 비교해볼때</em></strong> 사용하자.</p>
+
+<p>후자 <strong><em>여러가지 경우의 수들을 비교해볼때</em></strong> 라는 뜻은 추상적으로 다가올 수 있으니까, 미래의 나를 위해 예시를 추가해보고 싶다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>서울을 가야한다.
+국도, 고속도로 / 기차 / 비행기 등의 여러 수단들이 있다.
+
+그렇다면
+
+가장 빠른 길을 완전탐색 식으로 찾으면 하나씩 다 이용해보는 것이다.
+</code></pre></div></div>
+
+<p>글을 작성하다가 생각해보니 위의 내 경험도 이를 설명하기 위한 예시가 될 수 있겠다. 내가 가지고 있는(추측한) 비밀번호들을 하나씩 대입해 본 것은 여러가지 경우의 수를 확인해 본 셈이기도 하다.</p>
+
+<p>어쨌든 이런 경우를 제외하면 굉장히 비효율적이다. 그러니 가능하다면 다른 알고리즘을 이용하자.</p>
+
+<h4 id="a-이용-예시">a. 이용 예시</h4>
+<ul>
+  <li>순차 검색 알고리즘</li>
+  <li>문자열 매칭 알고리즘</li>
+  <li>선택 정렬 알고리즘
+    <ul>
+      <li>0번 인덱스를 가리키고 시작</li>
+      <li>1번 인덱스부터 끝까지 최소값을 구하고</li>
+      <li>최소값이 현재 가리키는 값도가 크다면</li>
+      <li>현재 인덱스로 옮긴다.</li>
+    </ul>
+  </li>
+  <li>버블 정렬 알고리즘</li>
+  <li>Tree의 완전탐색 : BFS DFS</li>
+  <li>동적 프로그래밍</li>
+</ul>
+
+<hr />
+
+<h3 id="3-이진-탐색-알고리즘">3. 이진 탐색 알고리즘</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>분할 정복 알고리즘 (절반씩 분할)
+</code></pre></div></div>
+
+<p>값들이 정렬되어 있다면 처음부터 끝까지 하나하나 찾기보다는, 중간값과 비교해서 한쪽을 버리는 것이 빠를 것이다. 이진 탐색 알고리즘의 다른 이름이 분할정복 알고리즘인 이유이기도 하다.</p>
+
+<p>시간복잡도는 logn을 가진다. <strong><em>왜냐 계속 반씩 나뉘니까</em></strong></p>
+
+<p>하지만 좋은건 상황이 제약적이다. 앞서 말했든 <strong><em>정렬되어 있어야</em></strong>하고, <strong><em>배열에만 구현</em></strong>할 수 있다.</p>
+
+<ul>
+  <li>더 찾아볼 것
+    <ul>
+      <li>이진 트리와 이진 탐색 트리</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="a-외의-탐색-알고리즘">a. 외의 탐색 알고리즘</h4>
+<ul>
+  <li>선형 탐색 알고리즘
+    <ul>
+      <li>때에 따라서 (데이터 양이 적거나 찾을값이 앞에 있는 경우) 이진 탐색보다 빠르기도 하다.</li>
+    </ul>
+  </li>
+  <li>해쉬 탐색 알고리즘</li>
+  <li>divide and conquer (정렬임)
+    <ul>
+      <li>더 이상 쪼개질 수 없을 때 까지 쪼개고 조건에 맞게 정렬 한 이후 다시 합치는 과정을 가진다.</li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" class="page__taxonomy-item p-category" rel="tag">알고리즘</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-07-29T00:00:00+09:00">29 Jul, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+2+%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98+-+%EC%A0%95%EB%A0%AC%2C+%ED%83%90%EC%83%89%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%25982%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%25982%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%25982%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="pagination--pager" title="Section 2 알고리즘 - 시간복잡도, 그리디
+">이전</a>
+    
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%9E%AC%EA%B7%80%ED%98%B8%EC%B6%9C%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="재귀호출에 관하여
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%982/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 2 알고리즘2"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

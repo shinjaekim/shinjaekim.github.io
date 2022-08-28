@@ -1,0 +1,906 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 2 Spring Framework - 기초 | KSJ Archive</title>
+<meta name="description" content="[week8] 간단정리    프레임워크가 라이브러리와 차별화 되는 점은 ‘제어의 역전’이다.   프레임워크는 POJO규칙을 지향한다   이 POJO는 다음의 세가지로 달성할 수 있다.            IoC / DI       AOP       PSA">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 2 Spring Framework - 기초">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EA%B8%B0%EC%B4%88/">
+
+
+  <meta property="og:description" content="[week8] 간단정리    프레임워크가 라이브러리와 차별화 되는 점은 ‘제어의 역전’이다.   프레임워크는 POJO규칙을 지향한다   이 POJO는 다음의 세가지로 달성할 수 있다.            IoC / DI       AOP       PSA">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-08-09T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EA%B8%B0%EC%B4%88/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 2 Spring Framework - 기초">
+    <meta itemprop="description" content="[week8]간단정리  프레임워크가 라이브러리와 차별화 되는 점은 ‘제어의 역전’이다.  프레임워크는 POJO규칙을 지향한다  이 POJO는 다음의 세가지로 달성할 수 있다.          IoC / DI      AOP      PSA      ">
+    <meta itemprop="datePublished" content="2022-08-09T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EA%B8%B0%EC%B4%88/" class="u-url" itemprop="url">Section 2 Spring Framework - 기초
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-09T00:00:00+09:00">09 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-framwork">1. Framwork</a><ul><li><a href="#a-또-어디서-봤더라">a. 또 어디서 봤더라??</a></li><li><a href="#b-제어의-역전">b. 제어의 역전</a></li></ul></li><li><a href="#2-웹-애플리케이션-개발의-진화">2. 웹 애플리케이션 개발의 진화</a></li><li><a href="#3-pojo">3. POJO</a></li><li><a href="#4-ioc--di">4. IoC / Di</a></li><li><a href="#5-aop">5. AOP</a></li><li><a href="#6-psa">6. PSA</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week8]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>프레임워크가 라이브러리와 차별화 되는 점은 ‘제어의 역전’이다.</li>
+  <li>프레임워크는 POJO규칙을 지향한다</li>
+  <li>이 POJO는 다음의 세가지로 달성할 수 있다.
+    <ul>
+      <li>IoC / DI</li>
+      <li>AOP</li>
+      <li>PSA</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>막연한 두려움에 떨었던 스프링 프레임워크를 접하게 되었다. 하지만 공부가 다 거기서 거기듯이 그냥 오래 앉아서 이해하려고 노력하려고 한다면 안될 파트는 아닌 것 같다. 오히려 머리가 아픈게 약간 공부하는 느낌을 주는 것 같아서 참.. 신기하게도 반갑다. 물론 오늘 머리가 아픈 것은 어려워서가 아니라 처음 접하는 지식들의 체계를 잡아가는 과정에 있기 때문이라 생각한다.</p>
+
+<p>갑자기 말을 좀 쉽게 표현해야겠다는 생각이 든다. 항시 나에게 지향점이긴 했으나 어느순간 언어가 나의 표현을 쉽게 하기 위한 도구로 전락해버린 것이 아닌가 싶다. 현재의 나와 미래의 내가 다르기 때문에, 남에게 설명하듯 해야 함에도 불구하고</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>프레임워크란?</li>
+  <li>스프링은 그럼 뭐야?</li>
+  <li>버드 아이 뷰가 무엇인가요?</li>
+  <li>모듈은??</li>
+  <li>spring framework &amp; sptring boot
+<br /></li>
+</ul>
+
+<h2 id="정리">정리</h2>
+<p>일정표를 따라가다보면 그때마다 만나는 학습자료들이 랜덤박스 같아서 설레는 마음을 지울수가 없다. 따라서 미리 예습을 하지는 않는 편이다. 그때 그때 즐기려고..</p>
+
+<p>다만 학습자료를 예습하지 않을 뿐 개인적으로 구글링을 통해서 찾아보고 미리 공부의 방향성을 잡는 편인데..</p>
+
+<p>마침 어제 공부해야겠다고 해서 파고들었던 라이브러리와 프레임워크의 차이점이 바로 나오네???</p>
+
+<p>히트율이 좋았다고 생각하자. 올바른 방향으로 가고 있나보다.</p>
+
+<p><a href="https://shinjaekim.github.io/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EC%99%80-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/">라이브러리와 프레임워크에 관하여</a></p>
+
+<h3 id="1-framwork">1. Framwork</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Frame : 틀이나 외형적인 구조
+</code></pre></div></div>
+
+<p>이 단어를 바탕으로 질문들을 해보도록 하자.</p>
+
+<ol>
+  <li>
+    <p>나는 어떤 공부를 하고 있는가??  <br />
+ 백엔드 개발자가 되기위한 공부</p>
+  </li>
+  <li>
+    <p>그렇다면 백엔드 개발자가 다루게 될 작업은 뭐지??  <br />
+ 웹 애플리케이션 중에서도 서버와 데이터베이스</p>
+  </li>
+  <li>
+    <p>그러면 Frame이 말하는 것은 무엇일까??  <br />
+ 웹 애플리케이션의 서버와 데이터베이스의 큰 구조겠군</p>
+  </li>
+</ol>
+
+<p>이라는 의식의 흐름이 튀어나왔다.</p>
+
+<p>이게 맞는지 더 파고들어보자.</p>
+
+<h4 id="a-또-어디서-봤더라">a. 또 어디서 봤더라??</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Collection Framework
+    java에서 list, set 등의 자료구조를 처리할 수 있도록 표준화된 클래스의 집함.
+</code></pre></div></div>
+
+<p>자바에서 여러 라이브러리들을 사용했는데 왜 컬렉션은 프레임워크라고 지칭했을까??</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>라이브러리 - 잘 정의된 클래스들의 모임
+프레임워크 - 적용되는 설계의 원칙, 구조에 맞게 정의된 클래스들의 모임
+</code></pre></div></div>
+
+<p>켤렉션 프레임워크는 여러가지 자료구조들을 구현하기위한 인터페이스들의 집합체이다. 컬렉션 프레임워크를 이용하면 이미 정해진 틀. 그러니까 적용되는 설계의 원칙에 맞게 구현하게 된다.</p>
+
+<p>따라서 컬렉션을 컬렉션 라이브러리가 아닌 컬렉션 프레임워크로 부르는 것이다.</p>
+
+<blockquote>
+  <p>이 예시는 우리가 자료구조를 구현하기위해 세세한 코드를 모두 작성하지 않고, 이미 설계되어 제공된 인터페이스를 구현해서 사용했듯이 향후 어떤것이 되었든 우리가 세세하게 모든것을 개발하는 것이 아니라, 컬렉션 프레임워크가 제공하는 기능들을 사용함으로써 궁극적인 목표에 도달하게 될 것임을 암시하는 것 같다는 생각이 든다.</p>
+</blockquote>
+
+<h4 id="b-제어의-역전">b. 제어의 역전</h4>
+<p>적용되는 설계의 원칙이 있다…….</p>
+
+<p>여기에 더하여 프레임워크가 더 가지게되는 특별한 특징은 없을까??</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>애플리케이션의 흐름과 제어는 프레임워크가 담당한다.
+</code></pre></div></div>
+
+<p>앞선 글(시작부분 링크)에서 말했듯 라이브러리는 공구와 같다. 사용하는 사람이 그때그때 필요한 공구들을 사용한다. 즉, 공구들을 제어하는 주체는 사람이다.</p>
+
+<p>하지만 프레임워크는 다르게 봐야한다. 전기차와 같다고 해보자. 사용하는 사람이 브레이크를 밟는 행동을 하면, 그 안에서 엔진브레이크든 물리적인 브레이크등 내부에서 기능들이 작동하고 사람은 ‘음 차가 멈추었군’ 이라고 느낄 것이다. 그러니까 차를 이용하는건 사람이지만 결국 어떤 행동을 하던 흐름과 제어는 자동차 자체 내부 로직에 달려있는 것이다.</p>
+
+<hr />
+
+<h3 id="2-웹-애플리케이션-개발의-진화">2. 웹 애플리케이션 개발의 진화</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JSP -&gt; Servlet -&gt; Spring MVC -&gt; Spring Boot
+
+1. JSP
+    a. 클라이언트와 서버의 코드 분리가 되어있지 않았음
+
+2. Servlet
+    a. 서버 코드가 분리되어 별도의 클래스로 관리됨
+    b. 클라이언트 요청 데이터 처리 작업을 개발자가 직접 코드로 작성했어야 함.
+
+3. Spring MVC
+    a. 2-b와 같은 것들을 자동으로 해줌
+    b. 설정작업(애플리케이션의 기본구조작업)이 불편했음
+
+4. Spring Boot
+    a. 3-b 마저 자동으로 해줌
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="3-pojo">3. POJO</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plain Old Java Object
+</code></pre></div></div>
+
+<p>직역하면 순수하고 오래된 자바 객체…????</p>
+
+<p>일단,  <br />
+Java가 객체지향인 것은 알고 있다. 지금까지 공부했는데 java와 객체지향에 대한 연결고리가 없다면 헛 공부한 거겠지</p>
+
+<p>그러면 Plain Old는 무엇을 뜻할까?   <br />
+<em>그냥 뒤의 자바 오브젝트를 수식하는 거였다..</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>순수한 자바 객체..
+</code></pre></div></div>
+
+<p>이를 규칙이라고 생각하고.. (POJO를 규칙이라 생각하고) spring에서 이를 어떻게 달성시켜나가는지 알아보도록 하자.</p>
+
+<p><strong>1.Java나 Java 스펙에 정의된 것 이외에 다른 기술이나 규약에는 얽매이지 않아야 한다.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Java가 Struts의 기술을 상속받았을 경우..
+
+이것이 알려주는 정보들은
+
+1. Java는 다른 특정 기술에 종속적이기도 하다.
+2. 이런 경우 다중상속을 제공하지 않는 자바는 객체지향 설계기법 적용이 어려워지겠지??
+</code></pre></div></div>
+
+<p>그러니까 이런 경우 없이 순수하게 자바 객체만 써라??? (20220809)</p>
+
+<p><br /></p>
+
+<p><strong>2.특정 환경에 종속적이지 않아야 한다.</strong></p>
+
+<p>위 두가지 POJO 규칙을 끊임없이 생각해보며 코드를 작성한다면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>코드가 깔끔해지면서
+유지보수와 확장이 유연해진다.
+
+그래서
+
+객체지향적인 설계를 제한없이 적용할 수 있다.
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="4-ioc--di">4. IoC / Di</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Inversion of Control - 제어의 역전
+Dependencies Injection - 의존성 주입?
+</code></pre></div></div>
+
+<p>이 글의 목차상 1-b에서 프레임워크를 설명할 때 언급했던 내용이기도 하다.</p>
+
+<p>스프링에서 제어의 역전을 설명하기 위해서는 의존성 주입에 대해서 알고 있으면 좋다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Reception</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="nc">HotelRoom</span> <span class="n">room</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HotelRoom</span><span class="o">();</span>
+        <span class="n">room</span><span class="o">.</span><span class="na">메서드</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">HotelRoom</span><span class="o">{</span>
+    <span class="n">메서드</span> <span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>Recpetion클래스에서 HotelRoom클래스의 인스턴스를 생성하고 기능을 사용했다. 이 경우 의존성이 성립된다.</p>
+
+<p>하지만 <strong><em>의존성 주입은 아니다.</em></strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HotelClient</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="nc">HotelRoom</span> <span class="n">room</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HotelRoom</span><span class="o">;</span>
+        <span class="nc">Reception</span> <span class="n">reception</span> <span class="o">=</span> <span class="k">new</span> <span class="n">reception</span><span class="o">(</span><span class="n">room</span><span class="o">);</span>  <span class="c1">// HotelRoom의 객체를 받는 생성자로 인스턴스 생성</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Reception</span><span class="o">{</span>
+    <span class="nc">Private</span> <span class="nc">HotelRoom</span> <span class="n">room</span><span class="o">;</span>  <span class="c1">// ***외부클래스의 객체를 생성하기 위한 new 키워드를 쓰지 않음</span>
+
+    <span class="kd">public</span> <span class="nf">Reception</span><span class="o">(</span><span class="nc">HotelRoom</span> <span class="n">room</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">room</span> <span class="o">=</span> <span class="n">room</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">HotelRoom</span><span class="o">{</span>
+    <span class="n">메서드</span> <span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><strong><em>위 경우처럼 생성자를 통해서 객체를 전달받는 것을 의존성 주입</em></strong>이라고 한다. 그리고 객체를 주입해주는 <strong><em>외부</em></strong>는 생성자를 호출하는 클래스가 된다.</p>
+
+<p>그리고 두번째 주석을 보자</p>
+
+<p>위 주석으로 표현한 것 처럼 Reception클래스에서는 HotelRoom의 객체를 코드에서 직접 인스턴스를 생성하여 할당하지 않았다. 즉 HotelRoom의 객체는 런타임 시에 HotelClient객체의 main메서드를 읽어내려가면서 new reception(room)의 생성자를 만났을때 동적으로 생성될 것이다.</p>
+
+<p>하지만 Reception 클래스를 보자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>만약 HotelRoom 클래스의 이름이 바뀐다면??
+</code></pre></div></div>
+
+<p>private HotelRoom에서 이름을 똑같이 변경해주어야 할 것이다. 따라서 이를 방지하기 위해서는 ‘interface 업캐스팅’을 이용한다. <strong><em>생성자에 인터페이스를 주입하면, 인터페이스를 구현한 모든 클래스들은 주입이 가능하다.</em></strong></p>
+
+<p>그렇지만 아직 HotelClient의 new생성자는 남아있다. 이 경우는 어떻게 느슨한 결합으로 만들어 줄 수 있을까</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>** new 생성자를 통한 인스턴스 생성은 강한 결합을 만들게 된다.
+</code></pre></div></div>
+
+<p><strong>이때의 작업들을 Spring이 해준다.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>그러니까 예를 들어 config등 프레임워크가 제공하는 프레임에다 pojo규칙을 지킨 자바 객체들을
+지정해두면 이후 흐름은 spring이 알아서 해준다.
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="5-aop">5. AOP</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Aspect Oriented Programming - 관심 지향 프로그래밍
+</code></pre></div></div>
+
+<p>객체간의 관계가 아닌 관심을 지향한다는 것은 무엇을 뜻할까?</p>
+
+<blockquote>
+  <p>어떠한 방식을 따르더라도 결국 공통의 관심사는 같다.</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>한 애플리케이션을 구성하는 **핵심 기능**들이 있을 것이고,   
+이 기능들을 관통하는 **공통 기능**들이 있을 것이다.
+</code></pre></div></div>
+
+<p>위와 같이 이해하도록 하자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>이러면 정의한 공통기능을 '재사용'가능하고
+덕지덕지 아니니까 코드의 간결성도 유지되며
+이러면 결과적으로 객체지향설계원칙도 지향하게 된다.
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="6-psa">6. PSA</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Portable Service Abstraction - 본질만 남겨서 일반화 하자.
+</code></pre></div></div>
+
+<p>추상클래스와 인터페이스에 대한 이해도</p>
+
+<hr />
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-08-09T00:00:00+09:00">09 Aug, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+2+Spring+Framework+-+%EA%B8%B0%EC%B4%88%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-Spring-Framework-%25EA%25B8%25B0%25EC%25B4%2588%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-Spring-Framework-%25EA%25B8%25B0%25EC%25B4%2588%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-Spring-Framework-%25EA%25B8%25B0%25EC%25B4%2588%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EC%99%80-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="라이브러리와 프레임워크에 관하여
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" class="pagination--pager" title="Section 2 Spring Framework - 아키텍쳐, 스프링부트
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EA%B8%B0%EC%B4%88/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 2 Spring Framework - 기초"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

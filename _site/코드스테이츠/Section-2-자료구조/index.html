@@ -1,0 +1,797 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 2 자료구조 - stack, queue | KSJ Archive</title>
+<meta name="description" content="[week6]">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 2 자료구조 - stack, queue">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">
+
+
+  <meta property="og:description" content="[week6]">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-25T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 2 자료구조 - stack, queue">
+    <meta itemprop="description" content="[week6]">
+    <meta itemprop="datePublished" content="2022-07-25T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/" class="u-url" itemprop="url">Section 2 자료구조 - stack, queue
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-07-25T00:00:00+09:00">25 Jul, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-자료구조에-대해서">1. 자료구조에 대해서</a><ul><li><a href="#a-체계화-하기">a. 체계화 하기</a></li></ul></li><li><a href="#2-스택stack">2. 스택(Stack)</a><ul><li><a href="#a-스택에서의-명령어들">a. 스택에서의 명령어들</a></li></ul></li><li><a href="#3-큐queue">3. 큐(Queue)</a><ul><li><a href="#a-임시-기억-장치로써의-queue">a. 임시 기억 장치로써의 Queue</a></li><li><a href="#b-큐에서의-명령어들">b. 큐에서의 명령어들</a></li></ul></li><li><a href="#4-스택-vs-큐">4. 스택 vs 큐</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week6]</p>
+
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>자료구조는 데이터들을 체계적으로 저장하는 틀
+    <ul>
+      <li>단순 혹은 선형, 비선형 혹은 파일구조 형식으로 저장</li>
+    </ul>
+  </li>
+  <li>스택은 FILO - LIFO의 입출력 순서
+    <ul>
+      <li>입력과 출력은 한쪽에서만</li>
+    </ul>
+  </li>
+  <li>큐는 FIFO - LILO의 입출력 순서
+    <ul>
+      <li>입력과 출력이 일어나는 곳은 다르며 한 방향으로 흐름</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>코드스테이츠 과정을 진행하면서 좋은점은, 이게 과정의 구성 때문이든 과거의 내가 한번 공부를 했던 부분이기 때문이든, 틀이 잡혀간다는 것이다. 사실 과거에 공부할 때는 전혀 새로운 분야였기 때문에 과목들의 연관성은 고려하지도 못하고 그냥 주먹구구식으로 외울 뿐이었다. 이어지지 않았던 지식들은 더 빠르게 날라가서 남은거라고는 진짜 큰 틀 밖에 없었다. 하지만 현재는 큰 틀 안에서 공부하고 있다는 생각이 든다.</p>
+
+<p>처음 유럽 여행을 갔을때 굉장히 당황했었다. 여행을 즐기기 보다는 대화를 하게 되는 순간 순간이 긴장 됐었다. <br />
+두번째 프라하에 가서 살게 되었을때는 처음보다는 즐길 수 있었지만, 초창기는 살아남아야 한다는 압박감이 컸다. <br />
+그리고 세번째 다시 유럽으로 여행을 갔을때 그때서야 진짜 내가 바랐던 여행을 했던 것 같다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>자료구조는 왜 존재하는가?</li>
+  <li>어떤 자료 구조들이 있는가??</li>
+  <li>스택을 설명해보자
+    <ul>
+      <li>주의해야할 사항은 무엇인가?</li>
+      <li>단점은??</li>
+    </ul>
+  </li>
+  <li>큐를 설명해보자
+    <ul>
+      <li>단점은??</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1-자료구조에-대해서">1. 자료구조에 대해서</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>세상에 존재하는 데이터들을 체계적으로 저장하는 틀
+</code></pre></div></div>
+
+<p>주변에는 데이터화 할 수 있는 수많은 것들이 있다. 당장 나만 봐도 내 혈액형, 나이, 키 등 여러가지 데이터들이 있을 것이다. 여기서 이 데이터들이 유의마한 이유는 ‘당장 나만 봐도’에서 찾을 수 있다. 이러한 전제조건이 없었다면 그냥 떠돌아 다니는 혈액형, 나이, 키는 대다수의 경우 커다란 의미를 갖지 않을 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>목적에 따라 사용할 자료구조가 다를 수 있다.
+</code></pre></div></div>
+
+<p>때문에 자료구조는 내가 코딩을 진행하면서 여러 데이터들을 접할때 다양하게 이용할 수 있어야겠다.</p>
+
+<h4 id="a-체계화-하기">a. 체계화 하기</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>단순구조    선형구조    비선형구조    파일구조
+</code></pre></div></div>
+
+<p>단순구조는 2진수, 정수/실수, 문자열  <br />
+선형구조는 리스트, 연결리스트, 덱, 스택, 큐  <br />
+비선형구조는 트리, 그래프  <br />
+파일구조는 순차파일, 색인파일. 직접파일</p>
+
+<p>여기서 <strong>스택, 큐, 트리, 그래프</strong> 부터 확실하게 이해하도록 하자</p>
+
+<hr />
+
+<h3 id="2-스택stack">2. 스택(Stack)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LIFO 혹은 FILO
+</code></pre></div></div>
+
+<p>롤을 하다보면 스택이라는 단어는 참 많이 접하게 된다. 명칭으로만 파악 가능한 것은 다리우스 5스택, 나서스 스택농사 같은 것이겠고.. 내 생각에 가장 찰떡인 상황은 철거라는 룬을 들었을 때이다. 철거가 시전되면(쿨타임 패시브) <strong>포탑에 보석같은 것이 하나 하나 쌓인다. 혹 철거 시전자가 포탑에서 멀어지게 된다면 쌓였던 보석들은 LIFO되어 사라진다.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>한번에 하나씩
+</code></pre></div></div>
+
+<p>또한 포탑 보석은 여러개가 한번에 들어오는 법은 없다. 하나씩 쌓이고 하나씩 사라진다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>한쪽에서만 입출력
+</code></pre></div></div>
+
+<p>그래픽 상으로 보이는 것이지만 입출력 방향이 같다. 마지막으로 일관되게 쌓이고 사라지는 일은 오른쪽에서만 일어난다. 갑자기 오른쪽에서 쌓이던 것이 왼쪽에서 쌓이고 그러는 일은 없다. 그러니까 입력되고 출력되는 방향이 같다.
+<br />
+게임 말고 웹서핑할때도 생각해보자. 어떻게 우리는 여러 페이지들 상에서 앞뒤로 갈 수 있을까??</p>
+
+<h4 id="a-스택에서의-명령어들">a. 스택에서의 명령어들</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>push() - 하나 하나 쌓는다.
+pop() - LIFO 형식으로 없애고 반환한다..
+size() - 스택의 크기를 반환한다.
+peek() - 가장 최근 추가된 데이터를 반환한다.
+show() - 스택의 모든 데이터를 형식으로 반환한다.
+clear() - 스택의 데이터를 모두 지운다.
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="3-큐queue">3. 큐(Queue)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FIFO 혹은 LILO
+</code></pre></div></div>
+
+<p>게임 설계상 블루, 레드 버프는 시간이 지나면 사라지도록 설계되어 있기 때문에 큐로 구현한 것은 아닐 것이다. 따라서 완벽히 맞아 떨어지는 예시는 아닐 수 있을 것 같다. 하지만 커다란 개념상에서 이해를 돕는 비유는 충분히 될 것이다. 나는 정글이고 리신을 픽했다. 일단 리쉬를 받아 블루를 먹었고 늑대를 먹고 바로 레드를 먹은 상황이다. 이때 블루버프는 레드버프보다 먼저 얻은 것이다. 때문에 버프가 사라진다면 블루버프가 먼저 사라지게 된다. <br />
+블루 버프 획득 -&gt; 레드 버프 획득 -&gt; 블루 버프 상실 -&gt; 레드 버프 상실</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>한번에 하나씩
+</code></pre></div></div>
+
+<p>스택과 동일하다. 추가하자면 한번에 여러개가 빠지는 것 같은 느낌이 들거든 그거는 컴퓨터가 한줄한줄 빠르게 실행했을뿐 결국 하나하나씩 입력되고 출력된 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>입출력 방향이 다르다.
+</code></pre></div></div>
+
+<p>생각해보자. 제일 쉬운 예시로 자동차를 데이터, 골목길을 자료구조라고 해보자. 골목길에 들어가는 입구와 출구는 분명 다르다. 먼저 들어간 차가 골목길을 먼저 빠져나온다. (스택은 막다른 길에 들어간 경우이다.)
+<br />
+여러 문서를 인쇄할때 인쇄 queue를 본 적이 있는가?</p>
+
+<h4 id="a-임시-기억-장치로써의-queue">a. 임시 기억 장치로써의 Queue</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>일정한 cpu의 이벤트 처리와 불규칙한 컴퓨터장치의 이벤트 처리
+</code></pre></div></div>
+
+<p>컴퓨터 장치들 사에에서 데이터를 주고 받을때 속도의 시간 차이가 발생하는데 이것을 버퍼라고 하며, 버퍼를 구현하는 자료구조가 바로 ‘큐’이다.</p>
+
+<p>경영학의 생산관리에서 생산 프로세스를 설계할때 꼭 짚고 넘어가야 하는 것이 <strong>‘병목을 어떻게 처리할 것인가’</strong> 이다. 이는 생산프로세스를 구성하는 여러 단위들의 작업처리속도가 달라서 발생하게 된다. 때문에 최적의 생산 프로세스를 설계하기 위해서는 가장 효율적이지 못한 구성단위의 처리량에 맞춰서 발주를 하고 작업을 진행하게 된다. 따라서 <strong>병목을 발생시키는 가장 효율적이지 못한 구성단위의 앞에 버퍼</strong>라는 것을 두게 된다. 모든 생산 흐름은 버퍼의 처리에 맞춰 진행된다.</p>
+
+<p>이때의 버퍼가 (통상적으로는) 큐 와 같은 매커니즘으로 돌아갈 것이다. 흐름이 유지되어야 하기때문에 한쪽 방향으로 흐르며, FIFO의 방식 적용될 것이다.</p>
+
+<h4 id="b-큐에서의-명령어들">b. 큐에서의 명령어들</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>add() - 하나 하나 넣는다.
+poll() - FIFO 형식으로 없애고 반환한다..
+size() - 스택의 크기를 반환한다.
+peek() - 가장 먼저 추가된 데이터를 반환한다.
+show() - 큐의 모든 데이터를 형식으로 반환한다.
+clear() - 큐의 데이터를 모두 지운다.
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="4-스택-vs-큐">4. 스택 vs 큐</h3>
+
+<p>LIFO 와 FIFO</p>
+
+<p>push 와 add</p>
+
+<p>pop 과 poll</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-07-25T00:00:00+09:00">25 Jul, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+2+%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0+-+stack%2C+queue%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%259E%2590%25EB%25A3%258C%25EA%25B5%25AC%25EC%25A1%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%259E%2590%25EB%25A3%258C%25EA%25B5%25AC%25EC%25A1%25B0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%259E%2590%25EB%25A3%258C%25EA%25B5%25AC%25EC%25A1%25B0%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/" class="pagination--pager" title="Section 2 재귀함수
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B02/" class="pagination--pager" title="Section 2 자료구조 - tree, graph
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 2 자료구조"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

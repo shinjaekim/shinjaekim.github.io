@@ -1,0 +1,89 @@
+---
+layout: single
+title:  "Section 2 자료구조-2"
+
+categories:
+    - 코드스테이츠
+
+tags:
+    - Java
+    - 알고리즘
+    
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+[week6]
+## 간단정리
+
+<br> 
+
+## 느낀점
+
+
+<br>
+
+## 스스로 답해보기
+
+<br>
+
+## 정리
+
+다시 공부할 것
+- [개인] 0731 익명클래스 - 이펙트비 2
+- [개인] toString , valueOf
+-           [개인] 재귀호출 탐구
+-           [개인] 래퍼클래스 메서드 정독
+- (래퍼클래스 파생) 멀티쓰레드에서의 동기화와 래퍼클래스
+
+- [코플릿] 데일리 코딩 6번 lettercapitalize arr[i] == " "로 하면 안되는 이유는??
+- [코플릿] 알고리즘 1번 배열 복사하는 방식 모조리
+-           [개인] For each 문
+    1. 문자열을 문자열 배열로 쪼개는 경우 char로 받아서?
+- [개인] 정규표현식
+- [혼자 찾아보기] DFS BFS
+- [개인] 인텔리제이에서 Command 아래 키는 무엇??
+- [코플릿] StollenTest 다시 해보기
+-            [개인] 깊은복사, 얕은복사
+- [개인] 타입안정성
+- [개인] 애너테이션과 테스트코드
+- [개인] 완전탐색 깊이 너비
+- [개인] 다익스트라
+-           [개인] stringbuilder
+- [개인] 컴퓨터 사이언스
+- [개인] osi 7 tcpip 4 https://aws-hyoh.tistory.com/entry/TCPIP-%EC%89%BD%EA%B2%8C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0
+- [개인] 문자를 문자열로 만들기
+- [개인] 데이터베이스 정리
+- [개인] AWT SWING
+- [개인] 환경변수란
+- [개인] WAS배포 war
+- [개인] servlet
+- [개인] 객체지향설계 solid 0809기초포조
+-         [개인] 루비 지킬 등등 정리해보자.
+-           [개인]라이브러리, 프레임워크의 차이 -> 자기가 원하는 기능을 자기가 원하는 위치에 원하는 방식
+                                프레임워크는 짜여진 안에서 구현 -> 더 내부구조를 알기 어려움
+
+-           [개인] 동기 비동기 블록킹 논블록킹
+
+-           [개인] cors sop csrf xss
+[개인] url uri
+[개인] 세션 토큰
+[싱글톤]
+- https://www.w3schools.com/quiztest/quiztest.asp?qtest=SQL
+
+ 위 에서 학습한 내용을 토대로: 비디오 스트리밍 상황에 주로 사용하는 방식은 TCP 방식일까요 아니면 UDP가 되어야 할까요?
+미 국방부는 어떠한 점에 착안하여 TCP/IP 가 극심한 전시중 에도 신뢰성을 잃지 않는다고 판단 하였을까요?
+DNS 서버가 TCP방식에서 동작한다면 어떠한 문제가 발생할 수 있을까요
+
+조인의 차이
+sql 대 기본 2
+
+스프링부트 
+https://github.com/PilhwanKim/toby_spring_practice/tree/master/chapter01
+
+해야할 글
+*제어문 /  *배열 / oop2 / effective 2, 3 / db설계
+
+http 설명 링크
+https://chrisjune-13837.medium.com/web-http-tcp-ip-%EB%A9%94%EC%8B%9C%EC%A7%80%EB%9E%80-4b2721fe296f
+

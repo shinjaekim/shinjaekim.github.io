@@ -1,0 +1,792 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 2 재귀함수 | KSJ Archive</title>
+<meta name="description" content="[week5]">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 2 재귀함수">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/">
+
+
+  <meta property="og:description" content="[week5]">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-21T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 2 재귀함수">
+    <meta itemprop="description" content="[week5]">
+    <meta itemprop="datePublished" content="2022-07-21T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/" class="u-url" itemprop="url">Section 2 재귀함수
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-07-21T00:00:00+09:00">21 Jul, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-recursion재귀">1. recursion(재귀)</a><ul><li><a href="#a-장점">a. 장점</a></li><li><a href="#b-단점">b. 단점</a></li></ul></li><li><a href="#2-내-언어로">2. 내 언어로</a></li><li><a href="#3-코드-작성해보기">3. 코드 작성해보기</a><ul><li><a href="#a-문제">a. 문제</a></li><li><a href="#b-반복문으로">b. 반복문으로</a></li><li><a href="#c-재귀호출로">c. 재귀호출로</a></li><li><a href="#d-재귀적-사고-연습">d. 재귀적 사고 연습</a><ul><li><a href="#1입력값과-출력값">1.입력값과 출력값</a></li><li><a href="#2문제-쪼개고-경우의-수-나누기">2.문제 쪼개고 경우의 수 나누기</a></li><li><a href="#3단순-문제-해결">3.단순 문제 해결</a></li><li><a href="#4복잡-문제-해결">4.복잡 문제 해결</a></li><li><a href="#5코드-구현">5.코드 구현</a></li></ul></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week5]</p>
+
+<h2 id="간단정리">간단정리</h2>
+<p>재귀호출은 메서드가 메서드 자신을 부르는 것이다. <br />
+따라서 중첩되면서 기능을 구현하게 된다. <br />
+하지만 중첩된다는 것은 흐름을 직관적으로 파악하기 힘들다는 단점을 불러온다. <br />
+따라서 이 흐름을 잘 파악하도록 하자.</p>
+
+<p>내가 재귀호출을 사용하는 경우라면 입력값과 출력값을 잘 구분하자. <br />
+그리고 문제를 쪼개보자 <br />
+쉽게 할 수 있는 부분 (더 이상 쪼개기 불가)  <br />
+쉽게 할 수 있는 부분 (재귀적으로 불러오는 부분)  <br />
+으로 나누어 접근해보자.</p>
+
+<p>한편 재귀호출은 많은 메모리 공간을 차지하게 된다. 그렇기 때문에 현업에서 사용하게 될 기회는 매우 적을 것이다. 하지만 느껴지는게.. 결국 백엔드는 효율성을 극대화 하는 것이 좋을 것이고, 이를 위해서는 더욱 더 효율적인 코드를 작성하기 위해 알고리즘적 사고에 익숙해져야 할 것이다. 따라서 재귀 자체는 메모리 관점에서는 효율적인 코드 작성이 아니지만, 작성하는데 들이는 내 사고력을 강화하는데 도움이 된다. 이건 무조건이다. 소홀히 하지 말자.</p>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>-자전거를 타는 사람을 보는 것은 쉽지만 막상 처음 타려할때는 힘들지 않았던가.. 라는 비유가 너무 와닿았다. <br />
+읽으면 이해가 된다. 하지만 내 스스로 출력이 쉽지 않았다. 그래도 답은 우직하게 하는 거라고 제공된 문제들을 풀으면서 점차 이해하게 되었다.</p>
+
+<p>한편 재귀호출은 많은 메모리 공간을 차지하게 된다. 그렇기 때문에 현업에서 사용하게 될 기회는 매우 적을 것이다. 하지만 느껴지는게.. 결국 백엔드는 효율성을 극대화 하는 것이 좋을 것이고, 이를 위해서는 더욱 더 효율적인 코드를 작성하기 위해 알고리즘적 사고에 익숙해져야 할 것이다. 따라서 재귀 자체는 메모리 관점에서는 효율적인 코드 작성이 아니지만, 작성하는데 들이는 내 사고력을 강화하는데 도움이 된다. 이건 무조건이다. 소홀히 하지 말자.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</h2>
+
+<ul>
+  <li>재귀함수의 동작원리??</li>
+  <li>장점과 단점??</li>
+  <li>What is JSON?</li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+<p><br /></p>
+
+<h3 id="1-recursion재귀">1. recursion(재귀)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>메서드가 메서드 자신을 호출
+</code></pre></div></div>
+
+<p>자신을 호출한다?? <br />
+메서드안에서 다른 메서드를 호출하는 것과 다를 바 없다.
+메서드는 메모리에 저장되어 있고, 그저 그 공간에서 메서드를 불러오는 것 뿐이기 때문이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">){</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+    <span class="n">add</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">y</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>이렇게 되면 계속 x에 y값이 누적되어 더해질 것이다.
+이 때의 add를 재귀호출이라고 하겠다.
+위 코드는 예시이지만 재귀함수는 ‘탈출’할 때가 언제인지 생각한 후 ‘탈출 코드’를 작성해 주어야 한다.</p>
+
+<h4 id="a-장점">a. 장점</h4>
+<ul>
+  <li>코드가 간결해지고 수정이 용이해진다.
+    <ul>
+      <li>재귀는 결국 똑같은 동작을 반복한다. 위 add(x,y)를 반복문으로 했으면 훨씬 길어지고 누적될수록 복잡해졌을것</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="b-단점">b. 단점</h4>
+<ul>
+  <li>메모리를 많이 사용한다.
+    <ul>
+      <li>반복적으로 메서드를 호출하는 방식이기 때문에 지역변수들과 반환값을 모두 process stack에 저장한다.</li>
+    </ul>
+  </li>
+  <li>코드의 흐름이 직관적으로 보이지는 않는다.</li>
+</ul>
+
+<hr />
+
+<h3 id="2-내-언어로">2. 내 언어로</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>작은 문제로 나누어 전체 문제를 해결한다.
+</code></pre></div></div>
+
+<p>어떤 뜻일까? <br />
+나는 매일 아침 운동을 간다. 운동을 프로그래밍한다고 생각해보자 
+<br /><br />
+    1. 현재 인바디 상 내 근육은 xx이다.  <br />
+    2. 운동을 한다.  <br />
+    3. 회복을 한다.  <br />
+    4. 근육이 성장한다.</p>
+
+<p>매일 반복하면서 목표인 근육의 성장은 누적되어간다.  <br />
+즉, 저 루틴을 수행하는 근육(기반)은 성장도에 따라서 매일 달라진다. (이상적인 이야기이다.)</p>
+
+<p>중간의 과정은 계속 반복되고 달라지는 것은 기반인 근육값이다. 따라서 저 과정을 메서드화 해서, 그 메서드를 계속 재귀호출해도 논리적으로 문제가 될 것은 전혀 없다.
+    1.근육 현 수치(Exercise())</p>
+
+<p><br /></p>
+
+<h3 id="3-코드-작성해보기">3. 코드 작성해보기</h3>
+
+<h4 id="a-문제">a. 문제</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>배열의 요소들을 곱해라
+</code></pre></div></div>
+
+<h4 id="b-반복문으로">b. 반복문으로</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">mutiple</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span> <span class="n">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="c-재귀호출로">c. 재귀호출로</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">multiple</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+
+    <span class="kt">int</span> <span class="n">head</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">tail</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">head</span> <span class="o">*</span> <span class="n">multiple</span><span class="o">(</span><span class="n">tail</span><span class="o">);</span>  <span class="c1">// 재귀호출로 tail의 길이가 0이 될때까지 head를 생성할것</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="d-재귀적-사고-연습">d. 재귀적 사고 연습</h4>
+
+<h5 id="1입력값과-출력값">1.입력값과 출력값</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>위 문제의 입력값은 배열이고,
+        출력값은 int형 정수 값이 된다.
+</code></pre></div></div>
+
+<h5 id="2문제-쪼개고-경우의-수-나누기">2.문제 쪼개고 경우의 수 나누기</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[쪼갤 수 있는 경우]
+배열의 요소들을 하나씩 정수형으로 꺼내서 곱해주면 된다.
+[쪼갤 수 없는 경우]
+배열에서 요소들을 꺼내고 배열에 아무것도 들어있지 않으면 1로 리턴된다. (곱해도 값에 영향을 주지 않는다.)
+</code></pre></div></div>
+
+<h5 id="3단순-문제-해결">3.단순 문제 해결</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>쪼갤수 없는 경우가 쉽겠다.
+if(arr.length == 0) return 1;
+</code></pre></div></div>
+
+<h5 id="4복잡-문제-해결">4.복잡 문제 해결</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>배열에서 수를 계속 꺼내는 경우
+int head = arr[0];
+int[] tail = Arrays.copyOfRange(arr,1,arr.length-1);
+</code></pre></div></div>
+
+<h5 id="5코드-구현">5.코드 구현</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>위 재귀호출 구현.
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-07-21T00:00:00+09:00">21 Jul, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+2+%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%259E%25AC%25EA%25B7%2580%25ED%2595%25A8%25EC%2588%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%259E%25AC%25EA%25B7%2580%25ED%2595%25A8%25EC%2588%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-%25EC%259E%25AC%25EA%25B7%2580%25ED%2595%25A8%25EC%2588%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/JSON%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="JSON에 관하여
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/" class="pagination--pager" title="Section 2 자료구조 - stack, queue
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 2 재귀함수"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

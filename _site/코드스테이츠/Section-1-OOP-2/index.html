@@ -1,0 +1,795 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 1 OOP - 생성자, 이너클래스 | KSJ Archive</title>
+<meta name="description" content="[week3] 간단정리">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 1 OOP - 생성자, 이너클래스">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-2/">
+
+
+  <meta property="og:description" content="[week3] 간단정리">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-08T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-2/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 1 OOP - 생성자, 이너클래스">
+    <meta itemprop="description" content="[week3]간단정리">
+    <meta itemprop="datePublished" content="2022-07-08T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-2/" class="u-url" itemprop="url">Section 1 OOP - 생성자, 이너클래스
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-07-08T00:00:00+09:00">08 Jul, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-생성자constructor">1. 생성자(constructor)</a><ul><li><a href="#a-생성자">a. 생성자</a><ul><li><a href="#ㄱ-리턴값이-없다">ㄱ. 리턴값이 없다.</a></li><li><a href="#ㄴ-생성자-하나는-필수">ㄴ. 생성자 하나는 필수.</a></li><li><a href="#ㄷ-왜-쓰는가">ㄷ. 왜 쓰는가??</a></li><li><a href="#ㄹ-클래스-내부-상호-호출">ㄹ. 클래스 내부 상호 호출</a></li></ul></li></ul></li></ul></li><li><a href="#2-이너-클래스">2. 이너 클래스</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week3]</p>
+<h2 id="간단정리">간단정리</h2>
+
+<ul>
+  <li>생성자는 멤버는 아니다.</li>
+  <li>클래스로 만든 인스턴스를 초기화 할때 쓰인다.
+    <ul>
+      <li>기본생성자와 매개변수를 받는 생성자가 있다.</li>
+      <li>매개변수를 받는 경우 생성과 동시에 초기화가 가능하다.</li>
+      <li>기본생성자는 클래스 안에 작성하지 않아도 컴파일러가 자동으로 생성해주고 있었다.</li>
+    </ul>
+  </li>
+  <li>이너클래스는 멤버에 속한다 (멤버 - 필드 메서드 이너클래스)
+    <ul>
+      <li>정적 내부 클래스는 static변수만 참조가능하다.</li>
+      <li>캡슐화를 가능하게한다.</li>
+      <li>클래스 안의 클래스이다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<ul>
+  <li>그런 느낌이 든다. 간혹가다 지식 유튜브를 빠르게 보다보면 10분쯤 보고 있을때 ‘아 이해는 완벽하게 되네’ 라는 생각이 들다가도 갑자기 5분 정도에 소개했던 내용들이 희미해지거나, 현재의 내용과 헷갈리게 되는 순간이 있다. 지금이 그런 것 같다. 이해는 되었다. 클래스와 클래스 내부의 멤버와 생성자. 그들의 역할과 호출방법. 하지만 이너클래스를 보면서 약간 혼동이 왔다. 항상 이건 왜 쓸까? 를 생각해봤는데 이 부분은 복수전공할때도 대충 했던 기억이 나서 왜에 대한 답이 쉽게 나오지 않았다. 캡슐화라고 설명을 하긴 했지만 캡슐화를 왜 하는지에 대해 추상적인 아이디어만 있을 뿐이다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</h2>
+
+<ul>
+  <li>생성자를 설명해보자
+    <ul>
+      <li>메서드와의 차이점</li>
+      <li>매개변수를 가진 생성자와 그렇지 않은 생성자</li>
+    </ul>
+  </li>
+  <li>이너 클래스는 왜 사용할것 같은가??</li>
+  <li>객체지향의 모든것. 그러니까 처음 이 언어를 만든 사람은 어떤 의도를 가지고 클래스, 인스턴스 변수 등등을 나누고 설정했겠는가??</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1-생성자constructor">1. 생성자(constructor)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 인스턴스를 초기화 하는 메서드
+- 반환값이 없다. void 작성하는 메서드와는 다른 점
+- 멤버가 아니다. (멤버는 필드, 메서드, 이너클래스)
+- 매개변수를 가진 생성자와 그렇지 않은 생성자가 있다.
+- 매개변수를 가진 생성자는 호출과 동시에 리터럴 할당이 가능하다.
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="a-생성자">a. 생성자</h4>
+
+<p>앞서 공부한 바를 떠올려보자. 클래스를 만들면 사용시 인스턴스로 객체화 한다. 식으로 본다면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>‘생성한 클래스' 인스턴스 이름 = new 클래스이름() 
+</code></pre></div></div>
+
+<p>이 될 것이다. 그리고 new 키워드는 인스턴스를 생성하는 역할을 한다. <strong>여기서!!</strong> <strong>new 다음의 클래스이름이 바로 생성자</strong>로, <strong>생성된 인스턴스를 초기화</strong> 하는 역할을 한다. 초기화에 대해 조금 더 알고있는 내용들을 정리하며 파고들어보자. 일반적으로 변수를 선언할때, 예를 들어 num 이름을 가진 정수형 변수를 선언하면 식은 이렇게 될 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int num → 할당까지 한 줄에 하면 int num = 0;
+</code></pre></div></div>
+
+<p>위의 사례처럼 0으로 선언한 변수를 초기화 한다. 즉, <strong>num이라는 int형 변수를 0으로 초기화 해주었듯  클래스로 생성한 인스턴스에 할당, 초기화를 해주는 역할을 하는 메서드를 생성자</strong> 라고 한다.</p>
+
+<h6 id="ㄱ-리턴값이-없다">ㄱ. 리턴값이 없다.</h6>
+<ul>
+  <li>메서드에서 리턴값이 없다면 void를 사용했지만, 생성자는 안써도 된다. 이유는? 그냥 생성자 자체가 리턴값이 없기 때문이다.</li>
+</ul>
+
+<h6 id="ㄴ-생성자-하나는-필수">ㄴ. 생성자 하나는 필수.</h6>
+<ul>
+  <li>안써도 진행 됐던 이유는 자바 컴파일러가 자동으로 만들어줬기 때문
+    <ul>
+      <li>매개변수가 없는 기본 생성자를 만들어준다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h6 id="ㄷ-왜-쓰는가">ㄷ. 왜 쓰는가??</h6>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">[</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Man</span> <span class="n">firstMan</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Man</span><span class="o">();</span> <span class="c1">// 2. 인스턴스 생성시 이렇게 될 것이다. 이 때 인스턴스의 </span>
+                                 <span class="c1">//    값들에 초기화를 진행하면 </span>
+        
+        <span class="n">firstMan</span><span class="o">.</span><span class="na">height</span> <span class="o">=</span> <span class="mf">183.0</span><span class="o">;</span>  <span class="c1">// 3. 일일이 하나씩 해줘야한다. 4번으로 가보자.</span>
+        <span class="n">firstMan</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"홍길동"</span>
+
+        <span class="nc">Man</span> <span class="n">secondMan</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Man</span><span class="o">(</span><span class="mf">183.0</span> <span class="o">,</span> <span class="s">"홍길동"</span><span class="o">)</span> <span class="c1">// 5. 생성과 동시에 초기화가 가능하다.</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Man</span><span class="o">{</span>             <span class="c1">// 1. 생성자 없이 필드값만 있는 경우를 가정해보자. 그렇다면 이 클래스</span>
+                        <span class="c1">//    로 인스턴스를 생성하면 생성자를 따로 적지 않았기 때문에 컴파일러</span>
+    <span class="kt">double</span> <span class="n">height</span><span class="o">;</span>       <span class="c1">//    가 자동으로 기본생성자를 만들어 줄것이다. 2번으로가자.</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nc">Man</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">){.</span> <span class="c1">// 4. 하지만 이렇게 매개변수를 가진 생성자를 생성하면</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">height</span> <span class="o">=</span> <span class="n">height</span><span class="o">;</span>           <span class="c1">//    5번으로가보자</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h6 id="ㄹ-클래스-내부-상호-호출">ㄹ. 클래스 내부 상호 호출</h6>
+<ul>
+  <li>this()
+    <ul>
+      <li><strong>클래스 내부에서 생성자를 호출</strong>할 때</li>
+      <li>생성자 내부에서만 사용 가능하며</li>
+      <li>반드시 첫 줄에 쓰자</li>
+    </ul>
+  </li>
+  <li>this
+    <ul>
+      <li><strong>인스턴스 자신</strong>을 가리킨다.</li>
+      <li>매개변수가 있는 생성자의 매개변수 이름을 인스턴스 변수와 이름을 같게 했을 경우.
+        <ul>
+          <li>Class의 인스턴스변수와 구분하기 위해 인스턴스 변수는
+            <ul>
+              <li>this.인스턴스변수 로 작성한다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-이너-클래스">2. 이너 클래스</h3>
+
+<ul>
+  <li>캡슐화 달성에 용이</li>
+  <li>인스턴스 내부 클래스</li>
+  <li>정적 내부 클래스</li>
+  <li>지역 내부 클래스</li>
+  <li>
+    <p>익명 내부 클래스</p>
+  </li>
+  <li>내부 클래스</li>
+</ul>
+
+<blockquote>
+  <p>내부 클래스를 쌓는다면, 부모와 자식간의 관계가 중첩되면서 맨 안쪽에 있는 클래스의 데이터는 감출 수 있을 것이다.</p>
+
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-07-08T00:00:00+09:00">08 Jul, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+1+OOP+-+%EC%83%9D%EC%84%B1%EC%9E%90%2C+%EC%9D%B4%EB%84%88%ED%81%B4%EB%9E%98%EC%8A%A4%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-OOP-2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-OOP-2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-OOP-2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP/" class="pagination--pager" title="Section 1 OOP - 클래스, 멤버
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-%EC%83%81%EC%86%8D,-%EC%BA%A1%EC%8A%90%ED%99%94/" class="pagination--pager" title="Section 1 OOP - 상속, 캡슐화
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-2/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 1 OOP-2"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

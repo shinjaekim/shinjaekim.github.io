@@ -1,0 +1,909 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 1 OOP - 상속, 캡슐화 | KSJ Archive</title>
+<meta name="description" content="[week4] 간단정리">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 1 OOP - 상속, 캡슐화">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-%EC%83%81%EC%86%8D,-%EC%BA%A1%EC%8A%90%ED%99%94/">
+
+
+  <meta property="og:description" content="[week4] 간단정리">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-11T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-%EC%83%81%EC%86%8D,-%EC%BA%A1%EC%8A%90%ED%99%94/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 1 OOP - 상속, 캡슐화">
+    <meta itemprop="description" content="[week4]간단정리">
+    <meta itemprop="datePublished" content="2022-07-11T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-%EC%83%81%EC%86%8D,-%EC%BA%A1%EC%8A%90%ED%99%94/" class="u-url" itemprop="url">Section 1 OOP - 상속, 캡슐화
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-07-11T00:00:00+09:00">11 Jul, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-상속">1. 상속</a><ul><li><a href="#a-장점">a. 장점</a></li><li><a href="#b-포함">b. 포함</a></li><li><a href="#c-오버라이딩">c. 오버라이딩</a></li><li><a href="#d-super-과-super">d. super() 과 super.</a></li><li><a href="#e-object-클래스">e. Object 클래스</a></li></ul></li><li><a href="#2-캡슐화">2. 캡슐화</a><ul><li><a href="#a-장점-1">a. 장점</a></li><li><a href="#b-패키지">b. 패키지</a><ul><li><a href="#1패키지의-선언">1.패키지의 선언</a></li><li><a href="#2패키지의-장점">2.패키지의 장점</a></li><li><a href="#3import">3.import</a></li></ul></li><li><a href="#c-접근제어자">c. 접근제어자</a></li><li><a href="#d-getter-setter">d. getter, setter</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week4]</p>
+<h2 id="간단정리">간단정리</h2>
+
+<ul>
+  <li>클래스의 멤버들을 하위 클래스들이 상속받아 공유함으로서 <strong>코드의 중복을 막고 재사용</strong>한다.</li>
+  <li>포함 또한 클래스의 멤버를 재사용한다는 측면에서 같다
+    <ul>
+      <li>구분은 이렇게하자. <strong>~이다 -&gt; 상속 / ~를 가지고 있다 -&gt; 포함</strong></li>
+    </ul>
+  </li>
+  <li>메서드를 <strong>오버라이딩</strong> 하는 것이 가능하다.
+  -오버라이딩 후 상위 클래스의 메서드를 부르고자 한다면 super를 이용하자</li>
+  <li>JAVA는 <strong>단일 상속</strong>만 허용한다.</li>
+  <li>모든 클래스는 Object클래스의 자손이다.</li>
+  <li>
+    <p>상속은 <strong>다형성</strong> 으로 이어진다.</p>
+  </li>
+  <li>캡슐화는 <strong>정보를 은닉</strong>하고 <strong>불필요한 노출을 방지</strong>한다.</li>
+  <li>패키지는 관계있는 클래스들의 묶음으로 하나의 디렉토리이다.</li>
+  <li>패키지선언을 가장 위에, 패키지 import을 2순위로 한다.</li>
+  <li>접근제어자와 <strong>게터 세터</strong>를 이해하도록 하자.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<p>앞선 과정과 마찬가지로 더 꼬이기 시작한다. 일단 하나 하나는 이해가 된다. 하지만 이어야 쓸모가 있을 것이다. 각개전투식으로 외우지 말고 전략적으로 큰 틀을 보면서 이해해보자. 되면 파란색 o표시를 하도록 한다.
+    - 상속과 이너클래스의 차이가 뭘까..?</p>
+
+<p>일단 static과의 차이를 구분했다. 애초의 <strong>객체지향의 장점은 코드의 중복을 막고 재사용하는 것</strong>, 그리고 캡슐화를 통한 보안성 향상이다. 객체지향은 이런 장점들을 지향하며 static과 상속은 그래서 나오게 된 것이다. 둘 다 중복을 막고 재사용성을 높인다. 차이점은 static은 생성된 <strong>‘인스턴스마다 공유하는 속성과 기능들’</strong>을 클래스 멤버로서 설정해줬다는 것, 상속과 포함은 <strong>‘클래스 설계에 있어 공유하는 기능과 속성들’</strong>을 설정한다는 것이다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기-사전질문">스스로 답해보기 (사전질문)</h2>
+
+<ul>
+  <li>객체지향 프로그래밍의 4가지 특징을 말해보자
+    <ul>
+      <li>캡 상 추 다</li>
+    </ul>
+  </li>
+  <li>상속에 대해 있는대로 말해봐라</li>
+  <li>포함과 상속의 차이</li>
+  <li>공통적인 특성이 있다는 것에 대해 다 말해보자
+    <ul>
+      <li>static에 관하여</li>
+      <li>상속에 관하여</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1-상속">1. 상속</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 기존의 클래스를 재사용 하여 새로운 클래스를 작성한다.
+- 확장되었다는 표현이 더 맞겠다. → extends
+- 메서드를 오버라이딩 하여 일일이 객체를 생성하는 경우를 방지할 수 있다.
+- 단 하나의 상위 클래스를 가질 수 있다.
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="a-장점">a. 장점</h4>
+<ul>
+  <li>겹치는 속성을 계속 안 써도 되니까 중복이 줄어든다.
+    <ul>
+      <li>하위클래스에서 상위클래스에게 상속받은 것은 안써도 된다는 것.</li>
+    </ul>
+  </li>
+  <li>기존의 클래스를 재사용 하여 새로운 클래스를 작성한다.</li>
+</ul>
+
+<blockquote>
+  <p><strong>중복을 제거하여 작성 코드의 줄수를 줄일 수 있을 것이다.</strong> 또한 상위클래스를 선언, 하위클래스로 인스턴스 생성을 가능하게하는 <strong>다형적 표현이 가능</strong>하다.</p>
+
+  <ul>
+    <li><em>적은양의 코드를 작성할 수 있음은 무엇을 뜻하는가?? static의 경우에도 공통된 변수를 사용 가능했고… 내부클래스 또한 여러가지 활용이 가능했다..</em></li>
+  </ul>
+</blockquote>
+<p><br /></p>
+
+<h4 id="b-포함">b. 포함</h4>
+<ul>
+  <li>클래스의 멤버 로 다른 클래스 타입의 참조변수를 선언하는 것</li>
+  <li>상속과의 구분은..
+    <ul>
+      <li>~은 ~이다 - 상속</li>
+      <li>~은 ~을 가지고 있다 - 포함</li>
+    </ul>
+  </li>
+</ul>
+
+<p>예시) - 이해를 위해 복붙</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Employee</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="nc">Address</span> <span class="n">address</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Employee</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">Address</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">showInfo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">id</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">address</span><span class="o">.</span><span class="na">city</span><span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">address</span><span class="o">.</span><span class="na">country</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Address</span> <span class="n">address1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"서울"</span><span class="o">,</span> <span class="s">"한국"</span><span class="o">);</span>
+        <span class="nc">Address</span> <span class="n">address2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"도쿄"</span><span class="o">,</span> <span class="s">"일본"</span><span class="o">);</span>
+
+        <span class="nc">Employee</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"김코딩"</span><span class="o">,</span> <span class="n">address1</span><span class="o">);</span>
+        <span class="nc">Employee</span> <span class="n">e2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">"박해커"</span><span class="o">,</span> <span class="n">address2</span><span class="o">);</span>
+
+        <span class="n">e</span><span class="o">.</span><span class="na">showInfo</span><span class="o">();</span>
+        <span class="n">e2</span><span class="o">.</span><span class="na">showInfo</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Address</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">city</span><span class="o">,</span> <span class="n">country</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Address</span><span class="o">(</span><span class="nc">String</span> <span class="n">city</span><span class="o">,</span> <span class="nc">String</span> <span class="n">country</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">city</span> <span class="o">=</span> <span class="n">city</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">country</span> <span class="o">=</span> <span class="n">country</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">// </span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="c-오버라이딩">c. 오버라이딩</h4>
+
+<p>메서드 오버로딩은 같은 이름의 메서드, 다른 매개변수를 이용한 작성 기법이었다. 같은 기능을 하지만 매개변수가 다른경우를 위한 설계였다. <strong>오버로딩은 같은 클래스 내에서의 작성기법이었다면 오버라이딩은 상위, 하위 클래스 관계에서의 작성 기법이다. 오버라이딩을 진행할 시에 하위클래스의 메서드가 작동하게 된다.</strong>
+    조건
+        메서드의 선언부가 상위클래스와 완전히 일치해야한다.
+            오버로딩은(동일 클래스 내에서 작성) 선언부의 매개변수는 달라야 했다.
+        접근 제어자의 범위가 상위 클래스의 메서드보다 같거나 넓어야 한다.
+        예외는 상위 클래스의 메서드보다 많이 선언할 수 없다.</p>
+
+<p>특히나 다형성을 이용할 수 있다. <strong>상위 클래스를 선언한 후 하위클래스를 인스턴스화</strong> 하면 오버라이딩 한 메서드를 이용 가능하며, 관리도 편리할 것이다.
+<br /></p>
+
+<h4 id="d-super-과-super">d. super() 과 super.</h4>
+
+<p>this.와 this()를 떠올려보자. <strong>this. 은 인스턴스 자체</strong>를 가리켰다. 생성자의 매개변수가 클래스의 인스턴스 변수와 이름이 같은 경우 구별을 할때 인스턴스 이름 앞에 this.를 붙여줬다. <strong>this()의 경우에는 생성자에서 다른 생성자를 호출할때</strong> 쓰였다. 그렇다면 super()와 super.은??? 똑같이 이해하자. <strong>super.은 바로 위의 상위 인스턴스</strong>를 가리킨다. 그리고 <strong>super()은 상위 클래스의 생성자</strong>를 가리킨다.</p>
+
+<p>예시) super()</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="n">yellowcar</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">yellocar</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">VividCar</span><span class="o">{</span>
+	<span class="nc">VividCar</span><span class="o">(){</span>               <span class="c1">//2. 상위클래스 생성자. super()</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"비비드카 클래스 생성자"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">yellowcar</span> <span class="kd">extends</span> <span class="nc">VividCar</span><span class="o">{</span>
+	<span class="n">yellowcar</span><span class="o">(){</span>              <span class="c1">//3. 하위클래스 생성자. this()</span>
+		<span class="kd">super</span><span class="o">();</span>                <span class="c1">//4. 상위클래스 생성자. super()</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"옐로우카 클래스 생성자"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//VividCar 클래스는 상위 클래스, yellowcar 클래스는 하위 클래스,</span>
+<span class="c1">//생성자 지정을 안하면 컴파일러가 자동으로 super()생성</span>
+<span class="c1">//출력 값은 비비드카 클래스 생성자, 다음줄에 옐로우카 클래스 생성자 순</span>
+<span class="c1">//4.를 super이 아닌 this로 했다면?? </span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="e-object-클래스">e. Object 클래스</h4>
+<ul>
+  <li>가장 상위는 Object 클래스
+    <ul>
+      <li>컴파일러가 자동으로 넣어줌.</li>
+      <li>멤버 메서드들 사용 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-캡슐화">2. 캡슐화</h3>
+
+<h4 id="a-장점-1">a. 장점</h4>
+<p>객체를 보면 객체는 그와 관련된 속성과 기능의 집합이다. 이렇게 관련된 데이터와 메서드들을 모아서 하나의 캡슐로 만드는 것. 그것이 캡슐화이다. 이렇게 되면 <strong>데이터를 보호하고, 내부적으로만 사용되는 데이터의 불필요한 외부 노출을 방지한다.</strong></p>
+
+<p><strong>데이터를 보호한다는 것을 생각해보자.</strong> 
+    한 객체 안에 멤버들을 외부에서 직접접근이 불가하게 제어자를 설정해주고 getter와 setter를 이용해보자. 데이터가 의도하지 않은 방향으로 변화되는 것을 방지할 수 있을 것이다.</p>
+
+<p><strong>불필요한 외부 노출을 방지한다는 것을 생각해보자.</strong> 
+    컴파일러는 main메서드를 읽는다. 즉 실질적인 사건들을 - 객체들간의 관계를 - main에 작성할 것이다. 이 때 클래스들로부터 인스턴스를 생성해서 관계를 설정하면 외부사람들은 데이터를 보려면 클래스를 일일이 찾아야한다. 이렇게 불필요한 노출을 피할 수 있다.</p>
+
+<p>이런 장점들은 <strong>정보 은닉</strong>으로서도 표현 할 수 있겠다.
+<br /></p>
+
+<h4 id="b-패키지">b. 패키지</h4>
+<p>클래스는 멤버들의 캡슐화를 달성한다. 그렇다면 패키지는 <strong>클래스와 인터페이스의 캡슐화</strong>를 달성한다.
+이는 이렇게 생각할 수도 있다.
+    클래스 파일은 무조건 하나의 패키지 디렉토리에 속한다.</p>
+
+<p>이러한 디렉토리는 . 으로 구별하게 된다.
+    java.lang.String~~</p>
+
+<h5 id="1패키지의-선언">1.패키지의 선언</h5>
+<p>패키지의 선언은 주석을 제외하고 소스코드의 가장 위에 위치한다.
+    package 패키지 네임
+<strong>class이름은 대문자로 시작</strong> 하던 것을 기억하자. <strong>package는 헷갈리지 않도록 소문자</strong>로 쓰는 편이다.</p>
+
+<h5 id="2패키지의-장점">2.패키지의 장점</h5>
+<p>쉽다. 클래스의 이름이 다르면 각각의 클래스 간에는 같은 이름의 메서드, 변수들을 선언해도 충돌이 일어나지 않는다. 마찬가지로 패키지로 구분하면 <strong>패키지별로 동일안 이름의 클래스들이 존재하는 것이 가능</strong>하다.</p>
+
+<h5 id="3import">3.import</h5>
+<p>소스코드의 첫줄에 package선언이 있다면 그 다음은 import이다. 이것이 무어냐. 타 패키지의 클래스들을 사용할 수 있도록 선언해 주는 것이다.(정확히는 매번 패키지 이름을 치지 않고…) 앞서 언급한 . 을 통해 접근할 수도 있고, 아예 한 디렉토리 아래에서 <em>을 이용하여 다 불러올 수도 있다.
+    import java.lang.String~~
+    import java.lang.</em>
+이때 <strong>*에 낚이지 말자.</strong>
+하위 디렉토리의 모든 클래스를 불러오는 것은 아니다. 단지 *이 표시된 동등한 레벨의 디렉토리에서의 클래스들을 불러온다.</p>
+
+<p><br /></p>
+
+<h4 id="c-접근제어자">c. 접근제어자</h4>
+<p>앞서 상속에서도 살짝 언급했었다. 추가적으로 파고들어가보면
+    public protected (default) private 순서이다.
+    댠 햔변먄 사용할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>알아서 마음속으로 연결해보자
+    동일 클래스에서만 접근 가능한 것은??
+    동일 패키지내에서만 접근 가능한 것은??
+    접근 제한이 없는 것은??
+    동일 패키지와 다른 패키지의 하위 클래스에서 접근 가능한 것은?? .. -&gt; 다른패키지의 상속받은 클래스 ok
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="d-getter-setter">d. getter, setter</h4>
+<p>캡슐화의 핵심이지 않나 싶다.
+외부에서는 데이터에 직접 접근을 불허하고, 메서드를 통해서 호출한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Do</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">a</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">b</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getA</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// getter는 단축기 생성도 가능하지민</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>        <span class="c1">// 반환타입이 변수와 같다는 것을 생각하자.</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getB</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setA</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">//setter는 매개변수로 멤버변수를 받고</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>            <span class="c1">//this를 이용하는구나</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setB</span><span class="o">(</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-07-11T00:00:00+09:00">11 Jul, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+1+OOP+-+%EC%83%81%EC%86%8D%2C+%EC%BA%A1%EC%8A%90%ED%99%94%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-OOP-%25EC%2583%2581%25EC%2586%258D%2C-%25EC%25BA%25A1%25EC%258A%2590%25ED%2599%2594%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-OOP-%25EC%2583%2581%25EC%2586%258D%2C-%25EC%25BA%25A1%25EC%258A%2590%25ED%2599%2594%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-1-OOP-%25EC%2583%2581%25EC%2586%258D%2C-%25EC%25BA%25A1%25EC%258A%2590%25ED%2599%2594%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-2/" class="pagination--pager" title="Section 1 OOP - 생성자, 이너클래스
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-%EB%8B%A4%ED%98%95%EC%84%B1,-%EC%B6%94%EC%83%81%ED%99%94/" class="pagination--pager" title="Section 1 OOP - 다형성, 추상화
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-OOP-%EC%83%81%EC%86%8D,-%EC%BA%A1%EC%8A%90%ED%99%94/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 1 OOP - 상속, 캡슐화"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

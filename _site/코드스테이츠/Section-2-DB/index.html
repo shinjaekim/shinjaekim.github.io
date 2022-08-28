@@ -1,0 +1,872 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 2 DB | KSJ Archive</title>
+<meta name="description" content="[week7] 간단정리    SQL은 Structure Query Language의 줄임말로 구조화된 질문을 뜻한다.            구조화된 관계형 데이터베이스에서 사용된다.           SELECT FROM WHERE LIKE 등의 명령어로 데이터를 이용한다.   데이터베이스에서 일어나는 트랜잭션의 안정성을 보장하기위해 ACID가 있다.            Atomicity       Consistency       Isolation       Durability           SQL이 있으면 문서지향형의 NoSQL도 있다.">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 2 DB">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB/">
+
+
+  <meta property="og:description" content="[week7] 간단정리    SQL은 Structure Query Language의 줄임말로 구조화된 질문을 뜻한다.            구조화된 관계형 데이터베이스에서 사용된다.           SELECT FROM WHERE LIKE 등의 명령어로 데이터를 이용한다.   데이터베이스에서 일어나는 트랜잭션의 안정성을 보장하기위해 ACID가 있다.            Atomicity       Consistency       Isolation       Durability           SQL이 있으면 문서지향형의 NoSQL도 있다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-08-04T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">학습 유형 별 분류</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">기술 별 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 2 DB">
+    <meta itemprop="description" content="[week7]간단정리  SQL은 Structure Query Language의 줄임말로 구조화된 질문을 뜻한다.          구조화된 관계형 데이터베이스에서 사용된다.        SELECT FROM WHERE LIKE 등의 명령어로 데이터를 이용한다.  데이터베이스에서 일어나는 트랜잭션의 안정성을 보장하기위해 ACID가 있다.          Atomicity      Consistency      Isolation      Durability        SQL이 있으면 문서지향형의 NoSQL도 있다.">
+    <meta itemprop="datePublished" content="2022-08-04T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB/" class="u-url" itemprop="url">Section 2 DB
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-04T00:00:00+09:00">04 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-sql">1. SQL</a></li><li><a href="#2-sql-명령어">2. SQL 명령어</a></li><li><a href="#3-acid">3. ACID</a></li><li><a href="#4-nosql">4. NoSQL</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week7]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>SQL은 Structure Query Language의 줄임말로 구조화된 질문을 뜻한다.
+    <ul>
+      <li>구조화된 관계형 데이터베이스에서 사용된다.</li>
+    </ul>
+  </li>
+  <li>SELECT FROM WHERE LIKE 등의 명령어로 데이터를 이용한다.</li>
+  <li>데이터베이스에서 일어나는 트랜잭션의 안정성을 보장하기위해 ACID가 있다.
+    <ul>
+      <li>Atomicity</li>
+      <li>Consistency</li>
+      <li>Isolation</li>
+      <li>Durability</li>
+    </ul>
+  </li>
+  <li>SQL이 있으면 문서지향형의 NoSQL도 있다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>대학시절 가장 열심히 공부하고도 비쁠의 역사로 남은 과목이 데이터베이스였다. 문과 감성의 대학생활에 이과 감성의 소프트웨어공학 msg를 가미하게 되면서 가장 공감했던 짤이 있었는데 ABC쓰다가 갑자기 미적분으로 넘어가 있는 짤이었다. 그리고 DB할때 그랬었다. 분명 SELECT FROM WHERE 까지는 ‘음 쉽군’ 했었는데 갑자기 필터 조건들 추가되고 정렬하고 그러기 시작하면서 후우..</p>
+
+<p>그리고 두번째 데이터베이스와의 간접 만남이 컴퓨터활용능력을 취득할때였다. access를 이용해서 데이터에 쿼리를 작성하는데 그때도 후우…</p>
+
+<p>그리고 데이터베이스를 또 만났다. 하지만 미운정이 들었다고 좀 자세히 파보고 싶은데 이번 과정중에 데이터베이스를 굉장히 짧은 기간안에 짚고 넘어가는 느낌이 있다. 과거의 ptsd를 극복하기 위해서라도 추후 따로 데이터베이스 관련한 글을 작성해서 정리할 것이다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+
+<ul>
+  <li>sql은 뭔데??</li>
+  <li>query를 알아듣게 설명해봐</li>
+  <li>ACID</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+<p>In-Memory방식과 파일방식으로 이미 데이터를 저장하고 사용할 수 있는데 왜 굳이 DB와 sql을 이용하여 데이터를 사용하는 이유에 대해 생각해보자.</p>
+
+<p>먼저 <strong><em>In-Memory에서 데이터는 프로그램이 실행될때만 존재하게 된다.</em></strong> 따라서 갑자기 프로그램이 종료되는 예기치 못한 상황에 처하거나, 애초에 프로그램이 실행되지 않은 상태라면?? 데이터들의 수명은 끝날 것이다.</p>
+
+<p>그러면 파일 io를 이용하면 되지 않나?? 삭제만 하지 않는다면 데이터는 영속적으로 저장할 수 있을 것이다. 하지만 필요한 데이터만 골라오는 것이 아닌 <strong><em>파일 전체를 열어 탐색</em></strong>해야하고, 파일이 많아진다면 관리가 힘들어진다.</p>
+
+<p>따라서</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>데이터의 수명이 프로그램 실행에 의존적이지 않고
+대규모 데이터 관리에 용이하며
+필터링을 통해 원하는 데이터를 추릴 수 있는
+</code></pre></div></div>
+
+<p>데이터베이스가 존재한다.</p>
+
+<h3 id="1-sql">1. SQL</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>structured query language - 구조화된 질의문
+</code></pre></div></div>
+
+<p>질의가 뜻하는 바는 유추하기 쉬울 것이다. 데이터를 추리기 위한, 필터링 하기 위한 <strong><em>구조화된 질의</em></strong>가 될 것이다. 이를 관계형 데이터베이스에서 사용하게 된다. 그리고 SQL은 <strong><em>구조화된 데이터베이스</em></strong>에서 사용된다. 문서지향형 데이터베이스인 NoSQL에서는 사용하지 않는다.</p>
+
+<p>단순히 검색만 생각하지말자. 관계형 데이터베이스에서 데이터를 관리할때는 데이터 삽입의 작업도 있을 것이다.</p>
+
+<p><br /></p>
+
+<h3 id="2-sql-명령어">2. SQL 명령어</h3>
+<p>기본부터 보자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT 특성
+FROM 테이블이름
+WHERE 필터 ex(특성 = "~~")
+</code></pre></div></div>
+
+<p>그리고 이러한 데이터베이스가 있다고 가정해보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>호텔 방문 리스트
+
+성별 나이 국적
+M  21  CZE   
+M   8  FRA
+F  10  KOR
+M  32  JAP
+F  28  KOR
+</code></pre></div></div>
+
+<p>위 두개를 보고 사용법을 유추해 본 후 보도록 하자.</p>
+
+<p>그리고 적용을 시켜보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT 나이
+FROM 호텔 방문 리스트
+WHERE 성별 = M
+</code></pre></div></div>
+
+<p>이러면 21 / 8 / 32 이렇게 데이터가 추출 될 것이다.</p>
+
+<p>위는 기본일 뿐 실제 데이터베이스를 이용하게 되면 필터링이 이렇게 단순할리는 없다. 그래서 where는 아래의 명령어들을 추가하여 다양하게 사용 가능하다</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=           동일한 데이터를 찾아라
+&lt;&gt;          제외한 데이터를 찾아라
+&gt; &lt; &gt;= &lt;=   (이건 당연히 알거고)
+LIKE %~~%   ~~와 비슷한 값
+IN          리스트의 값들과 일치하는
+IS NULL     값이 없는 경우
+IS NOT NULL 값이 없는 경우는 제외
+</code></pre></div></div>
+
+<p>여기서 멈출 수 없다. 심화??로 가보자. 더 나아가자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>필터로 데이터를 추출하는 것뿐만 아니라 정렬 또한 가능하다.
+    ORDER BY  (DESC) - 오름차순 / (내림차순)
+
+출력 데이터의 갯수 지정도 가능하다.
+    LIMIT 숫자
+
+SELECT에 DISTINCT를 사용하면 유니크한 값들만 선택 가능하다.
+
+INNER JOIN
+    SELECT *
+    FROM 테이블 1
+    JOIN 테이블 2 ON 테이블 1 = 테이블 2
+공통 부분으로 테이블 두개를 연결한다.
+
+OUTER JOIN
+    LEFT, RIGHT 지정으로 INCLUSIVE 지정 가능
+</code></pre></div></div>
+
+<p>이쯤에서 무너졌었다.</p>
+
+<p><br /></p>
+
+<h3 id="3-acid">3. ACID</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>데이터베이스에서 트랜잭션 상황에서의 안정성 보장을 위한 성질
+</code></pre></div></div>
+
+<p>언제나 그랬듯 정의로부터 딱딱한 정의로부터 시작하자. 그렇다면 트랜잭션이란 뭐고?? 안정성이란 무엇일까??</p>
+
+<p>메이플이나 바람의나라, 아키에이지, 검은사막 등 많은 rpg를 순위에 집착해서 해본 경험이 있다. 물론 게임초기에 순위권 경쟁이 널널할때만 그랬었다. 한달정도??</p>
+
+<p>무튼, rpg게임에서 랭킹을 올리는데 가장 중요한 레벨업의 근간이 되는건 좋은 무기를 가지는 것이다. 그리고 좋은 무기를 가지려면 게임내에서 그 무기를 살 수 있는 돈이 있어야 했다. <strong><em>이때 그 거래를 한번 예시로 삼아보자</em></strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>거래상황
+
+지존전사신재 -&gt; zzxcxz  1억메소
+zzxcxz -&gt; 지존전사신재  공10노목
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ul>
+  <li><strong><em>거래라는 상황은 부수적인 작업들이 완료되어야 한다.</em></strong> related to <strong>Atomicity 원자성</strong></li>
+</ul>
+
+<p>게임에서의 거래는 돈을 올리고 수락을 누르면 끝이지만, 서버와 데이터베이스 상에서 역시 간단할까?? <strong><em>아니다.</em></strong> 메이플 데이터베이스 상의 테이블 구조가 어떤지는 모르겠지만 이런 작업들이 수반 될 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 지존전사신재의 데이터베이스에서 돈 1억을 감소시킨다.
+2. zzcxcz의 데이터베이스에 돈 1억을 증가시킨다.
+
+    (하나의 거래창이지만 나눈 이유기 있다.)
+
+1. zzcxcz의 데이터베이스에서 공10노목을 제거한다.
+2. 지존전사신재의 데이터베이스에 공10노목을 추가한다.
+</code></pre></div></div>
+
+<p>그러니까 하나의 트랜잭션은 이러한 작업들이 모두 완료가 되어야 한다는 것이다.</p>
+
+<p>그런데 말입니다… 하나의 작업이 완료되지 않았다면요???</p>
+
+<p>예시의 트랜잭션 상황은 이루어지면 안된다. 데이터베이스의 구조를 흔들기 때문이다. 이와 관련된 것을</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Atomicitiy(원자성) - 전부 성공하거나 전부 실패해서 결과를 예측한다.
+</code></pre></div></div>
+
+<p>이라고 한다. <strong><em>하나라도 실패한다면 트랜잭션 이전 상황으로 돌려야 할 것이다.</em></strong></p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong><em>거래 이후 데이터베이스의 상태는 이전과 같이 유효해야한다.</em></strong> related to <strong>Consistency 일관성</strong></li>
+</ul>
+
+<p>데이터베이스의 상태는 거래 이전 이후가 일관되어야 한다.</p>
+
+<p>데이터베이스에서 필수로 기록되어야 하는 값들이 있을 것이다. 위 상황은 유저간의 거래를 가정했지만 만약</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>버그를 사용해서 거래창에서 상대방이 없는데 돈을 복사했다면??
+</code></pre></div></div>
+
+<p>그러면 데이터베이스에서 상태의 일관성이 사라지게 될 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>이해를 위한 것일 뿐..
+
+1.                       2.
+거래 데이터베이스            거래 데이터베이스
+닉네임      가진 돈         닉네임      가진 돈
+지존전사신재  -1억                     -1억
+zzcxcz     +1억          zzcxcz     +1억
+</code></pre></div></div>
+
+<p>2의 경우면 돈은 조상이 준건가??</p>
+
+<p>그리고 내 계정이 삭제되면 지존전사신재만 사라지는 것이 아닌 같이 기록되었던 돈들도 모두 사라진다.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong><em>모든 거래는 독립적이다.</em></strong> related to <strong><em>Isolation 고립성(격리성)</em></strong></li>
+</ul>
+
+<p>위의 거래예시에서 돈과 아이템이 이동하는 것을 나눈 이유는 무엇일까?? 거래를 진행하면 한번에 이루어지는 일이기 때문에 하나의 트랜잭션처럼 보임에도 나눈 이유는</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>모든 트랜잭션은 다른 트랜잭션으로부터 독립되어야 하기 때문이다.
+</code></pre></div></div>
+
+<p>즉, 돈의 이동 트랜잭션, 아이템의 이동 <strong><em>트랜잭션이 연속되어 빠르게 일어나기때문에</em></strong> 한번에 일어나는 일 처럼 봉리 뿐이다.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong><em>해당 거래의 로그가 남아야 한다.</em></strong> related to <strong><em>Durability 지속성</em></strong></li>
+</ul>
+
+<p>돈 거래건, 공노목 거래건에 대한 로그가 남아야한다. 로그가 남지 않으면 거래는 없던 일로 된다.</p>
+
+<p><br /></p>
+
+<h3 id="4-nosql">4. NoSQL</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>문서지향형 비관계형 데이터베이스
+</code></pre></div></div>
+
+<p>이건 기록 후 추후에 SQL부터 이해하고 보자. 욕심부리다가 섞이면 해야될 것도 못한다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#db" class="page__taxonomy-item p-category" rel="tag">DB</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-08-04T00:00:00+09:00">04 Aug, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+2+DB%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-DB%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-DB%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-2-DB%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/CORS,-XSS,-CSRF%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="CORS, XSS, CSRF에 관하여
+">이전</a>
+    
+    
+      <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/String,-StringBuffer,-StringBuilder%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" class="pagination--pager" title="String 형제들에 관하여 (Builder, Buffer)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/" rel="permalink">Spring MVC 혼자 해보기 - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+09:00">26 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  혼자 연습해보는 과정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="permalink">Section 2 Spring MVC - Controller
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-19T00:00:00+09:00">19 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  내가 할 것
+  웹 어플리케이션 설계, 구성, 테스트 등
+  API 계층
+  클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API
+  웹 구성(presentation(api) - application(service) - data access)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="permalink">Section 1 회고
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-18T00:00:00+09:00">18 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week5]
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 2 DB"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
