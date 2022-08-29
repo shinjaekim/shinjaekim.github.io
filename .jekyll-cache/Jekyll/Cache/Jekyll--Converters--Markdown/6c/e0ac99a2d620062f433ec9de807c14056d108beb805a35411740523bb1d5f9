@@ -1,0 +1,103 @@
+I"f<h2 id="why">WHY??</h2>
+<ol>
+  <li>내 이름이 들어간 깔끔한 url을 가지고 싶었다.</li>
+  <li>맛보기로 배운 html과 css를 직접 활용해보고 싶었다.</li>
+  <li>처음 접해보는 방식이라 흥미로웠다.
+    <ul>
+      <li>일단 해보는걸 좋아한다.</li>
+    </ul>
+  </li>
+  <li>git이랑 친해지고 싶었다.</li>
+</ol>
+
+<p>블로깅을 해야겠다고 마음먹고는 노션 블로그를 이용했었는데 점점 github블로그가 맘에 들기 시작했다. 그리고 바로 검색을 해보면서 방법론들을 찾아보았던 것 같다. 찾다가 찾다가 뭔가 복잡해보이는데 자유도도 그만큼 더 커보인다는 생각이 뇌리에 박힌 순간 안하고 버틸수가 없었다.</p>
+
+<p>일단 뭐든 해보는 편이긴 하다. 경험상 수박 겉핥기처럼 되어버린 날도 많지만 결국은 큼지막하게 뭔가 남긴 하더라고… 그래서 당장 해야할 복습은 미래의 나에게 부탁하고 일단은 깃허브 페이지를 만들기로 했다.</p>
+
+<p>정말 막 터미널을 이용해서 Git을 깔았던 나에게 ruby?? gem?? bundler?? jekyll?? 이게 다 뭔데?? 라는 생각이 너무나도 들었지만.. 쨌든 만들어서 뿌듯하잖아!! (사실상 테마 도용이지만 내가 수정도 했으니까)</p>
+
+<h2 id="생각했던-진행-방향">생각했던 진행 방향</h2>
+<ol>
+  <li>깃허브 페이지 만드는 방법을 정리한 블로그를 찾는다.</li>
+  <li>따라하면서 내 것으로 만들자.</li>
+</ol>
+
+<h2 id="난관">난관</h2>
+<ol>
+  <li>이것들은 뭘까? 왜 설치할까?
+    <ol>
+      <li>jekyll이 뭐야??</li>
+      <li>ruby는 또 뭐야?</li>
+      <li>rbenv???</li>
+      <li>rbenv 버전은 왜 안깔리는데?</li>
+      <li><a href="https://shinjaekim.github.io/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/github-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%99%80-%EB%A3%A8%EB%B9%84,-%EC%A7%80%ED%82%AC%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/">이 부분은 여기를 누르세요</a></li>
+    </ol>
+  </li>
+  <li>테마를 받았어도 그래도 html css에 발톱정도는 넣었다 뺏는데 구조 좀 손보고 싶은데??
+    <ol>
+      <li>근데 뭔 파일 봐야해</li>
+      <li>아니 커스터마이징 어떻게 해</li>
+    </ol>
+  </li>
+  <li>글을 써야지 이제??
+    <ol>
+      <li>ㅋㅋㅋ 지쳐버렸어 편한 에디터 찾아줘</li>
+      <li>결국 마크다운 언어를 익혀야 겠군</li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="how">HOW</h2>
+<p>어쨌든 성공했다. 그리고 어느정도 이해했고, 앞으로 더 알아가 보도록 할 것이다.</p>
+
+<ul>
+  <li>방법은 두가지인것 같다.
+    <ol>
+      <li>html, css로 구조와 디자인 모두를 <em>직접</em> 하겠다.</li>
+      <li>고수들이 만들어 놓은 테마를 이용하겠다.</li>
+    </ol>
+  </li>
+</ul>
+
+<p>나는 1번은 나중에 해보기로 하고 2번을 골랐다. 1번으로 했다간 배와 배꼽이 바뀌었을 것이 분명하다.</p>
+
+<p>이경우 일단</p>
+
+<h3 id="1-jekyll-테마를-고르도록-하자">1. jekyll 테마를 고르도록 하자.</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(http://jekyllthemes.org/)
+(https://github.com/topics/jekyll-theme)
+(http://themes.jekyllrc.org/)
+(https://jekyllthemes.io/free)
+</code></pre></div></div>
+
+<h3 id="2-folk-한-이후-원격-레포지터리-설정을-변경한다">2. folk 한 이후 원격 레포지터리 설정을 변경한다.</h3>
+
+<p>마음에 드는 테마를 골랐다면 fork해여 레포지터리로 가져온다.</p>
+
+<p>그리고 설정을 다음과 같이 하자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- settings -&gt; General -&gt; '깃헙유저네임.github.io' 기입
+    
+- pages를 눌렀을때 이것이 보인다면 여기까지는 성공
+    - Your site is published at '위 주소'
+</code></pre></div></div>
+
+<h3 id="3-로컬-레포지터리를-생성한다">3. 로컬 레포지터리를 생성한다.</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone "레포지터리 주소"
+</code></pre></div></div>
+
+<h3 id="4-bundle-명령어-실행">4. bundle 명령어 실행</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-여기까지 잘 되었는지 확인해보자
+&gt;bundler exec jekyll serve  
+로컬에서 지킬이 호스팅 되어 추후에 포스트 작성시에도 굉장히 유용하다.
+</code></pre></div></div>
+
+<hr />
+
+<p>사실 위 단계까지만 확인해도 디자인이나 구조를 안건드릴 거라면 그대로 사용하면 된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_posts 디렉토리에 '날짜-제목.md'로 파일을 작성하면 된다.
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,138 @@
+I"))<p>[week7]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>순열은 순서가 있다. (123 과 321은 다름)</li>
+  <li>중복 순열을 뽑았던 거 또 뽑을 수 있다. (한 턴에서)</li>
+  <li>조합은 순서가 없다. (123이나 321 둘다 같다.)</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>쓸모없는 공부는 없다. 순열 조합이 반가울 줄이야.. 하지만 언제나처럼 막상 내 손으로 옮겨 적으려니 녹록치가 않다.</p>
+
+<p>앞 문단을 재귀호출 하도록 하자. 물론 탈출구는 없다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>순열 말해봐라
+    <ul>
+      <li>중복 순열은??</li>
+    </ul>
+  </li>
+  <li>조합 말해봐라</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1-순열과-조합">1. 순열과 조합</h3>
+
+<p>순열과 조합은 가까운듯 먼 듯 한 관계였다. 한창 가까이 두고 써먹을 때도 있었고 언제 그랬냐는듯 멀어져서 그런게 존재 했었나 싶을 때도 있었다. 여하튼 정리하면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>순열은 순서를 생각함
+
+조합은 순서를 생각하지 않음
+</code></pre></div></div>
+
+<p>그러니까 ABCDE 5명중 회장 - 부회장을 뽑으면 A-B 와 B-A는 다르다. 이 경우는 순열이다.</p>
+
+<p>하지만 갑자기 회장과 부회장의 지위가 동등해져서 나눌 필요가 없어졌다고 가정해보자. 이 경우에는 A-B 와 B-A가 사실상 같다. 즉 이 경우는 조합이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n개에서 p개를 뽑는경우
+
+순서를 생각하면
+순열
+n! / (n-p)!
+
+순서를 생각 안하면
+조합
+n! / (n-p)!p!
+</code></pre></div></div>
+
+<p>왜 그러하냐</p>
+
+<p>순열부터 봐보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5명중 2자리 o o
+
+첫번째에는 5명의 선택가지, 두번째는 앞에 뽑힌 한명을 제외한 4명의 선택가지
+
+따라서 5 * 4
+</code></pre></div></div>
+
+<p>이게 왜 n! / (n-p)! 으로 표현되는가?</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n!는 5 * 4 * 3 * 2 * 1  -&gt; 5명을 줄 세우는 경우의 수
+
+이 상태에서 위의 경우를 대입하면 
+이미 맨 앞자리와 두번째 자리의 줄 줄 세운 경우
+필요없는 뒷자리들간의 순열 3 * 2 * 1 만큼의 경우가 매번 중복된다.
+
+따라서
+
+(n-p)! 로 나눈다.
+</code></pre></div></div>
+
+<p>그렇다면 조합은 왜 n!을 더 나눠줄까??</p>
+
+<p>또 들여다보자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5명중 회장과 부회장을 뽑는다. o &lt;- 회장 o &lt;- 부회장
+
+순열의 경우를 그대로 가져와보자. 앞서 이미 두명을 줄세우는 경우를 계산했다.
+
+조합은 순서에 상관없으니까, 2명 A-B와 B-A는 같은 경우이다.
+따라서 2!을 더 나눠준다.
+n명을 조합한다면 n!을 나눠주게 되겠다.
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="2-순열과-조합의-코드">2. 순열과 조합의 코드</h3>
+
+<h4 id="a-순열">a. 순열</h4>
+<p>예시</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">[]&gt;</span> <span class="nf">permutation</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="nc">String</span><span class="o">[]</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]{</span><span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"D"</span><span class="o">,</span> <span class="s">"E"</span><span class="o">};</span>
+    <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">[]&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">test</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">test</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">test</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="o">||</span> <span class="n">j</span> <span class="o">==</span> <span class="n">k</span> <span class="o">||</span> <span class="n">k</span> <span class="o">==</span> <span class="n">i</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+            <span class="nc">String</span><span class="o">[]</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]{</span><span class="n">test</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">test</span><span class="o">[</span><span class="n">j</span><span class="o">],</span> <span class="n">test</span><span class="o">[</span><span class="n">k</span><span class="o">]};</span>
+            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>반복문의 중첩 횟수는 뽑을 횟수와 같다.</p>
+
+<h4 id="b-조합">b. 조합</h4>
+<p>예시</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">[]&gt;</span> <span class="nf">combination</span><span class="o">()</span> <span class="o">{</span>
+	
+  <span class="nc">String</span><span class="o">[]</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]{</span><span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"D"</span><span class="o">,</span> <span class="s">"E"</span><span class="o">};</span>
+  <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">[]&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">test</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">test</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">test</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]{</span><span class="n">test</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">test</span><span class="o">[</span><span class="n">j</span><span class="o">],</span> <span class="n">test</span><span class="o">[</span><span class="n">k</span><span class="o">]};</span>
+				<span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+:ET

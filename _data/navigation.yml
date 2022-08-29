@@ -3,8 +3,8 @@ main:
  
  #- title : "개발 공부"
   # url: /about/
-  - title: 학습 유형 별 분류
+  - title: Section vs 개인탐구
     url: /categories/
 
-  - title: 기술 별 분류
+  - title: 백엔드 로드맵 분류
     url: /tags/

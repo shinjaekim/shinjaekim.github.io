@@ -1,0 +1,48 @@
+I"g<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>maven과 gradle을 이해하는 것 (파고들어서 분석하고 그런 것은 아니니 그런 것을 원한다면 돌아가세요)</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>자바 복습</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>내 머리속의 개념들의 모호함을 구체화해야 하지 않겠는가??</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+<p>어제 정리한 runtime, compiletime, build와 같이 맨날 궁금해 해놓고 구체화 하지 않은 지식 중 하나이다. 마치 맨날 경제 뉴스를 보면서</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>아 이제는 경제용어를 좀 공부해서 활용해봐야지
+</code></pre></div></div>
+
+<p>하면서도 미루고만 있었던 과거의 경영학을 배우던 나와 과거의 나에게 탓을 돌리고 있는 현재의 내가 그래왔듯이</p>
+
+<p>maven과 gradle은 왜 존재하는 것일까??</p>
+
+<h3 id="중간답">중간답</h3>
+<p>일단 찾아보니 생각보다 금방 명료해졌다. build란 무엇인가 정리할때 스택오버플로우에서 다음과 같은 답변을 봤었다.</p>
+
+<p>빌드란</p>
+
+<p>1.Generating sources (sometimes).
+2.Compiling sources.
+3.Compiling test sources.
+4.Executing tests (unit tests, integration tests, etc).
+5.Packaging (into jar, war, ejb-jar, ear).
+6.Running health checks (static analyzers like Checkstyle, Findbugs, PMD, test coverage, etc).
+7.Generating reports.</p>
+
+<p>이와 같은 과정이고, 컴파일은 빌드에 속하는 부분이라고..</p>
+
+<p>maven과 gradle은 위 순서들을 자동으로. 즉, 개발자가 일일이 하지 않아도 되도록 해주는 <strong><em>빌드관리도구</em></strong>이다.</p>
+
+<p>그렇다면 생각보다 답이 금방 나온 김에… maven과 gradle을 조금만 더 파보도록 하자</p>
+
+<p><img src="https://dev-coco.tistory.com/65" alt="이분꺼 보고 같이 공부하시죠" /></p>
+
+<p>나도 추후에 다시 돌아와서 채워보도록 해야겠다.(20220813)</p>
+:ET

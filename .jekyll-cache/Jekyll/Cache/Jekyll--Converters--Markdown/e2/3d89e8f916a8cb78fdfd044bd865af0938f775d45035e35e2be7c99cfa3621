@@ -1,0 +1,130 @@
+I"-#<p>[week5]</p>
+
+<h2 id="간단정리">간단정리</h2>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1-람다식-lamda">1. 람다식 (Lamda)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>함수형 프로그래밍 기법을 지원하는 자바의 문법요소
+=
+익명 객체를 더욱더 간단하게 사용하고 싶은 개발자의 니즈가 반영된 산물
+</code></pre></div></div>
+
+<p>자바를 맨 처음 접했을때 봤던 구문이 생각난다. 정확히 읊을 수는 없지만 자바가 객체지향을 기반으로 한 프로그래밍이고, 다른 방식으로 함수형 프로그래밍이 있다??? 이런 기억이 난다. 그러니까 객체지향에서 부족했던 함수형을 더한게 아닐까??</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>메서드를 하나의 식으로 표현한다.
+</code></pre></div></div>
+
+<p>코드가 매우 간결해 지겠다.</p>
+
+<h4 id="a-특징">a. 특징</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>반환타입과 이름을 생략한다.
+반환타입이 있는 경우 return문과 문장 뒤의 ; 생략 가능
+바디에 실행문이 하나만 있으면 중괄호 생략 가능
+매개변수의 타입 유추 가능할 경우 타입 생략 가능
+</code></pre></div></div>
+
+<p>first of all, let’s see the code. A picture is worth 1000 words.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="o">.</span>
+
+<span class="kt">void</span> <span class="nf">sayMyName</span><span class="o">(){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"내 애름이 뭐라고? 코딩 밀당 남"</span><span class="o">);</span>
+<span class="o">}</span>  
+
+<span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"내 이름이 뭐라고? 코딩 밀당 남"</span><span class="o">);}</span>
+<span class="c1">// 애초에 반환타입이 없어도 명시해야 했던 void 와 sayMyName이라는 메서드 이름이 생력되었다.</span>
+
+<span class="mi">2</span><span class="o">.</span> <span class="n">in</span> <span class="k">case</span> <span class="n">of</span> <span class="n">parameter</span>
+
+<span class="nc">String</span> <span class="nf">getMyName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
+    <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span><span class="k">return</span> <span class="n">name</span><span class="o">;}</span>
+
+<span class="c1">// 선언부의 매개변수와 바디만 '-&gt;' 로 연결해주자</span>
+</code></pre></div></div>
+
+<h4 id="b-람다식도-객체다">b. 람다식도 객체다.</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사실은 익명 객체. 익명 클래스
+    선언과 생성을 동시에 하여 단 한번만 사용되는 일회용 클래스
+</code></pre></div></div>
+
+<p>이런식으로</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nc">Object</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">sayMyName</span><span class="o">(){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"내 애름이 뭐라고? 코딩 밀당 남"</span><span class="o">);</span>
+    <span class="o">}</span>  
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>근데 선언과 동시에 생성하여 <strong><em>단 한번만 사용</em></strong>되니까.. 저걸 참조변수에 담아줘도, 다음에 어떻게 메서드를 불러올껀데?? 이거로는 직관적인 이해가 힘드니까 더 풀어서 다시,</p>
+<ul>
+  <li>이부분은 다시 공부하고 풀어쓰도록 할 것이다. 0731</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="nc">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">()</span> <span class="o">{</span>
+<span class="mi">2</span>    <span class="kt">void</span> <span class="nf">sayMyName</span><span class="o">(){</span>
+<span class="mi">3</span>    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"내 애름이 뭐라고? 코딩 밀당 남"</span><span class="o">);</span>
+<span class="mi">4</span>    <span class="o">}</span>  
+<span class="mi">5</span> <span class="o">}</span>
+<span class="mi">6</span>
+</code></pre></div></div>
+<p>1번 obj에 담아줬다 하다라도 1회용 클래스라서 다시 sayMyName을 어떻게 불러올건데?? -&gt; 이게 맞나??</p>
+
+<p>그래서 람다가 등장한다. 위 코드를</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">interface</span> <span class="nc">SaySomeonesName</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">sayMyName</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="nc">Class</span> <span class="nc">LamdaTest</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+
+        <span class="nc">SaySomeonesName</span> <span class="no">SMN</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"내 이름이 뭐라고? 코딩 밀당 남"</span><span class="o">)};</span>
+
+        <span class="n">or</span>
+
+        <span class="nc">SaySomeonesName</span> <span class="no">SMN</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"내 이름이 뭐라고? 코딩 밀당 남"</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">or</span>
+
+        <span class="nc">SaySomeonesName</span> <span class="no">SMN</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{};</span>  <span class="c1">// 선언과 대입을 따로 해준다면</span>
+
+        <span class="no">SMN</span> <span class="o">=</span> <span class="o">()-&gt;</span> <span class="n">위</span> <span class="n">두가지</span> <span class="n">써주면</span> <span class="n">된다</span><span class="o">.</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>결국 자바는 객체지향 방식의 프로그래밍 언어 아니던가. 예외는 없다. 따라서 람다 또한 ‘함수형 인터페이스’를 통해 구현된다.</p>
+
+<p>구현을 위한 재료들을 생각해보자
+    인터페이스, 익명클래스</p>
+
+<p>익명클래스로 인터페이스에 정의된 추상메서드를 구현한다.</p>
+
+<h4 id="c-메서드-참조">c. 메서드 참조</h4>
+
+<hr />
+
+<h4 id="2-스트림-stream">2. 스트림 (Stream)</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>배열, 컬렉션, 맵에 람다식 사용
+-&gt;
+데이터 소스를 다루는데 용이
+</code></pre></div></div>
+:ET

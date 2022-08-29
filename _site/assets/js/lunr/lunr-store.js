@@ -305,14 +305,14 @@ var store = [{
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "Section 1 회고",
+        "title": "Section 2 회고",
         "excerpt":"[week5] 느낀점 선선한 바람이 불어와 나뭇잎이 들썩거리길래 나뭇잎을 집어보니 바람은 그곳에 없었다. 하지만 바람에 더해진 향긋한 향기가 느껴져 꽃을 마주보았을때 향기는 더 강해졌다. 나의 바람은 바람만으로 남으면 안 될 것이다. 바람에 노력이라는 향기를 더해서 더더욱 발전해야 겠다. 요즘 나는 바람만 있다. 허풍이다. 배운 것들 키워드 재귀함수 알고리즘 그리디 자료구조 스택...","categories": ["코드스테이츠"],
         "tags": ["회고"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/",
         "teaser": null
       },{
-        "title": "Section 2 Spring MVC - Controller",
-        "excerpt":"[week9]  간단정리     내가 할 것   웹 어플리케이션 설계, 구성, 테스트 등   API 계층   클라이언트로부터 들어오는 요청을 직접적으로 전달 받는 API   웹 구성(presentation(api) - application(service) - data access)       느낀점       스스로 답해보기       정리  ","categories": ["코드스테이츠"],
+        "title": "Section 3 Spring MVC - Controller",
+        "excerpt":"[week9] 간단정리 MVC는 model, view, controller의 약자 MVC는 Spring에서 웹 계층을 담당하는 프레임워크 controller는 클라이언트의 엔드포인트 느낀점 짧지만 가장 현 기분을 잘 표현한 한마디는 ‘정신 똑바로 차리자’ 스스로 답해보기 MVC는 무엇인가? MVC 동작 방식을 설명해보자 Controller는 어떤 의미를 갖는가? 정리 본격적으로 클라이언트에 요청한 http message를 전달 받아 비즈니스 로직을 실행하여...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/",
         "teaser": null
@@ -327,5 +327,11 @@ var store = [{
         "excerpt":"이 글에 담긴 것 patchDto의 필드변수 설정 공부하던 부분 API계층 Dto 만들기 의문점 patchdto의 필드변수는 어떤 것들이 들어가야 하는가?? 정리 먼저 DTO는 왜 만드는가를 생각해보아야 한다. 예제를 통해 알아보자. @PostMapping public ResponseEntity postGate(@RequestParam(\"number\") int number, @RequestParam(\"rentStatus\") boolean rentStatus, @RequestParam(\"price\") int price){ Map&lt;String, Object&gt; map = new HashMap&lt;&gt;(); map.put(\"number\", number); map.put(\"rented\",...","categories": ["개인탐구"],
         "tags": ["Spring"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
+        "teaser": null
+      },{
+        "title": "Sring MVC 흐름에 관하여",
+        "excerpt":"간단정리 - 느낀점 스스로 답해보기 정리 controller부터 jdbc까지 공부를 했지만 전체적인 흐름으로 다가오지 않아서 정리를 하고 넘어가려고 한다. 1. http message요청 클라이언트에서 http message를 요청한다 POST PATCH GET DELETE 2. Controller 클라이언트에서 요청한 http message가 JSON형식으로 엔드포인트인(클라이언트 입장에서) 서버의 controller에 도착한다. 2-1 DTO POST와 PATCH의 경우 responsebody를 포함하고 있다. 따라서...","categories": ["개인탐구"],
+        "tags": ["Spring"],
+        "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-mvc-%ED%9D%90%EB%A6%84%EB%8F%84/",
         "teaser": null
       }]

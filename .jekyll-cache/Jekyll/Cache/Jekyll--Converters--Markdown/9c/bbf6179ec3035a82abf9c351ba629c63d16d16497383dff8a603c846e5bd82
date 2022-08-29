@@ -1,0 +1,32 @@
+I"u<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>애너테이션은 무엇인가??</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>자바 복습</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>애너테이션에 대한 체계가 잡히질 않는다. 잡아봐야겠지??</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>애너테이션 - 주석
+</code></pre></div></div>
+
+<p>이라 함은 지금까지는 코드의 가독성을 상승시켜 개발, 유지, 보수에 도움이 되도록 하는 ‘사람’을 위한 글이라고 생각하고 잇었다. 그런데 웬걸?? ‘프로그램’을 위해서 애너테이션을 제공한다라??</p>
+
+<p>학습은 했다. 하지만 나는 멍청하다. 그래서 다시 정리한다. 쓰다보니 문도박사급의 언어력을 구사하고 있는 것 같다.</p>
+
+<p>무튼, 한글을 읽는다고 모든 것이 바로 이해되는 것은 아니다. 그렇다면 나는 이미 위인전에 나왔겠지</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ex) 네 행동의 준칙이 언제나 보편적 입법의 원리가 되도록 하라.
+</code></pre></div></div>
+
+<p>물론 위 급의 글은 아니다. 비슷하다는 이야기다.</p>
+
+:ET

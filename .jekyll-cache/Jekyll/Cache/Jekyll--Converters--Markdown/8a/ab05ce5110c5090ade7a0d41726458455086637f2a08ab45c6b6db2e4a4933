@@ -1,0 +1,378 @@
+I"F<p>[week7]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>네트워크
+    <ul>
+      <li>TCP/IP</li>
+      <li>IP</li>
+      <li>TCP UDP</li>
+      <li>PORT</li>
+      <li>URL DNS</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>공부하기 전</p>
+<ul>
+  <li>네트워크라 하면 연결망들을 뜻할테니 상호 연결에 관련된 규약과 방법론에 대해 배우지 않을까??</li>
+</ul>
+
+<p>공부 후</p>
+<ul>
+  <li>아… 뭐지??? ㅋㅋㅋㅋㅋㅋㅋ</li>
+  <li>
+    <p>개념들이 굉장히 모호하게 들어오는 이유는 습득하는 지식이 뭔지 정확히 이해하지 못한채 그냥 단어만 머리에 때려박았기 때문이라 생각해서 하나하나 깊게 생각을 해보았다. 그럼에도 아직도 모호하다.</p>
+  </li>
+  <li>일단 내가 관심을 가져야 할 분야는 웹 애플리케이션일거다. 이 웹 애플리케이션은 네트워크를 필수로 하는데</li>
+  <li>네트워크에 대해서 알아보면 지역별로 나누는 개념이 있고</li>
+  <li>네트워크 내에서 쓰이는 통신망 프로토콜은 TCP/IP이다.</li>
+  <li>이 프로토콜은 응용, 전송, 인터넷, 네트워크 연결의 4계층으로 나뉜다.</li>
+  <li>자동차들을 어떠한 방법으로 고속도로에 올리고 목적지에 도달할지.. 로 생각을 했다.</li>
+</ul>
+
+<p>간만에 느낀점을 정리하는 식으로 써보았다. 지금까지 www와 인터넷을 굳이 구별하려는 시도 없이 컴퓨터를 사용해와서 굉장히 모호하게 느껴졌다. 계속 두고두고 보면서 업데이트 해야 할 부분이라 생각한다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>웹 애플리케이션의 동작 원리는??
+    <ul>
+      <li>웹 브라우져</li>
+      <li>서버</li>
+      <li>클라이언트</li>
+    </ul>
+  </li>
+  <li>실제 통신은 어떻게 이루어지는가??</li>
+  <li>웹 애플리케이션과 네이티브 애플리케이션을 구분해봐라</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="1-정확히-알고가자">1. 정확히 알고가자.</h3>
+<p>애플리케이션은 <strong><em>웹 애플리케이션</em></strong>과 <strong><em>네이티브 애플리케이션</em></strong>으로 나뉜다. 네이티브부터 언급하자면, 안드로이드 스마트폰이나 아이폰에 설치하여 사용하는 애플리케이션들이 바로 그것이다. 반대로 웹 애플리케이션은 웹 브라우져를 통해 접근이 가능하다.</p>
+
+<p>각각의 장 단점을 비유로 설명해보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>액자를 설치하는 작업을 생각해보자.
+
+못을 박기 위해(어떤 동작을 위해) 망치가(애플리케이션이) 필요하다.
+
+만약 망치를   
+내가 직접 들고 - (오른손 왼손 등 내 몸과 상호작용 가능 - 리소스에 접근이 용이하다.)   
+못을 박는다면 누구와 대화할 필요도 없고 - (인터넷이 필요없다)   
+빠르게 작업을 완료할 수 있다. 
+
+하지만 망치를 타인이 알아서 들게하고(직접적인 상호작용은 불가)  
+내가 명령을 한다면 망치를 내가 들 필요가 없지만 (설치할 필요가 없다)    
+속도는 더 느릴 것이다.    
+</code></pre></div></div>
+
+<p>앞의 예시로는 큰 틀의 추상적인 개념만 잡고 넘어갔다.</p>
+
+<p>어쨌든.. 실행환경에 종속적이나 독립적이냐가 큰 차이를 보여준다고 생각한다.</p>
+
+<p>네이티브와 웹의 차이를 숙지하고 네트워크를 학습해보자.</p>
+
+<hr />
+
+<h3 id="2-네트워크">2. 네트워크</h3>
+<p>나는 백엔드 개발자가 되기위한 공부를 하고 있고, 백엔드는 웹 애플리케이션을 설계하고 구현하니까.. 웹 애플리케이션을 위해 네트워크를 알아보자.</p>
+
+<p>앞서 네이티브와 다르게 웹 애플리케이션은 인터넷이 필수라고 하였다. 즉 인터넷을 통하여 통신이 이루어져야 한다는 것이다. 그렇다면 각각의 컴퓨터들은 어떻게 상호통신을 할 수 있을까?? <strong><em>내 가까운 부분부터 거슬러 올라가보자.</em></strong></p>
+
+<p>일단 생각나는건 라우터이다. 라우터에 연결하면 인터넷에 연결된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>라우터 - 컴퓨터 네트워크 간에 데이터 패킷을 전송하는 네트워크 장치
+</code></pre></div></div>
+
+<p>딱딱한 언어로 라우터를 정의해보면 위와 같다. 실생활에서 쉽게 찾아볼 수 있는데 우리가 집에서 사용하는 공유기를 라우터라고 보면 되겠다. 이렇게 한 가정마다 공유기를 보유하고 있다면 서로 연결될 것이다. 그렇다면 네트워크는 어떻게 형성될까??</p>
+
+<p>우선 지역별로 구분하여 생각할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>지역별
+
+LAN - Local Area Network 거점
+MAN - Metropolitan Area Network
+WAN - Wide Area Network 세계
+
+LAN과 LAN을 이어 WAN을 만드는 과정에서 투자되는 통신설비에 대해 우리는 인터넷요금을 지불한다고 생각하면 된다.
+</code></pre></div></div>
+
+<p>그리고 각 거점들인 LAN이 WWW라는 정보 공유 공간에서 인터네트워크를 통해 연결되게 된다.</p>
+
+<p>여기서 …</p>
+
+<p>잠시 www부터 알고가자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WWW - World Wide Web
+    팀 버너스리에 의하여 창시
+    정보를 공유할 수 있는 '거미줄'처럼 엮인 공간
+    HTTP프로토콜 기반으로 브라우저로 HTML문서를 읽을 수 있도록 구성됨
+    저작권을 가지고 있던 CERN이 기술을 '무료'로 공개
+</code></pre></div></div>
+
+<p>쉽게 말해 www은 통신을 위한 공간이고, 무료로 공개되어 있다. 그러니까 <strong><em>인터네트워크(인터넷)</em></strong>과는 꼭 구분하자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>인터넷 - 인터네트워크 - 네트워크끼리 연결하는 네트워크
+    TCP/IP 프로토콜을 기반으로 구현된 통신망
+
+                    WAN 
+    LAN 1 &lt;-&gt; LAN 2 &lt;-&gt; LAN 3 &lt;-&gt; LAN 4
+    약식으로 거점 네트워크들이 위와 같이 있다고 가정하자.
+
+    LAN1에 문제가 발생해도 전체 네트워크 망에는 영향을 미치지 않는다.
+    그리고 1,2,3,4 각각의 방침을 적용할 수 있다.
+</code></pre></div></div>
+
+<p>이제 어느정도 구분이 되는 것 같다. 한번에 정리해서 보도록 하자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www -&gt; 'HTTP프로토콜'과 '인터네트워크'를 기반으로 대량의 데이터들을 전송하는 공간
+인터네트워크 -&gt; TCP/IP 프로토콜을 기반으로 구현된 통신망
+</code></pre></div></div>
+
+<p>그러니까 <strong><em>WWW는 TCP/IP 프로토콜을 기반으로 구현된 통신망(인터네트워크)과, 데이터를 전송하는 HTTP프로토콜을 기반으로 한 공간</em></strong> 이라고 할 수 있다.</p>
+
+<hr />
+
+<h3 id="3-tcp--ip">3. TCP / IP</h3>
+<p>지금까지 숙지한 것들을 간략하게 정리하고 넘어가보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 데이터 패킷을 전송하는 장치인 '라우터'를 여러 가정이 보유하고 있다.
+
+2. 통신망이 형성이 되었고
+
+3. WWW 공간에서 HTTP 프로토콜을 기반으로 데이터를 주고 받는다.
+</code></pre></div></div>
+
+<p>그렇다면 2번. 각각의 통신망들은 어떻게 연결이될까?? 그냥 ‘나 연결했소’ 이런식은 아닐 것이다. 한번은 이쪽에 한번은 저쪽에 연결하는 상황이 있다고 하면 서로 무조건 호환이 되는 것일까??</p>
+
+<p>주변에서 쉽게 볼 수 있는 안드로이드 폰들을 떠올려보자. 어디서 제조했든간에 스마트폰들의 충전은 C타입이다. 이렇게 제조사와 상관없는 공통된 규격을 만들어 놓게 되면 제조사 입장에서도 설계가 용이하고, 사용자 입장에서도 호환성이 높아지게 된다. 이런 이유에서 통신 또한 일반화된 규칙이 있는데 그것이 바로 <strong>TCP/IP</strong>이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TCP IP
+    Transmission Control Protocol
+    Internet Protocol - 인터넷 상에서 사용되는 주소체계 pc구분
+</code></pre></div></div>
+
+<h4 id="a-tcpip-4계층">a. TCP/IP 4계층</h4>
+
+<p>TCP/IP 로 묶어서 한번에 부르지만 세세히 들어가면 분명 <strong><em>TCP와 IP는 다르다.</em></strong> 계층을 통해 알아보도록 하자.</p>
+
+<p>(OSI, TCP/IP)</p>
+
+<p><img src="/assets/images/OSI TCPIP.png" alt="OSI 7계층과 TCPIP 4계층" /></p>
+
+<p>위 그림을 TCP/IP기준으로 4층부터 내려가며 분석해보자</p>
+
+<ul>
+  <li>4층 : 응용계층
+    <ul>
+      <li>사용자와 가장 가장 가까운 계층이다.</li>
+      <li>
+        <p>응용프로그램들이 데이터를 교환하기 위해 사용하는 프로토콜이다.</p>
+      </li>
+      <li>
+        <p>데이터 단위 : Data / Message</p>
+      </li>
+      <li>응용 프로토콜
+        <ul>
+          <li>HTTP</li>
+          <li>원격 로그인 : 텔넷</li>
+          <li>파일 전송 : FTP / TFTP</li>
+          <li>전자 메일 : SMTP / IMAP / POP</li>
+          <li>지원 서비스 : DNS / SNMP</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>3층 : 전송계층
+    <ul>
+      <li>
+        <p>계층 구조의 네트워크 구성요소와 프로토콜 내에서 송신자와 수신자를 연결하는 통신 서비스 제공</p>
+      </li>
+      <li>데이터 단위 : Segment</li>
+      <li>
+        <p>전송 주소 : Port</p>
+      </li>
+      <li>예시 : TCP UDP etc..
+        <ul>
+          <li>TCP -&gt; 네트워크 정보전달을 통제.. 프로그램간 일련의 옥텟을 에러없이 교환하도록</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>2충 : 인터넷 계층
+    <ul>
+      <li>네트워크상 최종 목적지까지의 연결성 제공</li>
+      <li>논리적인 주소인 IP를 단말기마다 할당</li>
+      <li>IP주소 까지의 경로 설정
+        <ul>
+          <li>IP주소의 경우 LAN 네트워크 내부에서 사용?? - Pirvate IP</li>
+          <li>인터넷에서 사용?? - Public IP</li>
+        </ul>
+      </li>
+      <li>데이터 단위 : 패킷</li>
+      <li>전송 주소 : IP</li>
+    </ul>
+  </li>
+  <li>1층 : 네트워크 연결 계층
+    <ul>
+      <li>
+        <p>네트워크에서 단말기로 데이터가 전송되는 방법을 정의</p>
+      </li>
+      <li>데이터 단위 : 프레임</li>
+      <li>전송 주소 : MAC (Media Access Control Address)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>위 정리만 보고 ‘오오 이런 계층으로 이어지는구나..’ 를 이해했다면 높은 확률로 거짓말입니다. 저도 일단은 따라 적었지 크게 이해는 안됐거든요.  <br />
+하지만 어느정도의 흐름은 잡힌다. <em>어플리케이션을 이용해서 데이터를 전달할 일이 생기면..(4층) TCP 프로토콜을 통해서 어찌어찌 정해진 순서에 맞게 데이터를 전송하는데(3층), 이는 논리적인 주소인 IP 주소 개념과, IP주소 할당을 통해서 이루어지며(2층), 최종적으로 단말기의 물리적인 MAC주소를 통하여 전송이 완료된다(1층)???</em></p>
+
+<p>이래선 안된다.</p>
+
+<p>그래서 추후 OSI7계층과 함께 블로깅을 진행해볼 것이다.(08-02)</p>
+
+<h4 id="b-tcp와-udp">b. TCP와 UDP</h4>
+<p>3층의 역할은 결국 무엇이었을까??</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>계층 구조의 네트워크 구성요소와 프로토콜 내에서 송신자와 수신자를 연결하는 통신 서비스 제공
+</code></pre></div></div>
+
+<p>자.. 한번 해보자..</p>
+
+<p>쉽게 가보자. 4층에서 송신자가 애플리케이션을 막 만지다가 전송해야할 데이터가 생겼다. 그러면 다른 컴퓨터와 연결하기 위해서 2층의 ip주소와 ip주소 경로 체계를 활용할 것이다.</p>
+
+<p>그러니까 자동차로 비유하면 자동차(데이터)와 집까지 가는 고속도로(ip주소와 경로)는 알고있다. 그러면 고속도로에는 어떻게 진입할것인가??</p>
+
+<p>3층 전송계층이 하는 것이 결국 자동차를 고속도로로 올리는 방법론?? <strong>데이터를 ip주소체계를 통할 수 있도록 중개하는 역할이다.</strong></p>
+
+<p>그리고 TCP 와 UDP를 비교해보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TCP                           
+    연결 지향적 프로토콜     
+    표적 기기까지의 전송 보장 - 신뢰성
+    전송 패킷들의 순서 보장
+    대신 속도는 느림
+
+UDP
+    데이타그램 지향적 프로토콜
+    전송을 보장하지는 않음
+    순서도 보장하지 않음
+    하지만 단순하고 빠름
+</code></pre></div></div>
+
+<h4 id="d-tcp의-작동3-way-handshake">d. TCP의 작동(3-way handshake)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     (1).-------SYN-------&gt;
+HOST (2).&lt;-----SYN,ACK----- SERVER
+     (3).-------ACK-------&gt;
+
+SYN - Synchronize Sequence Number
+ASK - Acknowledgement
+
+[해석]
+1. 나랑 연결할래?
+2. 응
+3. 그래.
+</code></pre></div></div>
+
+<p>근데 만약 아직 서버가 준비가 안되었거나?? 하는 이유로 저 단계를 여러번 반복해야 한다고 가정해보자. 엄청 빠른 컴퓨터라도 지연시간이 발생하지 않을까?? 이럴때는 UDP가 유리하다.</p>
+
+<h4 id="c-port-번호">c. port 번호</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>특정 애플리케이션을 특정하는 번호
+</code></pre></div></div>
+
+<p>IP주소는 컴퓨터에게 논리적 주소를 할당해서 컴퓨터로의 경로를 찾게는 해주지만 컴퓨터에서 실행되는 특정 애플리케이션을 지칭하지는 않는다. 위에서 기술했듯 포트는 이러한 이유로 쓰인다.</p>
+
+<p>0~65.535 까지의 포트번호를 부여할 수 있는데 그중 0~1023은 규약에 따라 이미 정해져있다고 한다.</p>
+
+<ul>
+  <li>0     ~  1023  - 시스템 사용번호 (슈퍼유저 권한 필요)
+    <ul>
+      <li>80  - http  - 웹서버 접속</li>
+      <li>443 - https - 웹서버 접속</li>
+      <li>110 - pop3 - 메일 읽기</li>
+      <li>25 - smtp - 메일서버간 메일 전송</li>
+      <li>22 - ssh - 컴퓨터 원격 로그인</li>
+      <li>53 - dns - dns 질의</li>
+      <li>123 - ntp - 시간 동기화</li>
+    </ul>
+  </li>
+  <li>1024  ~  49151 - 특정 프로토콜이나 어플리케이션</li>
+  <li>49152 ~  65535 - 임시 사용 번호</li>
+</ul>
+
+<hr />
+
+<h3 id="4url-dns">4.URL, DNS</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL - Uniform Resource Locator 
+    서버 제공 환경 하에 존재하는 파일의 위치
+</code></pre></div></div>
+
+<p>:scheme:—-:hosts:——-:url-path:——:query:  <br />
+ 통신방식—-도메인,IP—-경로와 파일명—-추가적인 질문</p>
+
+<p>이때 host의 도메인이란 무엇일까??</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP주소 대신 기억하기 쉽게 이름화 한것
+</code></pre></div></div>
+
+<p>www.~~~~.com    <br />
+sub / domain / TLD</p>
+
+<h4 id="a-부록---도메인-관리-업체">a. 부록 - 도메인 관리 업체</h4>
+
+<p><img src="/assets/images/Basic-DNS-registry-structure.jpeg" alt="사진으로 확인" />
+(출처 - <a href="https://www.temok.com/blog/icann-meaning-and-its-role/">ICANN 더 알아보기</a>)</p>
+
+<p>ICANN이라는 비영리단체가 도메인들을 관리하면</p>
+
+<p>registry라는 도메인 관리기관이 그 밑에 존재하고</p>
+
+<p>registrar라는 중개 등록업체가 도메인 정보를 등록한다.</p>
+
+<h4 id="b-도메인-종류">b. 도메인 종류</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gTLD - generic top level domain
+cctld - country code top level domain
+</code></pre></div></div>
+
+<h4 id="c-dns-작동-플로우">c. DNS 작동 플로우</h4>
+
+<p>일단 도메인 네임 서버는 크게</p>
+
+<p>루트 네임 서버, TLD관리 네임 서버, 권한 있는 네임 서버</p>
+
+<p>이렇게 3개로 구성된다.</p>
+
+<p>이제 www.naver.com 주소를 입력한다고 가정해보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 
+    DNS Lookup
+2. 
+    브라우저 : ip 주소 찾아와
+    리졸버 : 넵 형님
+3.
+    리졸버 : ROOT야 주소 가온나
+    ROOT : TLD관리로 가봐. 여기 -&gt; .COM
+4.
+    리졸버 : ROOT가 너한테 보내던데?
+    TLD : 권한있는 네임서버로 가봐. 여기 -&gt; naver.com
+5. 
+    리졸버 : 제발 마지막
+    권한있는네임서버 : 222.122.195.5
+6.
+    리졸버 : 22.122.195.5랍니다.
+7.
+    네이버 웹 서버로 ㄲ
+</code></pre></div></div>
+
+<p><img src="/assets/images/dns%20working.png" alt="사진으로 보자" />  <br />
+(출처 - rakesh jain 트위터)</p>
+:ET
