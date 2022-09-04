@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "maven과 gradle에 관하여"
+title:  "[개인] maven과 gradle에 관하여"
 
 categories:
     - 개인탐구

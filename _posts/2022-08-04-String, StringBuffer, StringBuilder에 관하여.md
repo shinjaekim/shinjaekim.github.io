@@ -1,6 +1,6 @@
 ---
 layout : single
-title : "String 형제들에 관하여 (Builder, Buffer)"
+title : "[개인] String 형제들에 관하여 (Builder, Buffer)"
 
 categories : 개인탐구
 

@@ -1,6 +1,6 @@
 ---
 layout : single
-title : "Spring Framework 아키텍쳐에 관하여"
+title : "[개인] Spring Framework 아키텍쳐에 관하여"
 
 categories : 
     - 개인탐구

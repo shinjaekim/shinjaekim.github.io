@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "HTTP와 TCP/IP 흐름에 관하여"
+title:  "[개인] HTTP와 TCP/IP 흐름에 관하여"
 
 categories:
     - 개인탐구

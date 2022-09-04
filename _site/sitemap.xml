@@ -36,9 +36,41 @@
     </url>
     
     <url>
-        <loc>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/</loc>
+        <loc>http://localhost:4000/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/</loc>
         
-        <lastmod>2022-08-26T00:00:00+09:00</lastmod>
+        <lastmod>2022-08-24T00:00:00+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/</loc>
+        
+        <lastmod>2022-08-23T00:00:00+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/</loc>
+        
+        <lastmod>2022-08-22T00:00:00+09:00</lastmod>
         
 
         

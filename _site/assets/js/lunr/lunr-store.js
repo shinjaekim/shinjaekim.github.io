@@ -47,7 +47,7 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-Java-%EA%B8%B0%EC%B4%88/",
         "teaser": null
       },{
-        "title": "for each문에 관하여",
+        "title": "[개인] for each문에 관하여",
         "excerpt":"이 글에 담긴 것 for-each문 공부하던 부분 제어문 중 반복문 의문점 for-each는 어떻게 사용하는가. 원래와 다른점은 무엇인가. for-each문이란?? java1.5 이상부터 사용할 수 있는 제어문이라고 한다. 복수전공을 할 당시 한번도 써본적이 없던 이유는 내가 오래된 것인지, 아니면 안 가르쳐준 것인지는 모르겠다. 아마 후자일 것 같다. 모인 사람들이 비전공자였으니 기초부터 탄탄히 해주고...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/For-each%EB%AC%B8%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -101,13 +101,13 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-%EC%BB%AC%EB%A0%89%EC%85%98/",
         "teaser": null
       },{
-        "title": "Github 페이지 - ruby, gem, jekyll에 관하여",
+        "title": "[개인] Github 페이지 - ruby, gem, jekyll에 관하여",
         "excerpt":"이 글에 담긴 것 아주 미약한 기초 지식??이라고 볼수도 없는 지식 20220805 공부하던 부분 깃 허브 페이지 만들기 의문점 따라는 하는데 ruby는 왜 까는거야?? jekyll은 어떤 역할을 하는가?? 탐구 이 글은 깃 허브 페이지를 만들면서 궁금했던 점들을 지속적으로 채워나갈 글임. first - 20220805 일단 저지르는 편이다. 이 블로그도 그 결과물이고.....","categories": ["개인탐구"],
         "tags": ["Git"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/github-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%99%80-%EB%A3%A8%EB%B9%84,-%EC%A7%80%ED%82%AC%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "Github 페이지 만들기",
+        "title": "[개인] Github 페이지 만들기",
         "excerpt":"WHY?? 내 이름이 들어간 깔끔한 url을 가지고 싶었다. 맛보기로 배운 html과 css를 직접 활용해보고 싶었다. 처음 접해보는 방식이라 흥미로웠다. 일단 해보는걸 좋아한다. git이랑 친해지고 싶었다. 블로깅을 해야겠다고 마음먹고는 노션 블로그를 이용했었는데 점점 github블로그가 맘에 들기 시작했다. 그리고 바로 검색을 해보면서 방법론들을 찾아보았던 것 같다. 찾다가 찾다가 뭔가 복잡해보이는데 자유도도 그만큼...","categories": ["개인탐구"],
         "tags": ["Git"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EA%B9%83%ED%97%88%EB%B8%8C-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A7%8C%EB%93%A4%EA%B8%B0/",
@@ -137,7 +137,7 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-1-%ED%9A%8C%EA%B3%A0/",
         "teaser": null
       },{
-        "title": "JSON에 관하여",
+        "title": "[개인] JSON에 관하여",
         "excerpt":"이 글에 담긴 것   공부하던 부분   의문점   adsfasdfasdfadsfadsfasdfasfdasd  ","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/JSON%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -173,7 +173,7 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%982/",
         "teaser": null
       },{
-        "title": "재귀호출에 관하여",
+        "title": "[개인] 재귀호출에 관하여",
         "excerpt":"이 글에 담긴 것 재귀호출의 흐름 파악 재귀호출에 대한 이해 공부하던 부분 자료구조 ‘그래프’ 문제인 인접행렬 길찾기 (구체적인 문제는 코드로부터 역으로 유추해보자) 의문점 return(재귀호출) if(재귀호출 == true) return true; 의 차이는?? 코드 1 class Solus { 2 public boolean haveDir(int[][] matrix, int from, int to) { 3 4 int[][] tMatrix...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%9E%AC%EA%B7%80%ED%98%B8%EC%B6%9C%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -209,19 +209,19 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%EC%9B%B9-%EA%B5%AC%EC%84%B1-HTTP/",
         "teaser": null
       },{
-        "title": "HTTP와 TCP/IP 흐름에 관하여",
+        "title": "[개인] HTTP와 TCP/IP 흐름에 관하여",
         "excerpt":"이 글에 담긴 것 HTTP와 TCP/IP 구분 HTTP와 TCP/IP 흐름 공부하던 부분 네트워크와 웹 구성 의문점 나는 왜 공부를 해도 말로 설명할 수가 없는가? 정리 내가 헷갈려서 정리부터 하고 들어가야겠다. 1. HTTP는 무엇인가? Hyper Text Transfer Protocol '하이퍼텍스트' 방식으로 데이터를 주고 받는 규칙 일단 하이퍼텍스트라는 방식부터 알아보자. 우리가 도서관에 가서...","categories": ["개인탐구"],
         "tags": ["네트워크"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/HTTP%EC%99%80-TCP-IP-%ED%9D%90%EB%A6%84%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "REST API, Postman에 관하여",
+        "title": "[개인] REST API, Postman에 관하여",
         "excerpt":"이 글에 담긴 것 API를 이해하려는 몸부림 REST API postman 사용 공부하던 부분 postman을 이용한 실습 의문점 나는 왜 실습을 하고도 체계가 잡히지 않았는가?? 탐구 언제나 모르는게 있으면 위키를 참고하고 시작한다. 친절하신 위키 선생님께서는 이렇게 말씀하셨다. An application programming interface (API) is a way for two or more computer programs...","categories": ["개인탐구"],
         "tags": ["네트워크"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/REST-API,-Postman/",
         "teaser": null
       },{
-        "title": "CORS, XSS, CSRF에 관하여",
+        "title": "[개인] CORS, XSS, CSRF에 관하여",
         "excerpt":"이 글에 담긴 것   공부하던 부분     웹 구성, 웹 구현   의문점     진짜 감도 안잡혀서 따로 정리해야겠다고 생각했다.  ","categories": ["개인탐구"],
         "tags": [],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/CORS,-XSS,-CSRF%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -233,19 +233,19 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB/",
         "teaser": null
       },{
-        "title": "String 형제들에 관하여 (Builder, Buffer)",
+        "title": "[개인] String 형제들에 관하여 (Builder, Buffer)",
         "excerpt":"이 글에 담긴 것 String을 정복하고자 하는 마음 공부하던 부분 모든 코딩문제 의문점 도대체 나는 언제까지 String 관련 메서드들을 찾아볼 것인가?? 이제는 좀 builder buffer 개념을 명확히 할 때가 되지 않았나.. 정리 String은 한번 생성되면 할당된 공간이 변화하지 않는다. 하지만 StringBuilder와 StringBuffer의 경우는 할당된 공간의 가변적이다. 그렇다면 왜 굳이 StringBuilder와...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/String,-StringBuffer,-StringBuilder%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "Wrapper 클래스에 관하여",
+        "title": "[개인] Wrapper 클래스에 관하여",
         "excerpt":"이 글에 담긴 것 Wrapper클래스에 대한 이해 공부하던 부분 제네릭 의문점 기본형을 냅두고 wrapper클래스를 사용하는 이유는 무엇인가?? 역할 찾아보니 이런 설명이 있다. A Wrapper class is a claa which contains the primitive data types. in other words, wrapper classes provide a way to use primitive data types as objects. These...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Wrapper%ED%81%B4%EB%9E%98%EC%8A%A4%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "동기와 비동기, 블록킹과 논블록킹에 관하여",
+        "title": "[개인] 동기와 비동기, 블록킹과 논블록킹에 관하여",
         "excerpt":"이 글에 담긴 것 동기와 비동기 블록킹과 논블록킹 둘을 합쳐서 이해하기 공부하던 부분 라이브 세션(웹, 네트워크) 의문점 대부분 그렇듯 왜 글만 읽고 이해를 하지 못하는 상황에 이르렀는가?? 정리 스레드 개념 스레드 관리 비동기 - 두개이상의 스레드 공동의 자원 줄세우기 -&gt; 동기화 자바에서의 동기화 동기화 도구 스레드 풀 스레드에서 안전한 콜렉션...","categories": ["개인탐구"],
         "tags": [],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%8F%99%EA%B8%B0%EC%99%80-%EB%B9%84%EB%8F%99%EA%B8%B0,-%EB%B8%94%EB%A1%9D%ED%82%B9%EA%B3%BC-%EB%85%BC-%EB%B8%94%EB%A1%9D%ED%82%B9%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -257,7 +257,7 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-DB-%EC%84%A4%EA%B3%84/",
         "teaser": null
       },{
-        "title": "라이브러리와 프레임워크에 관하여",
+        "title": "[개인] 라이브러리와 프레임워크에 관하여",
         "excerpt":"이 글에 담긴 것 라이브러리는 무엇인지 프레임워크는 무엇인지 차이점 공부하던 부분 복습을 하다가 가지치기 의문점 자바의 라이브러리를 정확히 내 언어로 정리했는가? 곧 배우게 될 스프링 프레임워크는 무엇인가?? 라이브러리와 프레임워크의 차이는?? 라이브러리란 일단 무턱대고 위키에 들어가보았다. 그랬더니 In computer science, a library is a collection of non-volatile resources used by computer...","categories": ["개인탐구"],
         "tags": ["Spring"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EC%99%80-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -275,7 +275,7 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/",
         "teaser": null
       },{
-        "title": "Spring Framework 아키텍쳐에 관하여",
+        "title": "[개인] Spring Framework 아키텍쳐에 관하여",
         "excerpt":"이 글에 담긴 것 프레임워크 아키텍쳐에 대한 이해 왜 스프링을 사용하는지 IoC와 DI 존재의 이유 공부하던 부분 스프링 프레임워크 아키텍쳐 의문점 스프링 프레임워크부터 좀 제대로 이해하고 넘어가야 하지 않겠는가? 따로 정리하는 이유와 글의 방향 스프링 프레임워크의 POJO, IoC/DI, AOP, PSA가 왜 있는지는 알고 써야지 추후 더 빠른 레벨업을 할 수...","categories": ["개인탐구"],
         "tags": ["Spring"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-framework-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -287,19 +287,19 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-Spring-Framework-DI/",
         "teaser": null
       },{
-        "title": "Run time, Compile time, Build에 관하여",
+        "title": "[개인] Run time, Compile time, Build에 관하여",
         "excerpt":"이 글에 담긴 것 런타임, 컴파일타임, 빌드를 구분하자 공부하던 부분 자바 복습 의문점 저 세가지 완벽하게 구분을 할 줄 알아? 정리 학습을 진행하면 할 수록 기초가 부족하다는 생각이 너무 많이 든다. 그렇다고 한가지 한가지 모든 것들을 처음부터 차곡차곡 주춧돌 쌓아 나의 지식의 체계를 건설하자니 시간이 오래 걸린다.(원래는 이런식의 공부를 좋아해서...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Runtime,-Compile-time,-build%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "maven과 gradle에 관하여",
+        "title": "[개인] maven과 gradle에 관하여",
         "excerpt":"이 글에 담긴 것 maven과 gradle을 이해하는 것 (파고들어서 분석하고 그런 것은 아니니 그런 것을 원한다면 돌아가세요) 공부하던 부분 자바 복습 의문점 내 머리속의 개념들의 모호함을 구체화해야 하지 않겠는가?? 정리 어제 정리한 runtime, compiletime, build와 같이 맨날 궁금해 해놓고 구체화 하지 않은 지식 중 하나이다. 마치 맨날 경제 뉴스를 보면서...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/maven%EA%B3%BC-gradle%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "애너테이션(annotation)에 관하여",
+        "title": "[개인] 애너테이션(annotation)에 관하여",
         "excerpt":"이 글에 담긴 것 애너테이션은 무엇인가?? 공부하던 부분 자바 복습 의문점 애너테이션에 대한 체계가 잡히질 않는다. 잡아봐야겠지?? 정리 애너테이션 - 주석 이라 함은 지금까지는 코드의 가독성을 상승시켜 개발, 유지, 보수에 도움이 되도록 하는 ‘사람’을 위한 글이라고 생각하고 잇었다. 그런데 웬걸?? ‘프로그램’을 위해서 애너테이션을 제공한다라?? 학습은 했다. 하지만 나는 멍청하다. 그래서...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
@@ -317,19 +317,31 @@ var store = [{
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/",
         "teaser": null
       },{
-        "title": "Spring MVC 혼자 해보기 - Controller",
-        "excerpt":"이 글에 담긴 것 혼자 연습해보는 과정 공부하던 부분 Spring 전반 의문점 내것을 직접 해봐야 이해가 더 빠르지 않겠는가 시작 원래 학습 자료에 있던 커피 실습을 조금만 수정하여 상황을 가정하고 진행해보려 한다. 교환학생 시기 체코 프라하의 공항은 대한항공이 대주주였기에 항공사가 공항 터미널 관리에도 관여하는 것으로 알고 있었다.(틀린 정보일 수 있으니...","categories": ["개인탐구"],
+        "title": "Section 3 Spring MVC - DTO, 유효성 검사",
+        "excerpt":"[week9] 간단정리 컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다. 느낀점 점점 느낀점 적는 것이 무의미해지고 있다. 매일 새롭고 매주 ‘엥??’ 이러는데, 그냥 정말 이게 다라서 뭐 추가할 말이 있나 싶다 라는 생각이 나를...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
-        "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-MVC-%ED%98%BC%EC%9E%90-%ED%95%B4%EB%B3%B4%EA%B8%B0/",
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/",
         "teaser": null
       },{
-        "title": "PatchDto에 관하여",
+        "title": "Section 3 Spring MVC - Service, Mapper",
+        "excerpt":"[week9] 간단정리 DTO클래스와 mapper를 통해 Entity를 만든다. @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다. Controller에 Service와 mapper를 DI한다. 느낀점 이해가 잘 되지 않았던 DI의 개념이 쓰다보니 이해가 된다. 그리고 controller와 dto, entity와 service를 잘 다져놓아야 추후 진행할 data acess또한 이해가 잘 될 것 같다. 더 열심히 하자. 스스로 답해보기 Entity는...","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/",
+        "teaser": null
+      },{
+        "title": "Section 3 예외처리",
+        "excerpt":" ","categories": [],
+        "tags": [],
+        "url": "/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/",
+        "teaser": null
+      },{
+        "title": "[개인] PatchDto에 관하여",
         "excerpt":"이 글에 담긴 것 patchDto의 필드변수 설정 공부하던 부분 API계층 Dto 만들기 의문점 patchdto의 필드변수는 어떤 것들이 들어가야 하는가?? 정리 먼저 DTO는 왜 만드는가를 생각해보아야 한다. 예제를 통해 알아보자. @PostMapping public ResponseEntity postGate(@RequestParam(\"number\") int number, @RequestParam(\"rentStatus\") boolean rentStatus, @RequestParam(\"price\") int price){ Map&lt;String, Object&gt; map = new HashMap&lt;&gt;(); map.put(\"number\", number); map.put(\"rented\",...","categories": ["개인탐구"],
         "tags": ["Spring"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "Sring MVC 흐름에 관하여",
+        "title": "[개인] Sring MVC 흐름에 관하여",
         "excerpt":"간단정리 - 느낀점 스스로 답해보기 정리 controller부터 jdbc까지 공부를 했지만 전체적인 흐름으로 다가오지 않아서 정리를 하고 넘어가려고 한다. 1. http message요청 클라이언트에서 http message를 요청한다 POST PATCH GET DELETE 2. Controller 클라이언트에서 요청한 http message가 JSON형식으로 엔드포인트인(클라이언트 입장에서) 서버의 controller에 도착한다. 2-1 DTO POST와 PATCH의 경우 responsebody를 포함하고 있다. 따라서...","categories": ["개인탐구"],
         "tags": ["Spring"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-mvc-%ED%9D%90%EB%A6%84%EB%8F%84/",

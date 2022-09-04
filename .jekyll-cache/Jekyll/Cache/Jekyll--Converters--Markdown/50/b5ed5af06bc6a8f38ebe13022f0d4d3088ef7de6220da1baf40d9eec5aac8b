@@ -1,0 +1,8 @@
+I"<p>[week9]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>DTO클래스와 mapper를 통해 Entity를 만든다.</li>
+  <li>@Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.</li>
+  <li>Controller에 Service와 mapper를 DI한다.</li>
+</ul>
+:ET

@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "CORS, XSS, CSRF에 관하여"
+title:  "[개인] CORS, XSS, CSRF에 관하여"
 
 categories:
     - 개인탐구

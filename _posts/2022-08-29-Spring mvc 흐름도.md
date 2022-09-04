@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Sring MVC 흐름에 관하여"
+title:  "[개인] Sring MVC 흐름에 관하여"
 
 categories:
     - 개인탐구
@@ -94,6 +94,20 @@ DI(생성자 주입)을 통하여 Controller에서 호출한다
 
 http message -> DTO -> Controller -> Mapper(DTO->Entity) -> Servcie
 
-### 3-4 예외 처리 
+### 3-4 예외 처리
 
+예외 처리는 3가지의 경우가 있다.
+
+1. 클라이언트의 requestbody가 유효성검사를 통과하지 못한 경우
+2. 서비스 계층의 비즈니스로직에서 의도적으로 던지진 예외의 경우
+3. 런타임 과정에서 발생하는(실행 과정에서 발생하는) 예외
+
+1번.
+@ExceptionHandler를 이용하고,
+
+클라이언트에게 보여주고 싶은 에러메시지들만을 모은 클래스를 따로 작성하여
+
+리스트에 담아 반환해준다.
+
+다만, 컨트롤러 레벨에서 @ExceptionHandler를 이용하면 코드의 중복이 발생한다.
 

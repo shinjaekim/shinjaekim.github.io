@@ -1,0 +1,17 @@
+I"m<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>ResponseEntity에 관한 나름대로의 분석</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>Controller</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>ResponseEntity 또한 객체라는 것인데 좀 알아두자.</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+:ET

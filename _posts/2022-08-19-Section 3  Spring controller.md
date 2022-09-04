@@ -70,13 +70,15 @@ Spring MVC는 Spring에서 웹 계층을 담당하는 모듈이다.
 
 ### Controller
 
-@RestController
--> 클래스 레벨의 애너테이션으로 ***앞으로 해당 클래스가 엔트포인트로 작동할 것이다*** 를 알려줌
--> 로딩시 spring bean에 등록됨
+@RestController    
+    
+    -> 클래스 레벨의 애너테이션으로 ***앞으로 해당 클래스가 엔트포인트로 작동할 것이다*** 를 알려줌  
+    -> 로딩시 spring bean에 등록됨
 
 @RequestMapping("")
--> 클래스 레벨에 적용하면 baseURL을 설정함
--> 괄호 안에 "/mylist/practice"의 형식으로
+
+    -> 클래스 레벨에 적용하면 baseURL을 설정함
+    -> 괄호 안에 "/mylist/practice"의 형식으로
 
 적용 예시
 

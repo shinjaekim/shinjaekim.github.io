@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Run time, Compile time, Build에 관하여"
+title:  "[개인] Run time, Compile time, Build에 관하여"
 
 categories:
     - 개인탐구

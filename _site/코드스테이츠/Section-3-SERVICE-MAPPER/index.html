@@ -1,0 +1,877 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 3 Spring MVC - Service, Mapper | KSJ Archive</title>
+<meta name="description" content="[week9] 간단정리    DTO클래스와 mapper를 통해 Entity를 만든다.   @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.   Controller에 Service와 mapper를 DI한다.">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 3 Spring MVC - Service, Mapper">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/">
+
+
+  <meta property="og:description" content="[week9] 간단정리    DTO클래스와 mapper를 통해 Entity를 만든다.   @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.   Controller에 Service와 mapper를 DI한다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-08-23T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Section vs 개인탐구</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">백엔드 로드맵 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 3 Spring MVC - Service, Mapper">
+    <meta itemprop="description" content="[week9]간단정리  DTO클래스와 mapper를 통해 Entity를 만든다.  @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.  Controller에 Service와 mapper를 DI한다.">
+    <meta itemprop="datePublished" content="2022-08-23T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/" class="u-url" itemprop="url">Section 3 Spring MVC - Service, Mapper
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-23T00:00:00+09:00">23 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-엔티티">1. 엔티티</a></li><li><a href="#2-mapper의-등장">2. Mapper의 등장</a></li><li><a href="#3-service-계층">3. Service 계층</a></li><li><a href="#4-controller에-service-di">4. controller에 service DI</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week9]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>DTO클래스와 mapper를 통해 Entity를 만든다.</li>
+  <li>@Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.</li>
+  <li>Controller에 Service와 mapper를 DI한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>이해가 잘 되지 않았던 DI의 개념이 쓰다보니 이해가 된다. 그리고 controller와 dto, entity와 service를 잘 다져놓아야 추후 진행할 data acess또한 이해가 잘 될 것 같다. 더 열심히 하자.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>Entity는 무엇이며 왜 만드는가?</li>
+  <li>Service 클래스를 만들 수 있는가?</li>
+  <li>Controller에 적용 가능한가?</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<p>WAS(Web Application Server)를 보면,</p>
+
+<p>클라이언트로부터 도착한 요청이 어떤 흐름으로 진행되는가를 파악할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>API계층 -&gt; Service계층 -&gt; DataAccess계층
+</code></pre></div></div>
+
+<p>지금까지는 API계층이 무엇인지, 그리고 Controller의 역할과 Dto클래스에 대해서 알아보았다.</p>
+
+<p>이제 Service로 넘어가자.</p>
+
+<p>정리하기에 앞서 지금까지 만들었던 코드를 조금 다듬고 가야겠다는 생각이 든다.</p>
+
+<p><em>(컨트롤러)</em></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/mylist/practice"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerExample</span><span class="o">{</span>
+    
+    <span class="nd">@PostMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">post</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">PostDto</span> <span class="n">postDto</span><span class="o">){</span>
+        
+
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">postDto</span><span class="o">,</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">CREATED</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><em>(DTO)</em></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PostDto</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="k">this</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getThis</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">name</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">age</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>단순하게 this, name, age를 클라이언트로부터 전달받는 responsebody와 매치시켰는데,</p>
+
+<p>지금부터 이 Post는 졸업생들의 직업을 조사하는 기능중의 일부로 판단하여</p>
+
+<p>this를 job으로 바꾸어 생각하고 진행하겠다.</p>
+
+<p><br /></p>
+
+<h3 id="1-엔티티">1. 엔티티</h3>
+
+<p>WAS상의 계층들은 각 계층의 ‘주’역할만을 담당하는 것이 코드분석, 유지보수에 유리하게 작용할 것이다.</p>
+
+<p>이러한 이유로 Controller 클래스가 클라이언트와의 정보공유만을 위해 작동하도록 responsebody와의 변환을 담당하는 dto클래스를 따로 만들어 주었다.</p>
+
+<p>이와 마찬가지의 이류로 서비스 클래스에서도 엔티티라는 것이 존재한다.</p>
+
+<p><strong><em>엔티티는 비즈니스 로직을 처리하기 위한, 처리한 데이터를 전달하기 위핸 객체이다.</em></strong></p>
+
+<p><em>(Entity의 구현)</em></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Data</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Entity</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="nc">Id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">job</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>바뀐점이라면 Lombok을 이용한 애너테이션으로 게터,세터(@Data) 메서드와 생성자 코드를 설정해주었다.</p>
+
+<p>그리고 long형으로 Id를 선언하였다. 이는 auto increment식별자로서 추후 데이터액세스 계층에서 활약할 예정이다.</p>
+
+<p><br /></p>
+
+<h3 id="2-mapper의-등장">2. Mapper의 등장</h3>
+
+<p>앞선 DTO는 @RequestBody 애너테이션으로 JSON -&gt; 객체 의 자동 변환이 되었다.</p>
+
+<p>마찬가지로 DTO또한 엔티티로 변환해 주어야 할 것인데,</p>
+
+<p>앞서 언급했듯 서비스계층에서는 비즈니스 로직만을 담당하는 것이 옳을 것이다.</p>
+
+<p>따라서 DTO -&gt; Entity의 역할을 담당하는 클래스를 따로 만들어 주어야 한다.</p>
+
+<p>이 역할을 담당하는 것이 Mapper이다.</p>
+
+<p>방법은 여러가지다.</p>
+
+<ol>
+  <li>직접 하나하나 일치시킨다.</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Mapper</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="nc">Id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">job</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">Entity</span> <span class="nf">postDtoToMapper</span><span class="o">(</span><span class="nc">PostDto</span> <span class="n">postDto</span><span class="o">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Entity</span><span class="o">(</span><span class="mi">0L</span><span class="o">,</span>
+                        <span class="nc">PostDto</span><span class="o">.</span><span class="na">getJob</span><span class="o">(),</span> 
+                        <span class="nc">PostDto</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> 
+                        <span class="nc">PostDto</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ResponseDto</span> <span class="nf">EntityToResponseDto</span><span class="o">(</span><span class="nc">Entity</span> <span class="n">entity</span><span class="o">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ResponseDto</span><span class="o">(</span><span class="nc">Entity</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span>
+                            <span class="nc">Entity</span><span class="o">.</span><span class="na">getJob</span><span class="o">(),</span>
+                            <span class="nc">Entity</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+                            <span class="nc">Entity</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>MapStruct을 이용한다.</li>
+</ol>
+
+<p>1의 경우처럼 하나하나 매핑해주는 것은 개발자의 몫일 것인데, 매핑할 것이 많아지면 일이 많아진다.</p>
+
+<p>따라서 MapStruct 인터페이스를 이용할 수 있다.</p>
+
+<p>일단</p>
+
+<p><em>(build.gradle에 의존성 라이브러리 추가)</em></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="o">...</span>
+	<span class="n">implementation</span> <span class="err">'</span><span class="n">org</span><span class="o">.</span><span class="na">mapstruct</span><span class="o">:</span><span class="nl">mapstruct:</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">2</span><span class="o">.</span><span class="na">Final</span><span class="err">'</span>
+	<span class="n">annotationProcessor</span> <span class="err">'</span><span class="n">org</span><span class="o">.</span><span class="na">mapstruct</span><span class="o">:</span><span class="n">mapstruct</span><span class="o">-</span><span class="nl">processor:</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">2</span><span class="o">.</span><span class="na">Final</span><span class="err">'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><em>(인터페이스 작성)</em></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Mapper</span><span class="o">(</span><span class="n">componentModel</span> <span class="o">=</span> <span class="s">"spring"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Mapper</span><span class="o">{</span>
+    <span class="nc">Entity</span> <span class="nf">postDtoToMapper</span><span class="o">(</span><span class="nc">PostDto</span> <span class="n">postDto</span><span class="o">);</span>
+    <span class="nc">ResponseDto</span> <span class="nf">EntityToResponseDto</span><span class="o">(</span><span class="nc">Entity</span> <span class="n">entity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>그리고 responseDto클래스를 적성한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Data</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResponseDto</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="nc">Id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">job</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Mapper클래스에서는 각각의 핸들러 메서드에 맞게 사용 가능하도록</p>
+
+<p>1) DTO -&gt; Entity의 기능을 담다하는 메서드와</p>
+
+<p>2) Entity -&gt; DTO의 기능을 담당하는 메서드를 작성해주었다.</p>
+
+<p>또한 2)를 위해서 ResponseDto클래스를 작성해주었다. 이 클래스의 존재는 필수적이다. 비즈니스로직을 거쳐 Entity클래스에 담긴 정보를 클라이언트에게 넘겨주기 위해서는 다시 DTO클래스로의 변환이 필요하기 때문이다.</p>
+
+<p><br /></p>
+
+<h3 id="3-service-계층">3. Service 계층</h3>
+
+<p>일단 위의 재료들을 바탕으로 작성해보도록 하겠다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nf">ServiceExample</span><span class="o">(){</span>
+
+    <span class="kd">public</span> <span class="nc">Entity</span> <span class="nf">CreatePost</span><span class="o">(</span><span class="nc">Entity</span> <span class="n">entity</span><span class="o">){</span>
+        <span class="c1">// Business logic</span>
+        <span class="nc">Entity</span> <span class="n">createEntity</span> <span class="o">=</span> <span class="n">entity</span>
+
+        <span class="k">return</span> <span class="n">entity</span> 
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>일단 @Service라는 애너테이션은 해당 클래스가 ‘비즈니스로직을 실행함’을 알리고 ‘Bean’으로 등록해준다.</p>
+
+<p>그리고 아직 비즈니스 로직은 작성이 안되어 파라미터로 받은 엔티티를 그대로 반환하지만 액세스 계층까지 만든다면 비즈니스 로직이 들어가게 될 것이다.</p>
+
+<p><br /></p>
+
+<h3 id="4-controller에-service-di">4. controller에 service DI</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/mylist/practice"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerExample</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ServiceExample</span> <span class="n">service</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Mapper</span> <span class="n">mapper</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ControllerExample</span><span class="o">(</span><span class="nc">ServiceExample</span> <span class="n">service</span><span class="o">,</span> <span class="nc">Mapper</span> <span class="n">mapper</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">service</span> <span class="o">=</span> <span class="n">service</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">mapper</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+     <span class="nd">@PostMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">post</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">PostDto</span> <span class="n">postDto</span><span class="o">){</span>
+        
+        <span class="nc">Entity</span> <span class="n">response</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">createPost</span><span class="o">(</span><span class="n">mapper</span><span class="o">.</span><span class="na">postDtoToEntity</span><span class="o">(</span><span class="n">postDto</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">mapper</span><span class="o">.</span><span class="na">EntityToResponseDto</span><span class="o">(</span><span class="n">response</span><span class="o">),</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">CREATED</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>DI를 이용하여 service와 mapper를 선언해주고 post핸들러의 내용을 추가시켰다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-08-23T00:00:00+09:00">23 Aug, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+3+Spring+MVC+-+Service%2C+Mapper%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-3-SERVICE-MAPPER%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-3-SERVICE-MAPPER%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-3-SERVICE-MAPPER%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/" class="pagination--pager" title="Section 3 Spring MVC - DTO, 유효성 검사
+">이전</a>
+    
+    
+      <a href="/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" class="pagination--pager" title="Section 3 예외처리
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-mvc-%ED%9D%90%EB%A6%84%EB%8F%84/" rel="permalink">[개인] Sring MVC 흐름에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-29T00:00:00+09:00">29 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">간단정리
+-
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">[개인] PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" rel="permalink">Section 3 예외처리
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-24T00:00:00+09:00">24 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/" rel="permalink">Section 3 Spring MVC - DTO, 유효성 검사
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-22T00:00:00+09:00">22 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section 3 SERVICE MAPPER"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
