@@ -12,7 +12,7 @@ toc: true
 toc_sticky: true
 toc_label: "나의 생각흐름 정리"    
 ---
-[week9]
+[week10]
 ## 간단정리
 - DTO클래스와 mapper를 통해 Entity를 만든다.
 - @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.
@@ -32,7 +32,7 @@ toc_label: "나의 생각흐름 정리"
 
 <br>
 
-## 정리
+## 정리 - 들어가며
 
 WAS(Web Application Server)를 보면,
 

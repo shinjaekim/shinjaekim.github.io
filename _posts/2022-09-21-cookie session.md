@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Section 4 인증/보안 기초"
+title:  "Section 4 인증/보안 - 쿠키, 세션"
 
 categories:
     - 코드스테이츠

@@ -12,7 +12,7 @@ toc: true
 toc_sticky: true
 toc_label: "나의 생각흐름 정리"    
 ---
-[week9]
+[week10]
 ## 간단정리
 - spring data jdbc는 jdbc api를 더 손 쉽게 사용할 수 있도록 편의성을 증진시켜주는 기술이다.
 - table과 entity mapping시에 primary key에 @id 애너테이션을 추가하자

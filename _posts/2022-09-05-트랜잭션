@@ -1,0 +1,34 @@
+---
+layout: single
+title:  "Section 3 Spring - Jpa"
+
+categories:
+    - 코드스테이츠
+
+tags:
+    - Spring
+    
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+[week12]
+## 간단정리
+- spring data jdbc는 단방향, spring data jpa는 양방향
+- 다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자
+- @Entity와 @Id는 꼭 붙이자.
+
+<br> 
+
+## 느낀점
+JDBC를 보고 JPA를 보니, 솔직히 spring data jpa가 더 어렵다고 자료에 적혀있긴 했지만, 쌩초보 입장에서는 뭐가 어려운건지는 분간이 안된다. 아무래도 더 깊게 사용하지 않아서 그런거겠지.. 
+
+<br>
+
+## 스스로 답해보기
+- jdbc api와 jpa api
+- spring data JDBC 와 spring data JPA
+
+<br>
+
+## 정리 - 들어가며

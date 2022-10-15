@@ -12,7 +12,7 @@ toc: true
 toc_sticky: true
 toc_label: "나의 생각흐름 정리"    
 ---
-[week9]
+[week11]
 ## 간단정리
 - spring data jdbc는 단방향, spring data jpa는 양방향
 - 다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자
