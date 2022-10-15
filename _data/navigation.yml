@@ -3,7 +3,7 @@ main:
  
  #- title : "개발 공부"
   # url: /about/
-  - title: Section vs 개인탐구
+  - title: Section or 개인탐구
     url: /categories/
 
   - title: 백엔드 로드맵 분류

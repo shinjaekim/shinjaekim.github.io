@@ -1,6 +1,6 @@
 ---
 layout : single
-title : "Arraylist.add & 재귀호출에 관하여 (얕은복사 / 깊은복사)"
+title : "[개인] Arraylist.add & 재귀호출에 관하여 (얕은복사 / 깊은복사)"
 
 categories : 개인탐구
 

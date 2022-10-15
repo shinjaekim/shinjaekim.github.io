@@ -49,7 +49,7 @@ Spring MVC는 Spring에서 웹 계층을 담당하는 모듈이다.
 
     V - View
 
-        클라이언트에게 리소스, 즉 model을 제공하는 역할을 한다.
+        클라이언트에게 리소스, 즉 model을 가공하여 제공하는 역할을 한다.
         아예 HTML페이지 식으로 전달할수도 있겠고(SSR)
         XML이나 JSON 형식으로 전달하여 프론트에서 페이지를 랜더링 하게 할 수도 있겠다.(CSR)
 
@@ -63,34 +63,34 @@ Spring MVC는 Spring에서 웹 계층을 담당하는 모듈이다.
 위의 추상적으로 설명한것들을 구체화 시키면,
 
 
-### MVC 동작방식
-
-추후 이해를 심화시키고 사진 첨부할 것 (20220819)
-
-
 ### Controller
 
 @RestController    
     
     -> 클래스 레벨의 애너테이션으로 ***앞으로 해당 클래스가 엔트포인트로 작동할 것이다*** 를 알려줌  
     -> 로딩시 spring bean에 등록됨
+        추가 - 1011) 이유 - @RestController를 파고들어가보면 @Component라는 애너테이션을 가지고 있다.
+        이 component애너테이션이 해당 클래스를 application context에 등록해주는 역할을 한다.
 
 @RequestMapping("")
 
     -> 클래스 레벨에 적용하면 baseURL을 설정함
-    -> 괄호 안에 "/mylist/practice"의 형식으로
+    -> 괄호 안에 "practices/mylists"의 형식으로
+        추가 - 1011) url의 path의 경우는 복수형태로 적어주는게 좋다. practices/mylists
 
 적용 예시
 
 ```java
 @RestController
-@RequestMapping("/mylist/practice")
+@RequestMapping("/practices/mylists")
 public class ControllerExample{
     ~~~~
 }
 ```
 
 #### HTTP MESSAGE MAPPING
+
+http method와 연결되는 handler method를 구현하는 방법.
 
 @PostMapping
 
@@ -134,7 +134,7 @@ public class ControllerExample{
 
 ```java
 @RestController
-@RequestMapping("/mylist/practice")
+@RequestMapping("/practices/mylists")
 public class ControllerExample{
     
     @PostMapping
@@ -148,7 +148,7 @@ public class ControllerExample{
         ~~~
     }
     
-    @GetMapping
+    @GetMapping("/{list-id}")
     public ResponseEntity get(@PathVariable("list-id") long listId){
         ~~~
     }
@@ -159,3 +159,14 @@ public class ControllerExample{
     }
 }
 ```
+
+
+++
+
+백엔드와 프론트엔드
+
+아이언맨이 헐크버스터를 입고 헐크랑 싸우는 장면이 있다.
+
+헐크버스터는 프론트엔드의 영역이고, 
+
+공중에 떠서 헐크버스터에 필요한 부품들을 실시간으로 전해주는 장치는 백엔드의 영역이다.
