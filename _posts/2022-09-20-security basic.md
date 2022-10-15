@@ -1,0 +1,180 @@
+---
+layout: single
+title:  "Section 4 인증/보안 기초"
+
+categories:
+    - 코드스테이츠
+
+tags:
+    - Security
+    - 네트워크
+    
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+[week9]
+## 간단정리
+- 
+
+<br> 
+
+## 느낀점
+
+
+<br>
+
+## 스스로 답해보기
+- Https란 무엇인가?
+- hashing, salting
+- 인증, 권한부여(인가)
+- 3티어 아키텍쳐 흐름
+
+<br>
+
+## 정리
+### 1. 들어가며
+
+과거의 기억을 떠올려보면 네트워크상에서 정보를 전송하고 전달받기 위한 http는 여러 통신 프로토콜 중의 하나였다. 이를 잘 표현한 문장이 바로 떠오른다. 바로 "http는 하나의 배송사와 같은 것이다." 정보를 전달하는 배송사.. 현실에서 배송사마다 그들만의 특징들이 있듯이 http또한 특징이 있다.
+
+- 특징들
+    - 무상태성
+    - request body, response body
+
+
+지금까지 학습해온 spring framework를 통해 웹 어플리케이션을 만드는 것은, csr방식인 이상(ssr도 마찬가지이겠지만 특히나 더), 클라이언트와의 정보 공유라는 활동이 있어야 존재 의미를 가질 것이다.
+
+여기서 정보공유를 http message를 통해 하게 되는데 (클라이언트가 메시지를 보내면 컨트롤러의 각 handler method로 연결된다.), 생각해보면 중간자가 개입하여 그 메시지를 탈취하면 중요한 정보들을 도둑맞게 될 가능성이 높다.
+
+> 그래서 https가 존재한다.
+
+---
+
+### 2. https
+
+https는 Hyper Text Transfer Protocol Secure Socket Layer의 약자이다. 길게 말할 것 없이 http프로토콜에 보안이 추가된 것이다.
+
+보안이라는 기능은 어떻게 추가될까?? -> https 특징을 들여다보며 알아보자.
+
+#### 2-1 암호화 (비대칭키 / 대칭키)
+
+먼저 비대칭키와 대칭키부터 확실히 잡고가자.
+
+    비대칭키 - 비밀키로 암호화 / 복호화
+    대칭키 - 비밀키와 공개키로 암호화 / 복호화
+
+these are the encryption(암호화) method of Http
+
+that there are two ways means that there is trade off of advantage. 
+Asymmetric Key(비대칭키) is more complicated than Symmetric key(대칭키). So if we do all transfer process with Asymmetric key, it costs more. 
+
+there is a way of relieving it.
+easily thinking of transfering process, data transfering is more frequent. 
+
+so,
+
+    1. when transfer data each other, use Symmetric key
+    2. when trasnfer Symmetric key each other, use Asymmetric key
+
+
+
+
+#### 2-2 인증서
+
+cetificate has the information of domain. so if client get the response form server, they can compare the domain of server itself to domain information included in certificate.
+
+if middle man interrupt it, it cause change of domain information, so client can notice that there was intteruption by comparing certificate domain to it.
+
+
+#### 2-3 CA
+
+it refers to the authorized agencies that issue certificates. it's roll is encypting the server's public key and information with CA's private key.
+
+after client get the certificate, client can decrypt it with CA's public key. if it is impoosible, it means Certificate is not issued by CA.
+
+---
+
+### 3. Hashing
+
+인증수단으로서 가장 먼저 떠오르는 것이 비밀번호이다.
+
+    비밀번호가 없다면??
+
+    아이디만으로 서버에 정보 요청이 가능
+    아이디를 다른사람이 아는 순간 누구나 정보 요청이 가능
+
+근데 중간에 껴들어서 비밀번호마저 탈취한다면???
+
+> 그래서 암호화 - 해싱을 이용한다
+
+해싱 - 문자열을 임의의 다른 문자열로 변환
+
+
+#### 3-1 이메일만 존재할때
+
+    1. client가 email과 관련된 정보 요청
+    2. server에서 email과 관련된 정보 제공
+
+
+#### 3-2 이메일 + 비밀번호
+
+    1. client가 email과 관련된 정보 요청
+    2. server에서 db에 저장된 암호화 일치하는지 여부 확인
+    3. 일치한다면 그때 정보 제공
+
+
+#### 3-2 이메일 + (암호 + 해싱)
+
+    1. client가 email과 관련된 정보 요청
+    2. server에서 password hashing
+    3. db에 저장된 hashing된 암호와 일치하는지 여부 확인
+    4. 일치한다면 그때 정보 제공
+
+즉 server 내부의 hashing 알고리즘을 알지 못한다면 http messeage에서 정보를 탈취했다고 하더라도, 비밀번호를 알아낼 수 없음.
+
+
+#### hashing의 철칙
+
+    1. 복호화는 오래걸려도 암호화는 빠르게
+        암호화가 느리면 매번 요청할때마다 긴 시간이 걸릴 것
+
+    2. 최대한 해시값의 중복은 피한다
+        이를 구현하는 알고리즘들이 존재
+
+    3. 조금만 문자가 바뀌어도 엄청나게 바뀌는 해시값
+        나비효과
+
+
+---
+
+### 4. salt
+
+조미료가 첨가된 음식은 더 맛있어진다.
+
+한편, 조미료가 첨가된 음식을 만드는 사람과 먹는 사람 입장에서 생각해보자.
+
+만드는 사람은 당연히 자기가 만드는 음식에 무엇이 들어갔는지 알고 있다. 하지만.. 먹는 사람은 백종원급이 아닌 이상은 어떤 조미료가 들어갔는지 정확히 알지 못한다.
+
+이 예를 그대로 적용하면 된다.
+
+앞서 학습한 해싱의 경우 비밀번호를 암호화 하였다.
+
+여기에 소금(salt)를 더하여 더 맛있는 비밀번호를 만들어보자. 단, 만드는 사람 이외의 사람들은 어떤 소금이 얼마나 들어간건지는 모른다.
+
+#### 4-1 salt 추가시의 흐름
+
+    1. client가 email과 관련된 정보를 요청한다.
+    2. server는 db에서 salt와 hashing된 값을 가져온다.
+    3. server가 email과 함께 받은 password를 salt한 후 hashing한다.
+    4. 비교 후 일치하면 정보를 제공한다.
+
+#### 4-2 소금을 첨가하는 방법
+
+    1 salt는 패스워드 별로 유일한 값을 가진다.
+
+    2. 비밀번호 변경시 새로운 salt를 사용한다
+
+    3. 재사용은 안된다
+
+    4. salt는 db에 같이 저장된다.
+
