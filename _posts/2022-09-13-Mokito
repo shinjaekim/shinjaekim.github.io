@@ -1,0 +1,158 @@
+---
+layout: single
+title:  "Section 3 Spring - 테스팅(Mokito)"
+
+categories:
+    - 코드스테이츠
+
+tags:
+    - Spring
+    
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+[week12]
+## 간단정리
+- 
+
+<br> 
+
+## 느낀점
+
+
+<br>
+
+## 스스로 답해보기
+- 
+<br>
+
+## 정리 - 들어가며
+
+앞서 API계층의 슬라이스 테스트를 진행 할 때의 문제는 무엇이었을까??
+
+> 사실상 data계층까지 거쳤다가 돌아온다.
+
+이게 과연 API계층만 테스트는 것이라 할 수 있을까??
+
+이를 Mockito를 이용하여 해결해보자.
+
+### 1. Mock 객체
+
+어릴때 외형만 핸드폰인 장난감을 가지고 전화놀이를 했던 기억이 있다. 전화는 되지 않았지만 실제로 어른이 된 듯한 느낌을 느낌을 가질 수 있었다.
+
+또한 어릴때 주말이면 NG들을 모아서 방영해주는 프로그램이 있었다. 그 프로그램을 떠올려보면 배우들이 소품을 가지고 실제와 같은 연기를 하던 모습이 떠오른다.
+
+나도 그렇고 배우들도 그렇고 실제와 같은 행동을 흉내낼 수 있었던 것은 정교한 가짜때문이었다. 그것을 목업이라고 부른다.
+
+그리고
+
+위에서 말한 api계층 테스트의 단점을 극복하기 위해 Mock객체를 사용해보자.
+
+---
+
+### 2. Mockito
+
+위에서 언급한 Mock객체를 코드상에서 구현할 수 있게 해주는 도구라고 생각하자. 정확히 말하면 오픈 소스 라이브러리이다. 이를 슬라이스 테스트에 적용해보자.
+
+일단 앞선 글에서 Mockito 없이 작성했었던 코드는 이렇다.
+
+```java
+@SpringBootTest
+@AutoConfigurMockMvc
+public class ControllerTest{
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    private Json json;
+
+    @Test
+    public void postMemberTest(){
+        // given - 테스트용 request body
+        PostDto post = new PostDto("species","name");
+
+        String content = json.toJson(post);
+        // when - MockMvc 객체로 대상 Controller 호출
+
+        ResultActions actions =
+                mockMvc.perform(
+                    post("~~~")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(content)
+                );
+        // then - 응답 상태, response body 검증
+
+        MvcResult result = actions
+                                .andExpect(status().isCreated()) // 상태를 검증
+                                .andExpect(jsonPath("$.data.species").value(post.getSpecies()))// responsebody 데이터를 검증
+                                .andExpect(jsonPath("$.data.name").value(post.getName()))
+                                .andReturn();
+    }
+}
+```
+
+여기에 Mockito를 적용해보면 이렇게 된다.
+
+```java
+@SpringBootTest
+@AutoConfigurMockMvc
+public class ControllerTest{
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private Json json;
+
+    @MockBean
+    private AnimalService animalService;
+
+    @Autowired
+    private AnimalMapper mapper;
+
+    @Test
+    public void postMemberTest(){
+        // given - 테스트용 request body
+        PostDto post = new PostDto("species","name");
+
+        Animal animal = mapper.dtoToAnimal(post);
+
+        given(animalService.createAnimal(Mockito.any(Animal.class)))
+                .willReturn(animal);
+
+        String content = json.toJson(post);
+        // when - MockMvc 객체로 대상 Controller 호출
+
+        ResultActions actions =
+                mockMvc.perform(
+                    post("~~~")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(content)
+                );
+        // then - 응답 상태, response body 검증
+
+        MvcResult result = actions
+                                .andExpect(status().isCreated()) // 상태를 검증
+                                .andExpect(jsonPath("$.data.species").value(post.getSpecies()))// responsebody 데이터를 검증
+                                .andExpect(jsonPath("$.data.name").value(post.getName()))
+                                .andReturn();
+    }
+}
+```
+
+Controller계층에서 사용할 animalService객체를 @MockBean애너테이션을 이용하여 주입받는다. 이 때 주입받은 객체는 Mock객체이다.
+
+그리고 service계층은 entity를 이용해야 하니 mapper또한 DI받는다.
+
+given을 보면 메서드가 하나 추가 되었는데 바로 Mockito에서 지원하는 stubbing 메서드이다. given은 ***Mock객체가 특정 값을 리턴하는 동작을 지정하기에*** given에 서비스 계층의 메서드를 Mockito타입을 파라미터로 담아서 호출한다. (animalService)
+
+즉 실제 animalService를 호출하는 것이 아닌, mockanimalService를 호출하는 동작을 지정했다고 생각하자.
+
+---
+
+### 3. 서비스 계층에서의 적용
+
+추후 추가하도록 하겠다.
