@@ -185,7 +185,7 @@ var store = [{
         "url": "/%EC%98%81%EB%8B%A8%EC%96%B4%EC%9E%A5/%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B4%80%EB%A0%A8-%EC%98%81%EB%8B%A8%EC%96%B4-%EC%A0%95%EB%A6%AC/",
         "teaser": null
       },{
-        "title": "Arraylist.add & 재귀호출에 관하여 (얕은복사 / 깊은복사)",
+        "title": "[개인] Arraylist.add & 재귀호출에 관하여 (얕은복사 / 깊은복사)",
         "excerpt":"이 글에 담긴 것 재귀호출의 흐름 파악 반복문에서의 Arraylist.add 얕은복사와 깊은복사 공부하던 부분 가위바위보 경우의 수를 도출하는 중복 순열 문제를 풀고 있었다. 의문점 왜 원하는 값들이 배열에 담기는데 add를 호출하는 순간 값이 덮어지는가?? 왜 값들이 다 같은 값만 나오는가?? 코드 실수하면서 시간을 투자했던 코드와 성공한 코드를 동시에 기록하였다. 먼저 분석에...","categories": ["개인탐구"],
         "tags": ["Java"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Arraylist-%EC%9E%AC%EA%B7%80/",
@@ -219,12 +219,6 @@ var store = [{
         "excerpt":"이 글에 담긴 것 API를 이해하려는 몸부림 REST API postman 사용 공부하던 부분 postman을 이용한 실습 의문점 나는 왜 실습을 하고도 체계가 잡히지 않았는가?? 탐구 언제나 모르는게 있으면 위키를 참고하고 시작한다. 친절하신 위키 선생님께서는 이렇게 말씀하셨다. An application programming interface (API) is a way for two or more computer programs...","categories": ["개인탐구"],
         "tags": ["네트워크"],
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/REST-API,-Postman/",
-        "teaser": null
-      },{
-        "title": "[개인] CORS, XSS, CSRF에 관하여",
-        "excerpt":"이 글에 담긴 것   공부하던 부분     웹 구성, 웹 구현   의문점     진짜 감도 안잡혀서 따로 정리해야겠다고 생각했다.  ","categories": ["개인탐구"],
-        "tags": [],
-        "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/CORS,-XSS,-CSRF%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
         "title": "Section 2 DB",
@@ -306,7 +300,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Section 2 회고",
-        "excerpt":"[week5] 느낀점 선선한 바람이 불어와 나뭇잎이 들썩거리길래 나뭇잎을 집어보니 바람은 그곳에 없었다. 하지만 바람에 더해진 향긋한 향기가 느껴져 꽃을 마주보았을때 향기는 더 강해졌다. 나의 바람은 바람만으로 남으면 안 될 것이다. 바람에 노력이라는 향기를 더해서 더더욱 발전해야 겠다. 요즘 나는 바람만 있다. 허풍이다. 배운 것들 키워드 재귀함수 알고리즘 그리디 자료구조 스택...","categories": ["코드스테이츠"],
+        "excerpt":"[week9] 느낀점 선선한 바람이 불어와 나뭇잎이 들썩거리길래 나뭇잎을 집어보니 바람은 그곳에 없었다. 하지만 바람에 더해진 향긋한 향기가 느껴져 꽃을 마주보았을때 향기는 더 강해졌다. 나의 바람은 바람만으로 남으면 안 될 것이다. 바람에 노력이라는 향기를 더해서 더더욱 발전해야 겠다. 요즘 나는 바람만 있다. 허풍이다. 배운 것들 키워드 재귀함수 알고리즘 그리디 자료구조 스택...","categories": ["코드스테이츠"],
         "tags": ["회고"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/",
         "teaser": null
@@ -318,21 +312,33 @@ var store = [{
         "teaser": null
       },{
         "title": "Section 3 Spring MVC - DTO, 유효성 검사",
-        "excerpt":"[week9] 간단정리 컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다. 느낀점 점점 느낀점 적는 것이 무의미해지고 있다. 매일 새롭고 매주 ‘엥??’ 이러는데, 그냥 정말 이게 다라서 뭐 추가할 말이 있나 싶다 라는 생각이 나를...","categories": ["코드스테이츠"],
+        "excerpt":"[week10] 간단정리 컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다. 느낀점 점점 느낀점 적는 것이 무의미해지고 있다. 매일 새롭고 매주 ‘엥??’ 이러는데, 그냥 정말 이게 다라서 뭐 추가할 말이 있나 싶다 라는 생각이 나를...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/",
         "teaser": null
       },{
-        "title": "Section 3 Spring MVC - Service, Mapper",
-        "excerpt":"[week9] 간단정리 DTO클래스와 mapper를 통해 Entity를 만든다. @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다. Controller에 Service와 mapper를 DI한다. 느낀점 이해가 잘 되지 않았던 DI의 개념이 쓰다보니 이해가 된다. 그리고 controller와 dto, entity와 service를 잘 다져놓아야 추후 진행할 data acess또한 이해가 잘 될 것 같다. 더 열심히 하자. 스스로 답해보기 Entity는...","categories": ["코드스테이츠"],
+        "title": "Section 3 Spring - Service, Mapper",
+        "excerpt":"[week10] 간단정리 DTO클래스와 mapper를 통해 Entity를 만든다. @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다. Controller에 Service와 mapper를 DI한다. 느낀점 이해가 잘 되지 않았던 DI의 개념이 쓰다보니 이해가 된다. 그리고 controller와 dto, entity와 service를 잘 다져놓아야 추후 진행할 data acess또한 이해가 잘 될 것 같다. 더 열심히 하자. 스스로 답해보기 Entity는...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/",
         "teaser": null
       },{
-        "title": "Section 3 예외처리",
-        "excerpt":" ","categories": [],
-        "tags": [],
-        "url": "/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/",
+        "title": "Section 3 Spring - 예외처리",
+        "excerpt":"[week10] 간단정리 @ExceptionHandler를 이용하여 예외를 처리하자. @RestControllerAdvice를 이용하여 예외처리를 통합하자.(중복을 제거하자) 예외의 가공을 담당하는 클래스를 만들자 (여기서는 ErrorResponse) 느낀점 예외처리를 이해하는데 시간이 꽤나 걸렸다. 그래도 이해하니까, solid원칙과, 흐름이 조금이나마 내 지식에 저장된 느낌이 든다. 스스로 답해보기 api계층에서 발생하는 예외 비즈니스 계층에서 발생하는 예외 정리 - 들어가며 이번 정리는 두가지 경우의...","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/",
+        "teaser": null
+      },{
+        "title": "Section 3 Spring - 예외처리(비즈니스로직)",
+        "excerpt":"[week10] 간단정리 사용하고자 하는 exception을 enum으로 정의하자 그리고 businessException과 같은 RuntimeException을 상속하는 클래스를 만들자 ErrorResponse를 통해 가공하고 @RestControllerAdvice에게 넘겨주자 느낀점 예외처리를 이해하는데 시간이 꽤나 걸렸다. 그래도 이해하니까, solid원칙과, 흐름이 조금이나마 내 지식에 저장된 느낌이 든다. 스스로 답해보기 api계층에서 발생하는 예외 비즈니스 계층에서 발생하는 예외 정리 - 들어가며 이번 정리는 두가지...","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC(%EC%84%9C%EB%B9%84%EC%8A%A4)/",
+        "teaser": null
+      },{
+        "title": "Section 3 Spring - JDBC",
+        "excerpt":"[week10] 간단정리 spring data jdbc는 jdbc api를 더 손 쉽게 사용할 수 있도록 편의성을 증진시켜주는 기술이다. table과 entity mapping시에 primary key에 @id 애너테이션을 추가하자 entity와 table의 이름이 다를 시 클래스 레벨에 @table(“이름”) 애너테이션을 추가하자 관계설정을 위해서 scheme 파일에 테이블을 설계해주어야 한다. 느낀점 단순히 지식을 구현하는 부분이 아니라는 것을 뼈저리게 느낀다....","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JDBC/",
         "teaser": null
       },{
         "title": "[개인] PatchDto에 관하여",
@@ -341,9 +347,27 @@ var store = [{
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
-        "title": "[개인] Sring MVC 흐름에 관하여",
-        "excerpt":"간단정리 - 느낀점 스스로 답해보기 정리 controller부터 jdbc까지 공부를 했지만 전체적인 흐름으로 다가오지 않아서 정리를 하고 넘어가려고 한다. 1. http message요청 클라이언트에서 http message를 요청한다 POST PATCH GET DELETE 2. Controller 클라이언트에서 요청한 http message가 JSON형식으로 엔드포인트인(클라이언트 입장에서) 서버의 controller에 도착한다. 2-1 DTO POST와 PATCH의 경우 responsebody를 포함하고 있다. 따라서...","categories": ["개인탐구"],
+        "title": "Section 3 Spring - JPA",
+        "excerpt":"[week11] 간단정리 spring data jdbc는 단방향, spring data jpa는 양방향 다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자 @Entity와 @Id는 꼭 붙이자. 느낀점 JDBC를 보고 JPA를 보니, 솔직히 spring data jpa가 더 어렵다고 자료에 적혀있긴 했지만, 쌩초보 입장에서는 뭐가 어려운건지는 분간이 안된다. 아무래도 더 깊게 사용하지 않아서 그런거겠지.. 스스로 답해보기 jdbc api와...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
-        "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-mvc-%ED%9D%90%EB%A6%84%EB%8F%84/",
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JPA/",
+        "teaser": null
+      },{
+        "title": "Section 3 Spring - 트랜잭션",
+        "excerpt":"[week12] 간단정리 선언형 방식으로 구현 가능하다 클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다. 전파레벨과 격리레벨을 설정할 수 있다. AOP를 적용하여 코드에서 완전히 분리할 수 있다. 느낀점 이론상 이해는 가장 쉬운데, 적용할때 이게 맞나?? 내가 놓친게 있지 않나 싶은 생각이 많이 든다. 물론 다른 챕터도 마찬가지이긴 하지만.. 특히나 더.. 스스로...","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/",
+        "teaser": null
+      },{
+        "title": "Section 4 인증/보안 기초",
+        "excerpt":"[week9] 간단정리 느낀점 스스로 답해보기 Https란 무엇인가? hashing, salting 인증, 권한부여(인가) 3티어 아키텍쳐 흐름 정리 1. 들어가며 과거의 기억을 떠올려보면 네트워크상에서 정보를 전송하고 전달받기 위한 http는 여러 통신 프로토콜 중의 하나였다. 이를 잘 표현한 문장이 바로 떠오른다. 바로 “http는 하나의 배송사와 같은 것이다.” 정보를 전달하는 배송사.. 현실에서 배송사마다 그들만의 특징들이...","categories": ["코드스테이츠"],
+        "tags": ["Security","네트워크"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/",
+        "teaser": null
+      },{
+        "title": "Section 4 인증/보안 - 쿠키, 세션",
+        "excerpt":"[week9] 간단정리 느낀점 스스로 답해보기 cookie를 설명해봐 session은 무엇이니 정리 1. 들어가며 http message의 특징에 대해 생각해보고 가자 stateless 무상태성이 특징이다. 즉, 클라이언트가 서버에 request를 하고 response를 받으면 연결은 끝이다. 그럼 여기에 보안인증 개념을 더해서 생각해보자 stateless + 인증이라.. 딱 이 개념까지만 생각하면, 우리는 매번 정보를 요청할때마다 로그인 인증을 계속...","categories": ["코드스테이츠"],
+        "tags": ["Security","네트워크"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie-session/",
         "teaser": null
       }]

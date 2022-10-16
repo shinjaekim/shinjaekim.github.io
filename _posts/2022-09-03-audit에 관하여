@@ -1,0 +1,24 @@
+---
+layout: single
+title:  "[개인] PatchDto에 관하여"
+
+categories:
+    - 개인탐구
+
+tags:
+    - Spring   
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+
+## 이 글에 담긴 것
+- patchDto의 필드변수 설정
+
+## 공부하던 부분
+- API계층 Dto 만들기
+
+## 의문점
+1. patchdto의 필드변수는 어떤 것들이 들어가야 하는가??
+
+## 정리

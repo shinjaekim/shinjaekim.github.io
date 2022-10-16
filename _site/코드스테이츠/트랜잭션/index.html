@@ -1,0 +1,819 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 3 Spring - 트랜잭션 | KSJ Archive</title>
+<meta name="description" content="[week12] 간단정리    선언형 방식으로 구현 가능하다   클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다.   전파레벨과 격리레벨을 설정할 수 있다.   AOP를 적용하여 코드에서 완전히 분리할 수 있다.">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 3 Spring - 트랜잭션">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/">
+
+
+  <meta property="og:description" content="[week12] 간단정리    선언형 방식으로 구현 가능하다   클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다.   전파레벨과 격리레벨을 설정할 수 있다.   AOP를 적용하여 코드에서 완전히 분리할 수 있다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-09-05T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Section or 개인탐구</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">백엔드 로드맵 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 3 Spring - 트랜잭션">
+    <meta itemprop="description" content="[week12]간단정리  선언형 방식으로 구현 가능하다  클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다.  전파레벨과 격리레벨을 설정할 수 있다.  AOP를 적용하여 코드에서 완전히 분리할 수 있다.">
+    <meta itemprop="datePublished" content="2022-09-05T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" class="u-url" itemprop="url">Section 3 Spring - 트랜잭션
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-05T00:00:00+09:00">05 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리---들어가며">정리 - 들어가며</a><ul><li><a href="#1-트랜잭션">1. 트랜잭션</a></li><li><a href="#1-2-롤백-커밋">1-2 롤백, 커밋</a></li><li><a href="#2-스프링에서의-트랜잭션-구현">2. 스프링에서의 트랜잭션 구현</a></li><li><a href="#2-1-선언형에서의-여러-설정">2-1 선언형에서의 여러 설정</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week12]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>선언형 방식으로 구현 가능하다</li>
+  <li>클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다.</li>
+  <li>전파레벨과 격리레벨을 설정할 수 있다.</li>
+  <li>AOP를 적용하여 코드에서 완전히 분리할 수 있다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>이론상 이해는 가장 쉬운데, 적용할때 이게 맞나?? 내가 놓친게 있지 않나 싶은 생각이 많이 든다. 물론 다른 챕터도 마찬가지이긴 하지만.. 특히나 더..</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>트랜잭션이 뭐지?</li>
+  <li>트랜잭션의 경계는 무슨 뜻일까?</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
+<p>필수기능들을 계층별로 나누면 지금까지 공부한대로 API, SERVICE, DATA의 세가지 계층으로 나뉠 것이다.</p>
+
+<p>그리고 이 모든 계층을 관통하는 기능들이 있을 것인데,</p>
+
+<p>AOP의 적용 대상으로, 트랜잭션, 보안이 있다.</p>
+
+<p>이번엔 트랜잭션을 중점으로 들어가보자.</p>
+
+<hr />
+
+<h3 id="1-트랜잭션">1. 트랜잭션</h3>
+
+<blockquote>
+  <p>A는 인터넷으로 맥북을 샀다. 그런데 도중 오류로 결제가 이루어지지 않았고, 다시 주문하려다가 마음이 바뀐 A는 다시 주문하는 것을 포기했다. 그런데 3일뒤 맥북이 도착했다??</p>
+</blockquote>
+
+<p>위 경우는 트랜잭션이 보장되지 않았기 때문에 일어난 행운이다. (판매자 입장에선 참사)</p>
+
+<p>분석해보면 위의 사례는 크게 두가지의 쪼갤 수 없는 행동으로 구성되어있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 결제  2.배송
+</code></pre></div></div>
+
+<p>하지만 생각해보자. 물리적으로는 두가지로 쪼개지지만 하나만 독단적으로 일어나면 어처구니없는 상황 아닌가??</p>
+
+<p>즉 물리적으로는 나뉘어있지만 논리적으로는 하나의 작업으로 인식되어야하는 작업들인 것이다.</p>
+
+<p>이것을 트랜잭션이라고 하며, 트랜잭션 하의 작업들은 모두 성공하거나 모두 실패해야하는 공동 운명체이다.</p>
+
+<p>이 외에도 여러가지의 특징이 있는데 이를 <strong><em>ACID</em></strong>라고 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. A - Atomicity(원자성)
+    모두 성공하거나 모두 실패하거나
+
+2. C - Consistency(일관성)
+    짜여진대로(비즈니스 로직대로) 일관되게 수행되었는가
+
+3. I - Isolation(격리성)
+    두개의 트랜잭션이 있다면 서로 영향을 끼치면 안된다.
+
+4. D - Durability(지속성)
+    데이터베이스의 특징으로, 종료되어도 지속적으로 유지되어야 한다.
+</code></pre></div></div>
+
+<h3 id="1-2-롤백-커밋">1-2 롤백, 커밋</h3>
+
+<blockquote>
+  <p>앞선 A의 사례가 정상적으로 돌아가려면 어떤 일이 있어야 했을까??</p>
+</blockquote>
+
+<p>1) 만약 결제와 배송이 성공적으로 진행되었다면, 이에 수반한 결과가 데이터에 정상적으로 변경되어 저장되어야 하며,</p>
+
+<p>2) 하나라도 실패했다면, 모든 데이터들이 원래대로 돌아가야 할 것이다.</p>
+
+<p>1번을 커밋, 2번을 롤백이라고 한다.</p>
+
+<p>커밋을 하게되면 변경 결과가 데이터베이스에 영구 저장되며, 롤백을 하면 작업 직전 상태로 되돌아간다.</p>
+
+<hr />
+
+<h3 id="2-스프링에서의-트랜잭션-구현">2. 스프링에서의 트랜잭션 구현</h3>
+
+<ol>
+  <li>코드베이스에서 구현한다.</li>
+</ol>
+
+<p>영속성컨텍스트를 학습할때 보았던 EntityManagerFactory를 이용하면 EntityManager 인스턴스를 생성할 수 있는데, 이렇게 생성한 인스턴스로부터 트랜잭션 인스턴스를 생성할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">EntityTransaction</span> <span class="n">tx</span><span class="o">;</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">CommandLineRunner</span> <span class="nf">testJpaBasicRunner</span><span class="o">(</span><span class="nc">EntityManagerFactory</span> <span class="n">emFactory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">em</span> <span class="o">=</span> <span class="n">emFactory</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+        
+				<span class="c1">// (1)</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">tx</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">tx</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+            <span class="o">.</span>
+            <span class="o">.</span>
+            <span class="o">.</span>
+            <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+					
+            <span class="n">tx</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>    <span class="c1">// (2)</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+
+</code></pre></div></div>
+<p>이렇게 하는 것이 코드베이스이지 않나 싶다.. (찾아보는 중)</p>
+
+<p>단점으로는 당연히 필수기능과 부가기능의 코드들이 섞여서 가독성이 악화되며 유지보수의 어려움을 낳는다는 것이 되겠다.</p>
+
+<ol>
+  <li>선언형으로 구현한다.</li>
+</ol>
+
+<p>클래스나 메서드 레벨에 @Transactional 을 추가해주기만 하면 되며, 둘 다 적용된 경우 메서드 레벨의 애너테이션이 우선적용된다.</p>
+
+<ol>
+  <li>AOP방식으로 구현한다.</li>
+</ol>
+
+<p>선언형으로 작성하는 애너테이션마저 꼴보기 싫다면 AOP방식으로 적용 가능하다.
+(추후 추가..)</p>
+
+<h3 id="2-1-선언형에서의-여러-설정">2-1 선언형에서의 여러 설정</h3>
+
+<ol>
+  <li>
+    <p>Transaction Propagation</p>
+
+    <p>Propagation.REQUIRED
+     ‘트랜잭션 내놔’
+     진행중인 트랜잭션에 참여한다. 없다면 새로 트랜잭션을 시작하고 참여한다.</p>
+
+    <p>Propagation.REQUIRES_NEW
+     ‘무조건 새거’
+     트랜잭션을 하나 새로 만들어 진행한다. 이때, 진행중인 트랜잭션이 있다면 잠시 멈추게된다.</p>
+
+    <p>Propagation.MANDATORY
+     ‘트랜잭션 내놔, 근데 내가 안만들어’
+     진행중인 트랜잭션에 참여한다. 없다면 예외를 발생시킨다.</p>
+
+    <p>Propagation.<em>NOT_SUPPORTED</em>
+     ‘난 혼자한다’
+     트랜잭션은 필요없다. 해당 메서드가 실행될때는 진행중이던 트랜잭션은 잠시 멈춘다.</p>
+
+    <p>Propagation.<em>NEVER</em>
+     ‘트랜잭션 만들지마라’
+     트랜잭션은 필요없다. 진행중인 트랜잭션이 있으면 예외를 발생시킨다.</p>
+  </li>
+  <li>
+    <p>Isolation Level</p>
+
+    <p>Isolation.DEFAULT
+     기본 값</p>
+
+    <p>Isolation.READ_UNCOMMITTED
+     다른 트랜잭션에서 커밋하지 않은 데이터를 읽는 것을 허용</p>
+
+    <p>Isolation.READ_COMMITTED
+     다른 트랜잭션에 의해 커밋된 데이터를 읽는 것을 허용</p>
+
+    <p>Isolation.REPEATABLE_READ
+     트랜잭션 내에서 한 번 조회한 데이터를 반복해서 조회해도 같은 데이터가 조회</p>
+
+    <p>Isolation.SERIALIZABLE
+     동일한 데이터에 대해서 동시에 두 개 이상의 트랜잭션이 수행되지 못하도록</p>
+  </li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-09-05T00:00:00+09:00">05 Sep, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+3+Spring+-+%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2F%25ED%258A%25B8%25EB%259E%259C%25EC%259E%25AD%25EC%2585%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2F%25ED%258A%25B8%25EB%259E%259C%25EC%259E%25AD%25EC%2585%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2F%25ED%258A%25B8%25EB%259E%259C%25EC%259E%25AD%25EC%2585%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JPA/" class="pagination--pager" title="Section 3 Spring - JPA
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/" class="pagination--pager" title="Section 4 인증/보안 기초
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie-session/" rel="permalink">Section 4 인증/보안 - 쿠키, 세션
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-21T00:00:00+09:00">21 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/" rel="permalink">Section 4 인증/보안 기초
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-20T00:00:00+09:00">20 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JPA/" rel="permalink">Section 3 Spring - JPA
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-01T00:00:00+09:00">01 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week11]
+간단정리
+
+  spring data jdbc는 단방향, spring data jpa는 양방향
+  다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자
+  @Entity와 @Id는 꼭 붙이자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">[개인] PatchDto에 관하여
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
+
+  patchDto의 필드변수 설정
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/트랜잭션"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,116 @@
+I"<p>[week9]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>cookie를 설명해봐</li>
+  <li>session은 무엇이니</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+<h3 id="1-들어가며">1. 들어가며</h3>
+
+<p>http message의 특징에 대해 생각해보고 가자</p>
+
+<blockquote>
+  <p>stateless</p>
+</blockquote>
+
+<p>무상태성이 특징이다. 즉, 클라이언트가 서버에 request를 하고 response를 받으면 연결은 끝이다.</p>
+
+<p><strong><em>그럼 여기에 보안인증 개념을 더해서 생각해보자</em></strong></p>
+
+<p>stateless + 인증이라.. 딱 이 개념까지만 생각하면, 우리는 매번 정보를 요청할때마다 로그인 인증을 계속 해야 할 것이다.</p>
+
+<p>근데 실제로는 그렇지 않다.</p>
+
+<hr />
+
+<h3 id="2-쿠키">2. 쿠키</h3>
+
+<blockquote>
+  <p>서버가 클라이언트(브라우저,로컬)에 데이터를 저장한다.</p>
+</blockquote>
+
+<p>이렇게 되면 로그인 이후 생성한 쿠키를 클라이언트에 저장함으로써, 이후 사용자가 정보를 서버에 요청할때는 쿠키를 참고하여 stateful한 상태를 유지할 수 있게 된다.</p>
+
+<p>-&gt; response header에 set-cookie를 설정한 후 쿠키 전송</p>
+
+<h4 id="2-1-쿠키-옵션">2-1 쿠키 옵션</h4>
+
+<p>쿠키의 구성요소는 다음과 같다</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>키
+값
+유효시간
+도메인
+경로
+</code></pre></div></div>
+
+<p>이와 관련된 옵션들을 살펴보자.</p>
+
+<p>1.도메인 
+쿠키의 구성요소에 도메인이 있다면, 쿠기를 전송하고 받아오는 작업은 <strong><em>쿠키에 명시된 도메인과 서버의 도메인이 일치할때</em></strong>만 가능하다.</p>
+
+<p>2.Path
+URL상 포트번호 다음 / 이후의 uri들을 path라고 하는데, 이 <strong><em>path정보들을 모두 포함하는 경우에만</em></strong> 쿠키 작업이 가능하다.</p>
+
+<p>3.MaxAge or Expires
+유효시간이 없다면 <strong>세션쿠키</strong>이다. 이 경우 브라우저가 종료되면 쿠키는 사용 불가하다</p>
+
+<p>MaxAge는 쿠키가 몇초동안 유지될지, Expires는 어떤 시간,날짜까지 유지할지를 결정한다. 이 경우 <strong>영속성쿠키</strong>로써 브라우저가 종료되도 유지된다.</p>
+
+<p>4.Secure
+HTTPS의 경우에만 쿠키를 전송한다.</p>
+
+<p>5.HttpOnly
+기본값은 false인데, true일 경우 자바스크립트를 통한 쿠키접근은 불가하다.</p>
+
+<p>6.SameSite
+Lax / Strict / None의 옵션이 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lax :Cross-Origin 요청이면 'GET' 메소드에 대해서만 쿠키를 전송할 수 있습니다.
+Strict : Cross-Origin이 아닌 same-site 인 경우에만 쿠키를 전송 할 수 있습니다.
+None: 항상 쿠키를 보내줄 수 있습니다. 다만 쿠키 옵션 중 Secure 옵션이 필요합니다.
+</code></pre></div></div>
+
+<p>if)</p>
+
+<ul>
+  <li>
+    <p>http://www.mynmae-domain.com/ —&gt; http://www.mynmae-domain.com = ***Same-Origin-</p>
+  </li>
+  <li>
+    <p>http://www.mynmae-domain.com —&gt; http://www.yournmae-domain.com = ***Cross-Origin-</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="3-세션">3. 세션</h3>
+
+<p>사용자가 인증에 성공한 상태라면 그 상태를 <strong><em>세션</em></strong> 이라고 한다.
+이 후 서버는 세션의 id를 반환하고, 이를 쿠키에 담아서 클라이언트에게 전달한다.
+그러면 로그인 상태가 유지되어서 (쿠키로부터 세션id 일치 여부만 확인하면 되니까 stateful한 상태를 유지할 수 있다.</p>
+
+<blockquote>
+  <p>쿠키랑 차이점은 뭔데??</p>
+</blockquote>
+
+<p>위 설명만 보면 결국 쿠키를 이용한다. 따라서 차이가 없어 보이기도 하지만 차이점은 분명 존재한다.</p>
+
+<p>바로 <strong><em>‘사용자 정보 파일을 어디에 저장하는가’</em></strong> 이다.</p>
+
+<p>때문에 보안측면에서 세션방식이 더 유리하다고 말할 수 있겠다. 하지만 그만큼 사용자가 몰리면 서버에는 과부하가 올 수도 있겠다.</p>
+:ET

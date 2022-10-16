@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Section 3 Spring MVC - Service, Mapper | KSJ Archive</title>
-<meta name="description" content="[week9] 간단정리    DTO클래스와 mapper를 통해 Entity를 만든다.   @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.   Controller에 Service와 mapper를 DI한다.">
+<!-- begin _includes/seo.html --><title>Section 3 Spring - Service, Mapper | KSJ Archive</title>
+<meta name="description" content="[week10] 간단정리    DTO클래스와 mapper를 통해 Entity를 만든다.   @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.   Controller에 Service와 mapper를 DI한다.">
 
 
   <meta name="author" content="Shinjae Kim">
@@ -22,11 +22,11 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="KSJ Archive">
-<meta property="og:title" content="Section 3 Spring MVC - Service, Mapper">
+<meta property="og:title" content="Section 3 Spring - Service, Mapper">
 <meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/">
 
 
-  <meta property="og:description" content="[week9] 간단정리    DTO클래스와 mapper를 통해 Entity를 만든다.   @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.   Controller에 Service와 mapper를 DI한다.">
+  <meta property="og:description" content="[week10] 간단정리    DTO클래스와 mapper를 통해 Entity를 만든다.   @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.   Controller에 Service와 mapper를 DI한다.">
 
 
 
@@ -117,7 +117,7 @@
           <span class="site-subtitle">brainstorm everyting at the time</span>
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="/categories/">Section vs 개인탐구</a>
+              <a href="/categories/">Section or 개인탐구</a>
             </li><li class="masthead__menu-item">
               <a href="/tags/">백엔드 로드맵 분류</a>
             </li></ul>
@@ -267,8 +267,8 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Section 3 Spring MVC - Service, Mapper">
-    <meta itemprop="description" content="[week9]간단정리  DTO클래스와 mapper를 통해 Entity를 만든다.  @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.  Controller에 Service와 mapper를 DI한다.">
+    <meta itemprop="headline" content="Section 3 Spring - Service, Mapper">
+    <meta itemprop="description" content="[week10]간단정리  DTO클래스와 mapper를 통해 Entity를 만든다.  @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다.  Controller에 Service와 mapper를 DI한다.">
     <meta itemprop="datePublished" content="2022-08-23T00:00:00+09:00">
     
 
@@ -276,7 +276,7 @@
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/" class="u-url" itemprop="url">Section 3 Spring MVC - Service, Mapper
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/" class="u-url" itemprop="url">Section 3 Spring - Service, Mapper
 </a>
           </h1>
           
@@ -305,12 +305,12 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
-              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리">정리</a><ul><li><a href="#1-엔티티">1. 엔티티</a></li><li><a href="#2-mapper의-등장">2. Mapper의 등장</a></li><li><a href="#3-service-계층">3. Service 계층</a></li><li><a href="#4-controller에-service-di">4. controller에 service DI</a></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리---들어가며">정리 - 들어가며</a><ul><li><a href="#1-엔티티">1. 엔티티</a></li><li><a href="#2-mapper의-등장">2. Mapper의 등장</a></li><li><a href="#3-service-계층">3. Service 계층</a></li><li><a href="#4-controller에-service-di">4. controller에 service DI</a></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <p>[week9]</p>
+        <p>[week10]</p>
 <h2 id="간단정리">간단정리</h2>
 <ul>
   <li>DTO클래스와 mapper를 통해 Entity를 만든다.</li>
@@ -334,7 +334,7 @@
 
 <p><br /></p>
 
-<h2 id="정리">정리</h2>
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
 
 <p>WAS(Web Application Server)를 보면,</p>
 
@@ -398,7 +398,7 @@
 
 <p>이러한 이유로 Controller 클래스가 클라이언트와의 정보공유만을 위해 작동하도록 responsebody와의 변환을 담당하는 dto클래스를 따로 만들어 주었다.</p>
 
-<p>이와 마찬가지의 이류로 서비스 클래스에서도 엔티티라는 것이 존재한다.</p>
+<p>이와 마찬가지의 이유로 서비스 클래스에서도 엔티티라는 것이 존재한다.</p>
 
 <p><strong><em>엔티티는 비즈니스 로직을 처리하기 위한, 처리한 데이터를 전달하기 위핸 객체이다.</em></strong></p>
 
@@ -426,7 +426,7 @@
 
 <p>마찬가지로 DTO또한 엔티티로 변환해 주어야 할 것인데,</p>
 
-<p>앞서 언급했듯 서비스계층에서는 비즈니스 로직만을 담당하는 것이 옳을 것이다.</p>
+<p>앞서 언급했듯 서비스 계층에서는 비즈니스 로직만을 담당하는 것이 옳을 것이다.</p>
 
 <p>따라서 DTO -&gt; Entity의 역할을 담당하는 클래스를 따로 만들어 주어야 한다.</p>
 
@@ -607,7 +607,7 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Section+3+Spring+MVC+-+Service%2C+Mapper%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-3-SERVICE-MAPPER%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Section+3+Spring+-+Service%2C+Mapper%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-3-SERVICE-MAPPER%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FSection-3-SERVICE-MAPPER%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -622,7 +622,7 @@
 ">이전</a>
     
     
-      <a href="/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" class="pagination--pager" title="Section 3 예외처리
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" class="pagination--pager" title="Section 3 Spring - 예외처리
 ">다음</a>
     
   </nav>
@@ -647,7 +647,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-mvc-%ED%9D%90%EB%A6%84%EB%8F%84/" rel="permalink">[개인] Sring MVC 흐름에 관하여
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie-session/" rel="permalink">Section 4 인증/보안 - 쿠키, 세션
 </a>
       
     </h2>
@@ -659,122 +659,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2022-08-29T00:00:00+09:00">29 Aug, 2022</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">간단정리
--
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="permalink">[개인] PatchDto에 관하여
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2022-08-27T00:00:00+09:00">27 Aug, 2022</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">이 글에 담긴 것
-
-  patchDto의 필드변수 설정
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" rel="permalink">Section 3 예외처리
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2022-08-24T00:00:00+09:00">24 Aug, 2022</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/" rel="permalink">Section 3 Spring MVC - DTO, 유효성 검사
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2022-08-22T00:00:00+09:00">22 Aug, 2022</time>
+        <time datetime="2022-09-21T00:00:00+09:00">21 Sep, 2022</time>
       </span>
     
 
@@ -786,7 +671,137 @@
 
     <p class="archive__item-excerpt" itemprop="description">[week9]
 간단정리
-컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다.
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/" rel="permalink">Section 4 인증/보안 기초
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-20T00:00:00+09:00">20 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" rel="permalink">Section 3 Spring - 트랜잭션
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-05T00:00:00+09:00">05 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week12]
+간단정리
+
+  선언형 방식으로 구현 가능하다
+  클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다.
+  전파레벨과 격리레벨을 설정할 수 있다.
+  AOP를 적용하여 코드에서 완전히 분리할 수 있다.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JPA/" rel="permalink">Section 3 Spring - JPA
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-01T00:00:00+09:00">01 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week11]
+간단정리
+
+  spring data jdbc는 단방향, spring data jpa는 양방향
+  다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자
+  @Entity와 @Id는 꼭 붙이자.
+
 </p>
   </article>
 </div>

@@ -1,0 +1,8 @@
+I"	<p>[week11]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>spring data jdbc는 단방향, spring data jpa는 양방향</li>
+  <li>다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자</li>
+  <li>@Entity와 @Id는 꼭 붙이자.</li>
+</ul>
+:ET

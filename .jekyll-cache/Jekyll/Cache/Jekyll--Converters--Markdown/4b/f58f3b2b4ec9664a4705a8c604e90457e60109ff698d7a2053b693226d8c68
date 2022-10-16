@@ -1,0 +1,9 @@
+I"W<p>[week10]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>사용하고자 하는 exception을 enum으로 정의하자</li>
+  <li>그리고 businessException과 같은 RuntimeException을 상속하는 클래스를 만들자</li>
+  <li>ErrorResponse를 통해 가공하고</li>
+  <li>@RestControllerAdvice에게 넘겨주자</li>
+</ul>
+:ET

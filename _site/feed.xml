@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-04T17:24:49+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">KSJ Archive</title><subtitle>archive of my backend path </subtitle><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><entry><title type="html">[개인] Sring MVC 흐름에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-mvc-%ED%9D%90%EB%A6%84%EB%8F%84/" rel="alternate" type="text/html" title="[개인] Sring MVC 흐름에 관하여" /><published>2022-08-29T00:00:00+09:00</published><updated>2022-08-29T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring%20mvc%20%ED%9D%90%EB%A6%84%EB%8F%84</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Spring-mvc-%ED%9D%90%EB%A6%84%EB%8F%84/"><![CDATA[<h2 id="간단정리">간단정리</h2>
-<p>-</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-16T13:08:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">KSJ Archive</title><subtitle>archive of my backend path </subtitle><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><entry><title type="html">Section 4 인증/보안 - 쿠키, 세션</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie-session/" rel="alternate" type="text/html" title="Section 4 인증/보안 - 쿠키, 세션" /><published>2022-09-21T00:00:00+09:00</published><updated>2022-09-21T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie%20session</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie-session/"><![CDATA[<p>[week9]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li></li>
+</ul>
 
 <p><br /></p>
 
@@ -8,96 +11,593 @@
 <p><br /></p>
 
 <h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>cookie를 설명해봐</li>
+  <li>session은 무엇이니</li>
+</ul>
 
 <p><br /></p>
 
 <h2 id="정리">정리</h2>
+<h3 id="1-들어가며">1. 들어가며</h3>
 
-<p>controller부터 jdbc까지 공부를 했지만 전체적인 흐름으로 다가오지 않아서 정리를 하고 넘어가려고 한다.</p>
+<p>http message의 특징에 대해 생각해보고 가자</p>
 
-<h3 id="1-http-message요청">1. http message요청</h3>
+<blockquote>
+  <p>stateless</p>
+</blockquote>
 
-<p>클라이언트에서 http message를 요청한다</p>
+<p>무상태성이 특징이다. 즉, 클라이언트가 서버에 request를 하고 response를 받으면 연결은 끝이다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST PATCH GET DELETE
+<p><strong><em>그럼 여기에 보안인증 개념을 더해서 생각해보자</em></strong></p>
+
+<p>stateless + 인증이라.. 딱 이 개념까지만 생각하면, 우리는 매번 정보를 요청할때마다 로그인 인증을 계속 해야 할 것이다.</p>
+
+<p>근데 실제로는 그렇지 않다.</p>
+
+<hr />
+
+<h3 id="2-쿠키">2. 쿠키</h3>
+
+<blockquote>
+  <p>서버가 클라이언트(브라우저,로컬)에 데이터를 저장한다.</p>
+</blockquote>
+
+<p>이렇게 되면 로그인 이후 생성한 쿠키를 클라이언트에 저장함으로써, 이후 사용자가 정보를 서버에 요청할때는 쿠키를 참고하여 stateful한 상태를 유지할 수 있게 된다.</p>
+
+<p>-&gt; response header에 set-cookie를 설정한 후 쿠키 전송</p>
+
+<h4 id="2-1-쿠키-옵션">2-1 쿠키 옵션</h4>
+
+<p>쿠키의 구성요소는 다음과 같다</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>키
+값
+유효시간
+도메인
+경로
 </code></pre></div></div>
+
+<p>이와 관련된 옵션들을 살펴보자.</p>
+
+<p>1.도메인 
+쿠키의 구성요소에 도메인이 있다면, 쿠기를 전송하고 받아오는 작업은 <strong><em>쿠키에 명시된 도메인과 서버의 도메인이 일치할때</em></strong>만 가능하다.</p>
+
+<p>2.Path
+URL상 포트번호 다음 / 이후의 uri들을 path라고 하는데, 이 <strong><em>path정보들을 모두 포함하는 경우에만</em></strong> 쿠키 작업이 가능하다.</p>
+
+<p>3.MaxAge or Expires
+유효시간이 없다면 <strong>세션쿠키</strong>이다. 이 경우 브라우저가 종료되면 쿠키는 사용 불가하다</p>
+
+<p>MaxAge는 쿠키가 몇초동안 유지될지, Expires는 어떤 시간,날짜까지 유지할지를 결정한다. 이 경우 <strong>영속성쿠키</strong>로써 브라우저가 종료되도 유지된다.</p>
+
+<p>4.Secure
+HTTPS의 경우에만 쿠키를 전송한다.</p>
+
+<p>5.HttpOnly
+기본값은 false인데, true일 경우 자바스크립트를 통한 쿠키접근은 불가하다.</p>
+
+<p>6.SameSite
+Lax / Strict / None의 옵션이 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lax :Cross-Origin 요청이면 'GET' 메소드에 대해서만 쿠키를 전송할 수 있습니다.
+Strict : Cross-Origin이 아닌 same-site 인 경우에만 쿠키를 전송 할 수 있습니다.
+None: 항상 쿠키를 보내줄 수 있습니다. 다만 쿠키 옵션 중 Secure 옵션이 필요합니다.
+</code></pre></div></div>
+
+<p>if)</p>
+
+<ul>
+  <li>
+    <p>http://www.mynmae-domain.com/ —&gt; http://www.mynmae-domain.com = ***Same-Origin-</p>
+  </li>
+  <li>
+    <p>http://www.mynmae-domain.com —&gt; http://www.yournmae-domain.com = ***Cross-Origin-</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="3-세션">3. 세션</h3>
+
+<p>사용자가 인증에 성공한 상태라면 그 상태를 <strong><em>세션</em></strong> 이라고 한다.
+이 후 서버는 세션의 id를 반환하고, 이를 쿠키에 담아서 클라이언트에게 전달한다.
+그러면 로그인 상태가 유지되어서 (쿠키로부터 세션id 일치 여부만 확인하면 되니까 stateful한 상태를 유지할 수 있다.</p>
+
+<blockquote>
+  <p>쿠키랑 차이점은 뭔데??</p>
+</blockquote>
+
+<p>위 설명만 보면 결국 쿠키를 이용한다. 따라서 차이가 없어 보이기도 하지만 차이점은 분명 존재한다.</p>
+
+<p>바로 <strong><em>‘사용자 정보 파일을 어디에 저장하는가’</em></strong> 이다.</p>
+
+<p>때문에 보안측면에서 세션방식이 더 유리하다고 말할 수 있겠다. 하지만 그만큼 사용자가 몰리면 서버에는 과부하가 올 수도 있겠다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Security" /><category term="네트워크" /><summary type="html"><![CDATA[[week9] 간단정리]]></summary></entry><entry><title type="html">Section 4 인증/보안 기초</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/" rel="alternate" type="text/html" title="Section 4 인증/보안 기초" /><published>2022-09-20T00:00:00+09:00</published><updated>2022-09-20T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security%20basic</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/"><![CDATA[<p>[week9]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li></li>
+</ul>
 
 <p><br /></p>
 
-<h3 id="2-controller">2. Controller</h3>
-
-<p>클라이언트에서 요청한 http message가 JSON형식으로 엔드포인트인(클라이언트 입장에서) 서버의 controller에 도착한다.</p>
-
-<h4 id="2-1-dto">2-1 DTO</h4>
-
-<p>POST와 PATCH의 경우 responsebody를 포함하고 있다.</p>
-
-<p>따라서 각각의 요청 데이터들을 @Requestparam 애너테이션을 이용하여 받게 되는데,</p>
-
-<p>이 경우 responsebody의 요청데이터가 많아질수록 @Requestparam의 갯수가 늘어나 코드가 복잡해지게된다.</p>
-
-<p>따라서 DTO(Data Transfer Objet)를 따로 만들어 컨트롤러의 핸들러 메서드의 파라미터로 받는다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST의 경우 멤버변수로 responsebody의 모든 데이터들을,
-PATCH의 경우 멤버변수로 변환하고자 하는 데이터들을 설정한다.
-</code></pre></div></div>
-
-<h4 id="2-2-유효성-검사">2-2 유효성 검사</h4>
-
-<p>responsebody를 받는 DTO객체에서 유효성검사를 시행한다.</p>
-
-<p>기본 제공되는 애너테이션(@Notblank, @Email 등)을 이용하거나</p>
-
-<p>커스텀 애너테이션을 만들어 사용한다.</p>
+<h2 id="느낀점">느낀점</h2>
 
 <p><br /></p>
 
-<h3 id="3-service">3. Service</h3>
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>Https란 무엇인가?</li>
+  <li>hashing, salting</li>
+  <li>인증, 권한부여(인가)</li>
+  <li>3티어 아키텍쳐 흐름</li>
+</ul>
 
-<p>비즈니스 로직을 설계한다.</p>
+<p><br /></p>
 
-<p>Controller는 클라이언트와의 데이터공유만을 담당해야 한다.</p>
+<h2 id="정리">정리</h2>
+<h3 id="1-들어가며">1. 들어가며</h3>
 
-<p>따라서 Service객체를 따로 만들고, DI(생성자 이용)를 이용하여 Controller 에서 호출한다.</p>
+<p>과거의 기억을 떠올려보면 네트워크상에서 정보를 전송하고 전달받기 위한 http는 여러 통신 프로토콜 중의 하나였다. 이를 잘 표현한 문장이 바로 떠오른다. 바로 “http는 하나의 배송사와 같은 것이다.” 정보를 전달하는 배송사.. 현실에서 배송사마다 그들만의 특징들이 있듯이 http또한 특징이 있다.</p>
 
-<h3 id="3-1-entity">3-1 Entity</h3>
+<ul>
+  <li>특징들
+    <ul>
+      <li>무상태성</li>
+      <li>request body, response body</li>
+    </ul>
+  </li>
+</ul>
 
-<p>DTO가 클라이언트-Controller 사이의 정보공유를 위한 객체라면</p>
+<p>지금까지 학습해온 spring framework를 통해 웹 어플리케이션을 만드는 것은, csr방식인 이상(ssr도 마찬가지이겠지만 특히나 더), 클라이언트와의 정보 공유라는 활동이 있어야 존재 의미를 가질 것이다.</p>
 
-<p>Entity는 Controller 이후 Service를 거쳐 model을 생성하기 위한 객체이다.</p>
+<p>여기서 정보공유를 http message를 통해 하게 되는데 (클라이언트가 메시지를 보내면 컨트롤러의 각 handler method로 연결된다.), 생각해보면 중간자가 개입하여 그 메시지를 탈취하면 중요한 정보들을 도둑맞게 될 가능성이 높다.</p>
 
-<p>따라서, DTO를 Entity로 변환하여 사용하도록 하자.</p>
+<blockquote>
+  <p>그래서 https가 존재한다.</p>
+</blockquote>
 
-<h3 id="3-2-mapper">3-2 Mapper</h3>
+<hr />
 
-<p>위에서 말한 DTO를 Entity로 어떻게 바꾸는가? 에 대한 답이다.</p>
+<h3 id="2-https">2. https</h3>
 
-<p>Mapper를 따로 생성하여 DTO-&gt;Entity의 작업만 담당하게 하고</p>
+<p>https는 Hyper Text Transfer Protocol Secure Socket Layer의 약자이다. 길게 말할 것 없이 http프로토콜에 보안이 추가된 것이다.</p>
 
-<p>DI(생성자 주입)을 통하여 Controller에서 호출한다</p>
+<p>보안이라는 기능은 어떻게 추가될까?? -&gt; https 특징을 들여다보며 알아보자.</p>
 
-<h3 id="3-3-여기까지의-흐름">3-3 여기까지의 흐름</h3>
+<h4 id="2-1-암호화-비대칭키--대칭키">2-1 암호화 (비대칭키 / 대칭키)</h4>
 
-<p>http message -&gt; DTO -&gt; Controller -&gt; Mapper(DTO-&gt;Entity) -&gt; Servcie</p>
+<p>먼저 비대칭키와 대칭키부터 확실히 잡고가자.</p>
 
-<h3 id="3-4-예외-처리">3-4 예외 처리</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>비대칭키 - 비밀키로 암호화 / 복호화
+대칭키 - 비밀키와 공개키로 암호화 / 복호화
+</code></pre></div></div>
 
-<p>예외 처리는 3가지의 경우가 있다.</p>
+<p>these are the encryption(암호화) method of Http</p>
+
+<p>that there are two ways means that there is trade off of advantage. 
+Asymmetric Key(비대칭키) is more complicated than Symmetric key(대칭키). So if we do all transfer process with Asymmetric key, it costs more.</p>
+
+<p>there is a way of relieving it.
+easily thinking of transfering process, data transfering is more frequent.</p>
+
+<p>so,</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. when transfer data each other, use Symmetric key
+2. when trasnfer Symmetric key each other, use Asymmetric key
+</code></pre></div></div>
+
+<h4 id="2-2-인증서">2-2 인증서</h4>
+
+<p>cetificate has the information of domain. so if client get the response form server, they can compare the domain of server itself to domain information included in certificate.</p>
+
+<p>if middle man interrupt it, it cause change of domain information, so client can notice that there was intteruption by comparing certificate domain to it.</p>
+
+<h4 id="2-3-ca">2-3 CA</h4>
+
+<p>it refers to the authorized agencies that issue certificates. it’s roll is encypting the server’s public key and information with CA’s private key.</p>
+
+<p>after client get the certificate, client can decrypt it with CA’s public key. if it is impoosible, it means Certificate is not issued by CA.</p>
+
+<hr />
+
+<h3 id="3-hashing">3. Hashing</h3>
+
+<p>인증수단으로서 가장 먼저 떠오르는 것이 비밀번호이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>비밀번호가 없다면??
+
+아이디만으로 서버에 정보 요청이 가능
+아이디를 다른사람이 아는 순간 누구나 정보 요청이 가능
+</code></pre></div></div>
+
+<p>근데 중간에 껴들어서 비밀번호마저 탈취한다면???</p>
+
+<blockquote>
+  <p>그래서 암호화 - 해싱을 이용한다</p>
+</blockquote>
+
+<p>해싱 - 문자열을 임의의 다른 문자열로 변환</p>
+
+<h4 id="3-1-이메일만-존재할때">3-1 이메일만 존재할때</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. client가 email과 관련된 정보 요청
+2. server에서 email과 관련된 정보 제공
+</code></pre></div></div>
+
+<h4 id="3-2-이메일--비밀번호">3-2 이메일 + 비밀번호</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. client가 email과 관련된 정보 요청
+2. server에서 db에 저장된 암호화 일치하는지 여부 확인
+3. 일치한다면 그때 정보 제공
+</code></pre></div></div>
+
+<h4 id="3-2-이메일--암호--해싱">3-2 이메일 + (암호 + 해싱)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. client가 email과 관련된 정보 요청
+2. server에서 password hashing
+3. db에 저장된 hashing된 암호와 일치하는지 여부 확인
+4. 일치한다면 그때 정보 제공
+</code></pre></div></div>
+
+<p>즉 server 내부의 hashing 알고리즘을 알지 못한다면 http messeage에서 정보를 탈취했다고 하더라도, 비밀번호를 알아낼 수 없음.</p>
+
+<h4 id="hashing의-철칙">hashing의 철칙</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 복호화는 오래걸려도 암호화는 빠르게
+    암호화가 느리면 매번 요청할때마다 긴 시간이 걸릴 것
+
+2. 최대한 해시값의 중복은 피한다
+    이를 구현하는 알고리즘들이 존재
+
+3. 조금만 문자가 바뀌어도 엄청나게 바뀌는 해시값
+    나비효과
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="4-salt">4. salt</h3>
+
+<p>조미료가 첨가된 음식은 더 맛있어진다.</p>
+
+<p>한편, 조미료가 첨가된 음식을 만드는 사람과 먹는 사람 입장에서 생각해보자.</p>
+
+<p>만드는 사람은 당연히 자기가 만드는 음식에 무엇이 들어갔는지 알고 있다. 하지만.. 먹는 사람은 백종원급이 아닌 이상은 어떤 조미료가 들어갔는지 정확히 알지 못한다.</p>
+
+<p>이 예를 그대로 적용하면 된다.</p>
+
+<p>앞서 학습한 해싱의 경우 비밀번호를 암호화 하였다.</p>
+
+<p>여기에 소금(salt)를 더하여 더 맛있는 비밀번호를 만들어보자. 단, 만드는 사람 이외의 사람들은 어떤 소금이 얼마나 들어간건지는 모른다.</p>
+
+<h4 id="4-1-salt-추가시의-흐름">4-1 salt 추가시의 흐름</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. client가 email과 관련된 정보를 요청한다.
+2. server는 db에서 salt와 hashing된 값을 가져온다.
+3. server가 email과 함께 받은 password를 salt한 후 hashing한다.
+4. 비교 후 일치하면 정보를 제공한다.
+</code></pre></div></div>
+
+<h4 id="4-2-소금을-첨가하는-방법">4-2 소금을 첨가하는 방법</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 salt는 패스워드 별로 유일한 값을 가진다.
+
+2. 비밀번호 변경시 새로운 salt를 사용한다
+
+3. 재사용은 안된다
+
+4. salt는 db에 같이 저장된다.
+</code></pre></div></div>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Security" /><category term="네트워크" /><summary type="html"><![CDATA[[week9] 간단정리]]></summary></entry><entry><title type="html">Section 3 Spring - 트랜잭션</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" rel="alternate" type="text/html" title="Section 3 Spring - 트랜잭션" /><published>2022-09-05T00:00:00+09:00</published><updated>2022-09-05T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/"><![CDATA[<p>[week12]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>선언형 방식으로 구현 가능하다</li>
+  <li>클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다.</li>
+  <li>전파레벨과 격리레벨을 설정할 수 있다.</li>
+  <li>AOP를 적용하여 코드에서 완전히 분리할 수 있다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>이론상 이해는 가장 쉬운데, 적용할때 이게 맞나?? 내가 놓친게 있지 않나 싶은 생각이 많이 든다. 물론 다른 챕터도 마찬가지이긴 하지만.. 특히나 더..</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>트랜잭션이 뭐지?</li>
+  <li>트랜잭션의 경계는 무슨 뜻일까?</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
+<p>필수기능들을 계층별로 나누면 지금까지 공부한대로 API, SERVICE, DATA의 세가지 계층으로 나뉠 것이다.</p>
+
+<p>그리고 이 모든 계층을 관통하는 기능들이 있을 것인데,</p>
+
+<p>AOP의 적용 대상으로, 트랜잭션, 보안이 있다.</p>
+
+<p>이번엔 트랜잭션을 중점으로 들어가보자.</p>
+
+<hr />
+
+<h3 id="1-트랜잭션">1. 트랜잭션</h3>
+
+<blockquote>
+  <p>A는 인터넷으로 맥북을 샀다. 그런데 도중 오류로 결제가 이루어지지 않았고, 다시 주문하려다가 마음이 바뀐 A는 다시 주문하는 것을 포기했다. 그런데 3일뒤 맥북이 도착했다??</p>
+</blockquote>
+
+<p>위 경우는 트랜잭션이 보장되지 않았기 때문에 일어난 행운이다. (판매자 입장에선 참사)</p>
+
+<p>분석해보면 위의 사례는 크게 두가지의 쪼갤 수 없는 행동으로 구성되어있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 결제  2.배송
+</code></pre></div></div>
+
+<p>하지만 생각해보자. 물리적으로는 두가지로 쪼개지지만 하나만 독단적으로 일어나면 어처구니없는 상황 아닌가??</p>
+
+<p>즉 물리적으로는 나뉘어있지만 논리적으로는 하나의 작업으로 인식되어야하는 작업들인 것이다.</p>
+
+<p>이것을 트랜잭션이라고 하며, 트랜잭션 하의 작업들은 모두 성공하거나 모두 실패해야하는 공동 운명체이다.</p>
+
+<p>이 외에도 여러가지의 특징이 있는데 이를 <strong><em>ACID</em></strong>라고 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. A - Atomicity(원자성)
+    모두 성공하거나 모두 실패하거나
+
+2. C - Consistency(일관성)
+    짜여진대로(비즈니스 로직대로) 일관되게 수행되었는가
+
+3. I - Isolation(격리성)
+    두개의 트랜잭션이 있다면 서로 영향을 끼치면 안된다.
+
+4. D - Durability(지속성)
+    데이터베이스의 특징으로, 종료되어도 지속적으로 유지되어야 한다.
+</code></pre></div></div>
+
+<h3 id="1-2-롤백-커밋">1-2 롤백, 커밋</h3>
+
+<blockquote>
+  <p>앞선 A의 사례가 정상적으로 돌아가려면 어떤 일이 있어야 했을까??</p>
+</blockquote>
+
+<p>1) 만약 결제와 배송이 성공적으로 진행되었다면, 이에 수반한 결과가 데이터에 정상적으로 변경되어 저장되어야 하며,</p>
+
+<p>2) 하나라도 실패했다면, 모든 데이터들이 원래대로 돌아가야 할 것이다.</p>
+
+<p>1번을 커밋, 2번을 롤백이라고 한다.</p>
+
+<p>커밋을 하게되면 변경 결과가 데이터베이스에 영구 저장되며, 롤백을 하면 작업 직전 상태로 되돌아간다.</p>
+
+<hr />
+
+<h3 id="2-스프링에서의-트랜잭션-구현">2. 스프링에서의 트랜잭션 구현</h3>
 
 <ol>
-  <li>클라이언트의 requestbody가 유효성검사를 통과하지 못한 경우</li>
-  <li>서비스 계층의 비즈니스로직에서 의도적으로 던지진 예외의 경우</li>
-  <li>런타임 과정에서 발생하는(실행 과정에서 발생하는) 예외</li>
+  <li>코드베이스에서 구현한다.</li>
 </ol>
 
-<p>1번.
-@ExceptionHandler를 이용하고,</p>
+<p>영속성컨텍스트를 학습할때 보았던 EntityManagerFactory를 이용하면 EntityManager 인스턴스를 생성할 수 있는데, 이렇게 생성한 인스턴스로부터 트랜잭션 인스턴스를 생성할 수 있다.</p>
 
-<p>클라이언트에게 보여주고 싶은 에러메시지들만을 모은 클래스를 따로 작성하여</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">EntityTransaction</span> <span class="n">tx</span><span class="o">;</span>
 
-<p>리스트에 담아 반환해준다.</p>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">CommandLineRunner</span> <span class="nf">testJpaBasicRunner</span><span class="o">(</span><span class="nc">EntityManagerFactory</span> <span class="n">emFactory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">em</span> <span class="o">=</span> <span class="n">emFactory</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+        
+				<span class="c1">// (1)</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">tx</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
 
-<p>다만, 컨트롤러 레벨에서 @ExceptionHandler를 이용하면 코드의 중복이 발생한다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Spring" /><summary type="html"><![CDATA[간단정리 -]]></summary></entry><entry><title type="html">[개인] PatchDto에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="[개인] PatchDto에 관하여" /><published>2022-08-27T00:00:00+09:00</published><updated>2022-08-27T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+        <span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">tx</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+            <span class="o">.</span>
+            <span class="o">.</span>
+            <span class="o">.</span>
+            <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+					
+            <span class="n">tx</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>    <span class="c1">// (2)</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+
+</code></pre></div></div>
+<p>이렇게 하는 것이 코드베이스이지 않나 싶다.. (찾아보는 중)</p>
+
+<p>단점으로는 당연히 필수기능과 부가기능의 코드들이 섞여서 가독성이 악화되며 유지보수의 어려움을 낳는다는 것이 되겠다.</p>
+
+<ol>
+  <li>선언형으로 구현한다.</li>
+</ol>
+
+<p>클래스나 메서드 레벨에 @Transactional 을 추가해주기만 하면 되며, 둘 다 적용된 경우 메서드 레벨의 애너테이션이 우선적용된다.</p>
+
+<ol>
+  <li>AOP방식으로 구현한다.</li>
+</ol>
+
+<p>선언형으로 작성하는 애너테이션마저 꼴보기 싫다면 AOP방식으로 적용 가능하다.
+(추후 추가..)</p>
+
+<h3 id="2-1-선언형에서의-여러-설정">2-1 선언형에서의 여러 설정</h3>
+
+<ol>
+  <li>
+    <p>Transaction Propagation</p>
+
+    <p>Propagation.REQUIRED
+     ‘트랜잭션 내놔’
+     진행중인 트랜잭션에 참여한다. 없다면 새로 트랜잭션을 시작하고 참여한다.</p>
+
+    <p>Propagation.REQUIRES_NEW
+     ‘무조건 새거’
+     트랜잭션을 하나 새로 만들어 진행한다. 이때, 진행중인 트랜잭션이 있다면 잠시 멈추게된다.</p>
+
+    <p>Propagation.MANDATORY
+     ‘트랜잭션 내놔, 근데 내가 안만들어’
+     진행중인 트랜잭션에 참여한다. 없다면 예외를 발생시킨다.</p>
+
+    <p>Propagation.<em>NOT_SUPPORTED</em>
+     ‘난 혼자한다’
+     트랜잭션은 필요없다. 해당 메서드가 실행될때는 진행중이던 트랜잭션은 잠시 멈춘다.</p>
+
+    <p>Propagation.<em>NEVER</em>
+     ‘트랜잭션 만들지마라’
+     트랜잭션은 필요없다. 진행중인 트랜잭션이 있으면 예외를 발생시킨다.</p>
+  </li>
+  <li>
+    <p>Isolation Level</p>
+
+    <p>Isolation.DEFAULT
+     기본 값</p>
+
+    <p>Isolation.READ_UNCOMMITTED
+     다른 트랜잭션에서 커밋하지 않은 데이터를 읽는 것을 허용</p>
+
+    <p>Isolation.READ_COMMITTED
+     다른 트랜잭션에 의해 커밋된 데이터를 읽는 것을 허용</p>
+
+    <p>Isolation.REPEATABLE_READ
+     트랜잭션 내에서 한 번 조회한 데이터를 반복해서 조회해도 같은 데이터가 조회</p>
+
+    <p>Isolation.SERIALIZABLE
+     동일한 데이터에 대해서 동시에 두 개 이상의 트랜잭션이 수행되지 못하도록</p>
+  </li>
+</ol>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week12] 간단정리 선언형 방식으로 구현 가능하다 클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다. 전파레벨과 격리레벨을 설정할 수 있다. AOP를 적용하여 코드에서 완전히 분리할 수 있다.]]></summary></entry><entry><title type="html">Section 3 Spring - JPA</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JPA/" rel="alternate" type="text/html" title="Section 3 Spring - JPA" /><published>2022-09-01T00:00:00+09:00</published><updated>2022-09-01T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3%20JPA</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JPA/"><![CDATA[<p>[week11]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>spring data jdbc는 단방향, spring data jpa는 양방향</li>
+  <li>다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자</li>
+  <li>@Entity와 @Id는 꼭 붙이자.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>JDBC를 보고 JPA를 보니, 솔직히 spring data jpa가 더 어렵다고 자료에 적혀있긴 했지만, 쌩초보 입장에서는 뭐가 어려운건지는 분간이 안된다. 아무래도 더 깊게 사용하지 않아서 그런거겠지..</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>jdbc api와 jpa api</li>
+  <li>spring data JDBC 와 spring data JPA</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
+<p>jdbc가 코드수준에서 데이터베이스를 사용할 수 있게 해주는 표준 사양이었다면</p>
+
+<blockquote>
+  <p>JPA는 ORM 기술의 표준 사양이다.</p>
+</blockquote>
+
+<p>즉 구현체는 따로 있는데 그것이 <strong><em>Hibernate ORM</em></strong>이다</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JPA
+Hibernate ORM
+JDBC API
+</code></pre></div></div>
+
+<p>이렇게 보면 되겠다.</p>
+
+<p>JPA를 풀어쓰면 Java Persistence API가 되는데,</p>
+
+<p>JPA를 이용하여 데이터베이스에 접근하게 되는 것은</p>
+
+<p>1) 영속성 컨텍스트의 1차캐시에 엔티티를 저장한다
+2) 데이터베이스에 반영한다.</p>
+
+<p>의 순서가 되겠다.</p>
+
+<p>이 기술을 사용하기 위해서는 다음의 의존 라이브러리를 추가한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+</code></pre></div></div>
+
+<p>또한 다음의 설정을 application.yml에 추가하자</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//application.yml</span>
+
+<span class="nl">jpa:</span>
+    <span class="nl">hibernate:</span>
+      <span class="n">ddl</span><span class="o">-</span><span class="nl">auto:</span> <span class="n">create</span>  <span class="err">#</span> <span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="n">스키마</span> <span class="n">자동</span> <span class="n">생성</span>
+    <span class="n">show</span><span class="o">-</span><span class="nl">sql:</span> <span class="kc">true</span>      <span class="err">#</span> <span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="no">SQL</span> <span class="n">쿼리</span> <span class="n">출력</span>
+
+</code></pre></div></div>
+
+<h3 id="1-연간관계-매핑">1. 연간관계 매핑</h3>
+
+<p>spring data JDBC를 떠올리고 넘어가보자.</p>
+
+<ol>
+  <li>테이블과 엔티티를 매핑 할 때
+    <ul>
+      <li>기본기카 될 멤버에 @Id</li>
+      <li>table의 이름이 entity와 다르다면 클래스 레벨에 @table(“이름”)</li>
+    </ul>
+  </li>
+  <li>엔티티간의 연관관계를 매핑 할 때</li>
+</ol>
+
+<p>애그리거트를 기준으로 세가지의 규칙이 있었다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1) 도메인은 애그리거트의 루트로 접근한다.
+2) 동일 애그리거트는 객체로 접근한다.
+3) 애그리거트 루트간에는
+    
+    1:1 , 1:N 은 외래키로 참조한다
+        AggregateReference&lt;&gt;
+    
+    N:N은 두가지 다 쓴다.
+        1:N , N:1 의 관계를 만들어주는 객체를 만들고,
+        같은 애그리거트 안에서는 객체 참조
+        다른 애그리거트는 N에 1의 id값을 멤버로 넣어준다.
+</code></pre></div></div>
+
+<p>그리고 이 기준들은 <strong><em>단방향 매핑</em></strong>이었음을 알아두자.</p>
+
+<p>JPA는 어떻게 다른지 보자.</p>
+
+<ol>
+  <li>테이블과 엔티티를 매핑 할 때
+    <ul>
+      <li>클래스 레벨에 @Entity
+  (name = “ “) 로 변경 가능하다.</li>
+      <li>기본키에 @Id
+        <ul>
+          <li>@Id(strategy = GenerationType.IDENTITY or SEQUENCE or TABLE)</li>
+        </ul>
+      </li>
+      <li>그 외 컬럼을 위한 것
+        <ul>
+          <li>@Column - nullabe, updatable, unique등의 애트리뷰트 지정 가능</li>
+          <li>@Enumerated(value = EnumType.STRING)</li>
+        </ul>
+      </li>
+      <li>@Table
+  (name = “ “) 로 변경 가능하다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>엔티티간의 연관관계를 매핑 할 때</p>
+
+    <p>1) 1:N
+     @OneToMany(mappedBy = “N에 추가한 멤버의 이름”)
+     1의 멤버에 N을 리스트로 추가하거나  -&gt; 일대다는 잘 사용하지 않음 / 다대일을 하고 필요할때 사용
+     @ManyToOne
+     @JoinColumn(name = “테이블에 저장될 이름”)
+     N의 멤버에 1을 객체로 추가한다. -&gt; 우선 사용</p>
+
+    <p>2) N:N
+     중간에 1:N, N:1을 만들어주는 클래스를 설계하고,
+     1)을 그대로 적용</p>
+
+    <p>3) 1:1
+     무엇이 상위도메인인지 파악하자.</p>
+  </li>
+</ol>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week11] 간단정리 spring data jdbc는 단방향, spring data jpa는 양방향 다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자 @Entity와 @Id는 꼭 붙이자.]]></summary></entry><entry><title type="html">[개인] PatchDto에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="[개인] PatchDto에 관하여" /><published>2022-08-27T00:00:00+09:00</published><updated>2022-08-27T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
 <ul>
   <li>patchDto의 필드변수 설정</li>
 </ul>
@@ -242,7 +742,743 @@ patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>여기서 gateId는 컨트롤러의 patch핸들러 메서드 상에서 @Pathvariable(“~~”)의 ~로 받아 변수에 저장한 값일 것이다. 이유는 하나의 상태를 post하게 되면 게이트들을 구분하는 하나의 identification이 있어야 할 것이고, 생성 될 것이니까.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Spring" /><summary type="html"><![CDATA[이 글에 담긴 것 patchDto의 필드변수 설정]]></summary></entry><entry><title type="html">Section 3 예외처리</title><link href="http://localhost:4000/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" rel="alternate" type="text/html" title="Section 3 예외처리" /><published>2022-08-24T00:00:00+09:00</published><updated>2022-08-24T00:00:00+09:00</updated><id>http://localhost:4000/Section%203%20%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC</id><content type="html" xml:base="http://localhost:4000/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/"><![CDATA[]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Section 3 Spring MVC - Service, Mapper</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/" rel="alternate" type="text/html" title="Section 3 Spring MVC - Service, Mapper" /><published>2022-08-23T00:00:00+09:00</published><updated>2022-08-23T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%203%20SERVICE%20MAPPER</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/"><![CDATA[<p>[week9]</p>
+<p>여기서 gateId는 컨트롤러의 patch핸들러 메서드 상에서 @Pathvariable(“~~”)의 ~로 받아 변수에 저장한 값일 것이다. 이유는 하나의 상태를 post하게 되면 게이트들을 구분하는 하나의 identification이 있어야 할 것이고, 생성 될 것이니까.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Spring" /><summary type="html"><![CDATA[이 글에 담긴 것 patchDto의 필드변수 설정]]></summary></entry><entry><title type="html">Section 3 Spring - JDBC</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JDBC/" rel="alternate" type="text/html" title="Section 3 Spring - JDBC" /><published>2022-08-26T00:00:00+09:00</published><updated>2022-08-26T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3%20JDBC</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JDBC/"><![CDATA[<p>[week10]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>spring data jdbc는 jdbc api를 더 손 쉽게 사용할 수 있도록 편의성을 증진시켜주는 기술이다.</li>
+  <li>table과 entity mapping시에 primary key에 @id 애너테이션을 추가하자</li>
+  <li>entity와 table의 이름이 다를 시 클래스 레벨에 @table(“이름”) 애너테이션을 추가하자</li>
+  <li>관계설정을 위해서 scheme 파일에 테이블을 설계해주어야 한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>단순히 지식을 구현하는 부분이 아니라는 것을 뼈저리게 느낀다. controller와 service의 경우보다 내가 직접 설계해보고 구현해보아야 더욱 더 내 것이 되는 영역인 것 같다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>JDBC는 무엇인가</li>
+  <li>ORM은 무엇인가</li>
+  <li>spring data JDBC는 무엇인가?</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
+<p>JDBC - Java Database Connectivity</p>
+
+<p>이름을 직역해보자. - 자바와 데이터베이스의 연결 -</p>
+
+<p>맞다. 우리가 자바언어의 코드레벨에서 데이터베이스를 사용 할 수 있게 해주는 것이다.</p>
+
+<p>정확히 말하면 위 목적을 위한 표준 사양이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>표준사양
+
+pojo를 생각해보면 된다. 해당 사양을 구현하는 여러 벤더사들이 있을 것인데,
+표준사양이 아닌 벤더사의 기술을 그대로 코드에 적용한다면
+1. pojo가 아니게 될 것이며
+2. 그래서 유지 보수, 개선이 힘들 것이다.
+하지만 표준 사양을 구현한 벤더사의 기술들을 사용하면
+DI를 통해 framework의 자유로운 사용이 가능하다
+
+- 그냥 나만의 언어로 표현한 것
+</code></pre></div></div>
+
+<blockquote>
+  <p>이번에 학습하게 될 Srping data JDBC는 이런 jdbc api를 쉽게 사용하게 해주는 기술이다.</p>
+</blockquote>
+
+<p>그러니,</p>
+
+<p>JDBC api를 구체적으로 파고들어갈 당위성은 당장은 없지만, 어떤 흐름인지는 알면 좋겠다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1) JDBC API
+2) JDBC 드라이버
+    데이터베이스와의 통신을 담당하는 인터페이스
+    해당 벤더사에 맞는 jdbc 드라이버가 구현되어 제공될 것
+3) 데이터베이스
+</code></pre></div></div>
+
+<p>2)의 JDBC드라이버는 <strong><em>데이터베이스와의 통신을 담당한다고</em></strong> 했다.</p>
+
+<p>그 통신 과정을 구체화해보면</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1) connection객체 생성  -  데이터베이스와의 연결 세션
+2) statement객체 생성  -  그 안에서 sql query문 작성
+3) resultset객체로부터 데이터 조회  -  query에 따른 결과
+4) 역순으로 close
+</code></pre></div></div>
+
+<p>이때 connection객체 생성은 비용이 많이 드는 작업이기 때문에, 애플리케이션 로딩 시점에 미리 생성하여 연결이 필요할때마다 제공한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>연결이 필요하네?? connection객체 만들어 -&gt; x
+연결이 필요하네?? connection객체 있나요?? -&gt; o
+</code></pre></div></div>
+
+<p>이렇게 connection을 제공하고 반환받는 일련의 과정을 담당하는 것을 connection pool이라고 한다.</p>
+
+<hr />
+
+<h3 id="1-spring-data-jdbc">1. Spring Data JDBC</h3>
+
+<blockquote>
+  <p>ORM - Object-Relational-Mapping</p>
+</blockquote>
+
+<p>Spring Data JDBC는 ORM기술이며, ORM기술은 query를 코드상에서 직접적으로 작성하는 기술이 아닌, <strong><em>객체를 통해 데이터베이스에 접근</em></strong> 하는 기술이다.</p>
+
+<p>객체는 내부적으로 SQL 쿼리문으로 자동 변환된다.</p>
+
+<p>그리고</p>
+
+<p>이 기술을 사용하기 위해서는 다음의 의존 라이브러리를 추가한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="2-데이터-액세스-계층-구현">2. 데이터 액세스 계층 구현</h3>
+
+<p>우리가 동물의 정보를 담는 entity를 만들었다고 해보자. (컨트롤러와 Dto는 있다고 가정)</p>
+
+<p>-Entity</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Animal</span><span class="o">{</span>
+
+    <span class="nd">@Id</span> <span class="c1">// 식별자로 사용 -&gt; 기본키</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">animalId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">species</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>-Service</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnimalService</span><span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">Animal</span> <span class="nf">creatAnimal</span><span class="o">(</span><span class="nc">Animal</span> <span class="n">animal</span><span class="o">){</span>
+
+        <span class="k">return</span> <span class="n">animal</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>그러면 Repository를 만들어보자!</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AnimalRepository</span> <span class="kd">extends</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="nc">Animal</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;{</span>
+
+    <span class="mi">2</span><span class="o">)</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Animal</span><span class="o">&gt;</span> <span class="nf">findByName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">);</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>일단 1번에서 볼 수 있듯 repository는 class가 아닌 repository이다.</p>
+
+<p>또한</p>
+
+<p>CrudRepository를 상속함으로써, CrueRepository에의 save, findById등의 기본 메서드들을 사용할 수 있게 된다.</p>
+
+<p>그리고</p>
+
+<p>2번을 보면 찾은 Animal을 Optional로 감쌌다. 이렇게 함으로써 null(찾지 못함)이 발생했을 경우에도 nullpointerException없이 진행이 가능하다.</p>
+
+<p>또한</p>
+
+<p>메서드는 query처럼 작성해도 알아서 알아듣게 되는데, findBy~~ -&gt;  By 다음에 기준이 되는 field의 이름을 적어주도록 하자.</p>
+
+<hr />
+
+<h3 id="3-연동">3. 연동</h3>
+
+<p>이제 Service 계층으로 가서 연동을 해보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnimalService</span><span class="o">{</span>
+
+    <span class="mi">1</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">AnimalRepository</span> <span class="n">animalRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AnimalService</span><span class="o">(</span><span class="nc">AnimalRepository</span> <span class="n">animalRepository</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">animalRepository</span> <span class="o">=</span> <span class="n">animalRepository</span>
+    <span class="o">}</span>
+
+    <span class="mi">2</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Animal</span> <span class="nf">creatAnimal</span><span class="o">(</span><span class="nc">Animal</span> <span class="n">animal</span><span class="o">){</span>
+        
+        <span class="n">verifyExist</span><span class="o">(</span><span class="n">animal</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+
+        <span class="k">return</span> <span class="n">animalRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">animal</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="mi">3</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">verifyExist</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Animal</span><span class="o">&gt;</span> <span class="n">animal</span> <span class="o">=</span> <span class="n">animalRepository</span><span class="o">.</span><span class="na">findByName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">animal</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">BusinessLogicException</span><span class="o">(</span><span class="nc">ExceptionCode</span><span class="o">.</span><span class="na">ANIMAL_EXISTS</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>1번을 보면 Controller에서 Service를 DI받았듯, respository의 기능을 이용하기 위해 animalRepository를 DI 받는다.</p>
+
+<p>2번을 보면 갑자기 뜬금없이 verifyExist() 메서드가 보인다. 이것은 3번에서 설명하도록 하겠다.
+그리고
+반환값으로 animalRepository.save(animal) -&gt; crudrepository를 상속받은 animalrepository의 메서드를 호출한다.</p>
+
+<p>3번은 service계층에서 이용하기 위해 따로 작성한 메서드로, 논리적인 생각이 뒤따라야 이해하기 편하다
+일단 가정을 곰곰히 생각해보고 가자 -&gt; ‘동물의 이름은 중복 될 수 없다’
+웃기긴 하지만 저렇게 가정을 했다고 해보자
+그리고 클라이언트로부터 <strong><em>이미 있는 이름</em></strong>의 동물을 등록하려고 한다면 가정과 모순되는 상황이 발생한다.
+따라서 repository에서 이름으로 동물을 찾아와서
+이미 데이터베이스에 존재하는지 확인하는 메서드이다.</p>
+
+<p>또한</p>
+
+<p>Optional로 반환받은 값을 그대로 Optional에 담아 받았기 때문에 해당 데이터가 null인지 아닌지 여부에 따른 코드 구성을 손쉽게 할 수 있다.</p>
+
+<hr />
+
+<h3 id="3-테이블-간의-관계-매핑">3. 테이블 간의 관계 매핑</h3>
+
+<p>도메인과 애그리거트라는 개념이 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>도메인 - 현실이 한 업무 영역
+애그리커트 - 관련 도메인들의 집합
+    애그리거트 루트 - 대표 도메인
+</code></pre></div></div>
+
+<p>그리고 이 두가지 개념이 연관관계 매핑의 기준이 된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 모든 접근은 애그리거트 루트를 통해서 이루어진다.
+
+2. 같은 애그리거트 안에서는 엔티티간 객체로 참조한다
+
+3. 애그래거트 루트 대 애그리거트 루트 간에는
+    애그리거트 루트 간의 참조는 객체 참조 대신에 ID로 참조한다.
+    1대1과 1대N 관계일 때는 테이블 간의 외래키 방식과 동일하다.
+    N대N 관계일 때는 외래키 방식인 ID 참조와 객체 참조 방식이 함께 사용된다.    
+</code></pre></div></div>
+
+<p>방법론을 한번에 정리해보면</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// 1. 1:N - 애그리거트 루트 간</span>
+    <span class="c1">// 1 . 기본키가 될 멤버에</span>
+    <span class="nd">@Id</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">ooId</span><span class="o">;</span>
+
+    <span class="c1">// N . AggregateReference가 외래키 역할</span>
+    <span class="kd">private</span> <span class="nc">AggregateReference</span><span class="o">&lt;</span><span class="n">테이블이름</span><span class="o">,</span> <span class="nd">@Id가</span> <span class="n">붙은</span> <span class="n">멤버의</span> <span class="n">타입</span><span class="o">&gt;</span> <span class="n">ooId</span><span class="o">;</span>
+    <span class="c1">// </span>
+
+<span class="c1">// 2. N:N</span>
+    <span class="c1">// 1:N , N:1로 만들어 준다.</span>
+    <span class="c1">// 동일 애그리커트 안의 1:N</span>
+        <span class="c1">//1. MappedCollection으로 객체참조</span>
+        <span class="nd">@MappedCollection</span><span class="o">(</span><span class="n">idColumn</span> <span class="o">=</span> <span class="s">"OO_ID"</span><span class="o">)</span> <span class="c1">// &lt;- 테이블에 해당하는 column의 이름</span>
+        <span class="kd">private</span> <span class="n">set</span><span class="o">&lt;</span><span class="nc">N해당</span> <span class="n">클래스</span><span class="o">&gt;</span> <span class="n">ooo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedHashSet</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="c1">//N. 그냥 다른 애그리커트의 1에 해당하는 엔티티의 id를 추가</span>
+        <span class="n">pirvate</span> <span class="nc">Long</span> <span class="n">coffeeId</span><span class="o">;</span>
+
+</code></pre></div></div>
+
+<p>정리가 참 힘들다. 그래도 다시 해보면</p>
+
+<p><strong>같은 애그리거트면</strong> 객체참조(1에 list나 set으로 객체참조)하고</p>
+
+<p><strong>다른 애그리거트 루트끼리</strong> 1:1 혹은 1:N이면 외래키 참조(AggregateReference) 한다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week10] 간단정리 spring data jdbc는 jdbc api를 더 손 쉽게 사용할 수 있도록 편의성을 증진시켜주는 기술이다. table과 entity mapping시에 primary key에 @id 애너테이션을 추가하자 entity와 table의 이름이 다를 시 클래스 레벨에 @table(“이름”) 애너테이션을 추가하자 관계설정을 위해서 scheme 파일에 테이블을 설계해주어야 한다.]]></summary></entry><entry><title type="html">Section 3 Spring - 예외처리(비즈니스로직)</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC(%EC%84%9C%EB%B9%84%EC%8A%A4)/" rel="alternate" type="text/html" title="Section 3 Spring - 예외처리(비즈니스로직)" /><published>2022-08-25T00:00:00+09:00</published><updated>2022-08-25T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3%20%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC(%EC%84%9C%EB%B9%84%EC%8A%A4)</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC(%EC%84%9C%EB%B9%84%EC%8A%A4)/"><![CDATA[<p>[week10]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>사용하고자 하는 exception을 enum으로 정의하자</li>
+  <li>그리고 businessException과 같은 RuntimeException을 상속하는 클래스를 만들자</li>
+  <li>ErrorResponse를 통해 가공하고</li>
+  <li>@RestControllerAdvice에게 넘겨주자</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>예외처리를 이해하는데 시간이 꽤나 걸렸다. 그래도 이해하니까, solid원칙과, 흐름이 조금이나마 내 지식에 저장된 느낌이 든다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>api계층에서 발생하는 예외</li>
+  <li>비즈니스 계층에서 발생하는 예외</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+<p>이번 정리는 두가지 경우의 예외와 관련이 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. DTO에 적용한 유효성 검증 실패
+2. 비즈니스 로직에서 의도적으로 던저지는 예외
+</code></pre></div></div>
+
+<p>간단하게 생각한다면 두 경우 모두 어떤 예외상황이 발생할 경우 알게 되며,</p>
+
+<p><strong><em>예외 발생시 메시지를 던진다.</em></strong></p>
+
+<p>다른 점은 1번은 API계층에서 발생하고, 2번은 서비스 계층에서 발생하여 의도적으로 API계층에서 관리된다.</p>
+
+<p>우리가 할 것은 이 메시지를 알기 쉽게 전달하는 것이 되겠다.</p>
+
+<blockquote>
+  <p>이번 글은 2번을 중점으로 다룬다.</p>
+</blockquote>
+
+<h3 id="1-서비스-계층에서-예외가-발생하면">1. 서비스 계층에서 예외가 발생하면??</h3>
+
+<p>서비스 계층에서 비즈니스 로직을 작성하다가 이런 생각을 했다면 어떨까??</p>
+
+<p>‘흠.. 여기서는 이러한 에러가 예상이 되는데??’</p>
+
+<p>그러면 <strong><em>throws</em></strong> 를 이용할 수 있을 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>throws 예외를 호출한 지점으로 던진다.
+</code></pre></div></div>
+
+<p>즉, 앞선 글에서 예외를 담당했던 클래스인 @RestControllerAdvice 애너테이션이 붙은 클래스에서 예외를 담당하게 된다.</p>
+
+<h3 id="2-enum-만들기">2 ENUM 만들기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">ExceptionCode</span> <span class="o">{</span>
+    <span class="no">MEMBER_NOT_FOUND</span><span class="o">(</span><span class="mi">404</span><span class="o">,</span> <span class="s">"Member Not Found"</span><span class="o">);</span>
+
+    <span class="nd">@Getter</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">status</span><span class="o">;</span>
+
+    <span class="nd">@Getter</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">message</span><span class="o">;</span>
+
+    <span class="nc">ExceptionCode</span><span class="o">(</span><span class="kt">int</span> <span class="n">status</span><span class="o">,</span> <span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">status</span> <span class="o">=</span> <span class="n">status</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>member를 찾지 못했을 경우 발생할 exception을 enum으로 정의한다.</p>
+
+<p>그렇다면</p>
+
+<p>왜 enum으로 정의하는가??</p>
+
+<p>이 enum을 사용해서 예외를 정의해두면, 추후 예외를 관리할때 매우 편리해진다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BusinessLogicException</span> <span class="kd">extends</span> <span class="nc">RuntimeException</span> <span class="o">{</span>
+    <span class="nd">@Getter</span>
+    <span class="kd">private</span> <span class="nc">ExceptionCode</span> <span class="n">exceptionCode</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BusinessLogicException</span><span class="o">(</span><span class="nc">ExceptionCode</span> <span class="n">exceptionCode</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">exceptionCode</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">exceptionCode</span> <span class="o">=</span> <span class="n">exceptionCode</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>RuntimeException을 상속하는 BusinessLogicException이다.</p>
+
+<p>부모클래스로 자식클래스를 인스턴스화 할 수 있었다.</p>
+
+<p>그러니 비즈니스 로직 실행 도중 RuntimeException이 발생하면 BusinessLogicException으로 구체화할 수 있다.</p>
+
+<p>그리고</p>
+
+<p>이 BusinessLogicException을 생성할때 위에서 정의한 ExceptionCode를 전달하면
+멤버로 super에 포함된 message와 ExceptionCode를 가지게 된다.</p>
+
+<p>이를</p>
+
+<p><strong><em>에러 메시지를 가공하던 ErrorRespons로 넘겨보자</em></strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorResponse</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">status</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">message</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ConstraintViolationError</span><span class="o">&gt;</span> <span class="n">violationErrors</span><span class="o">;</span>
+
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+
+    <span class="kd">private</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="kt">int</span> <span class="n">status</span><span class="o">,</span> <span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">status</span> <span class="o">=</span> <span class="n">status</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ErrorResponse</span> <span class="nf">of</span><span class="o">(</span><span class="nc">ExceptionCode</span> <span class="n">exceptionCode</span><span class="o">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="n">exceptionCode</span><span class="o">.</span><span class="na">getStatus</span><span class="o">(),</span> <span class="n">exceptionCode</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>이렇게 추가해주면 ErrorResponse에 status와 message를 담을 수 있다.</p>
+
+<p>생성자는 private으로 지정해두었기 때문에 외부에서 인스턴스화가 불가능하며</p>
+
+<p>따라서</p>
+
+<p>of 메서드에 전달 받은 exceptionCode를 받았을 경우 내부에서 생성자를 호출하여</p>
+
+<p>상태와 메시지를 담는 식으로 가공하게 된다.</p>
+
+<p>그러면 이것을</p>
+
+<p>@RestControllerAdvice로 전달하면</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionAdvice</span> <span class="o">{</span>
+
+    
+    <span class="nd">@ExceptionHandler</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;</span> <span class="nf">handleMethodArgumentNotValidException</span><span class="o">(</span>
+            <span class="nc">BusinessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">ErrorResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">exceptionCode</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ResponseEntity</span><span class="o">(</span><span class="n">response</span><span class="o">,</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getExceptionCode</span><span class="o">().</span><span class="na">getStatus</span><span class="o">()));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>RuntimeException을 상속받은 우리가 구체화한 BusinessException을 던져주면 된다.</p>
+
+<p>BusinessException의 생성자를 생각해보면 exceptionCode를 받았기 때문에</p>
+
+<p>예외를 던져줄때 enum에 사용 하고자하는 exception을 정의한 후 던져주면 되겠다.</p>
+
+<p>또한</p>
+
+<p>exceptioncode가 많아지면 그에 따른 status도 다양해진다. 이 상태를 동적으로 전달하기위해 @ResponseStatus로 고정하지 않고 ResponseEntity에 HttpStatus.valueOf()에 담아준다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week10] 간단정리 사용하고자 하는 exception을 enum으로 정의하자 그리고 businessException과 같은 RuntimeException을 상속하는 클래스를 만들자 ErrorResponse를 통해 가공하고 @RestControllerAdvice에게 넘겨주자]]></summary></entry><entry><title type="html">Section 3 Spring - 예외처리</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" rel="alternate" type="text/html" title="Section 3 Spring - 예외처리" /><published>2022-08-24T00:00:00+09:00</published><updated>2022-08-24T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%203%20%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/"><![CDATA[<p>[week10]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>@ExceptionHandler를 이용하여 예외를 처리하자.</li>
+  <li>@RestControllerAdvice를 이용하여 예외처리를 통합하자.(중복을 제거하자)</li>
+  <li>예외의 가공을 담당하는 클래스를 만들자 (여기서는 ErrorResponse)</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>예외처리를 이해하는데 시간이 꽤나 걸렸다. 그래도 이해하니까, solid원칙과, 흐름이 조금이나마 내 지식에 저장된 느낌이 든다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>api계층에서 발생하는 예외</li>
+  <li>비즈니스 계층에서 발생하는 예외</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+<p>이번 정리는 두가지 경우의 예외와 관련이 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. DTO에 적용한 유효성 검증 실패
+2. 비즈니스 로직에서 의도적으로 던저지는 예외
+</code></pre></div></div>
+
+<p>간단하게 생각한다면 두 경우 모두 어떤 예외상황이 발생할 경우 알게 되며,</p>
+
+<p><strong><em>예외 발생시 메시지를 던진다.</em></strong></p>
+
+<p>다른 점은 1번은 API계층에서 발생하고, 2번은 서비스 계층에서 발생하여 의도적으로 API계층에서 관리된다.</p>
+
+<p>우리가 할 것은 이 메시지를 알기 쉽게 전달하는 것이 되겠다.</p>
+
+<blockquote>
+  <p>이번 글은 1번을 중점으로 다룬다.</p>
+</blockquote>
+
+<h3 id="1-api계층-예외-전달하기">1. api계층 예외 전달하기</h3>
+
+<p>앞서 DTO를 클래스를 작성한 것을 떠올려보자. DTO클래스는 클라이언트의 요청,응답시 데이터 전달을 위한 클래스이며, 특히 요청상황에 ‘유효성 검사’의 역할을 담당한다.</p>
+
+<p>그렇다면 유효성 검사에 실패하면 어떤 일이 벌어질까??</p>
+
+<blockquote>
+  <p>spring이 에러 메시지를 전달한다.</p>
+</blockquote>
+
+<p>하지만 우리는 이 메시지를 커스텀하여 필요한 정보만 전달 할 수 있다. 즉, <strong><em>가공</em></strong>할 수 있다.</p>
+
+<ul>
+  <li>
+    <p>발생 가능 에러</p>
+
+    <ul>
+      <li>
+        <p>MethodArgumentNotValidException 
+  유효하지 않은 데이터를 전달 받았을때</p>
+      </li>
+      <li>
+        <p>ConstraintViolationException
+  pathvariable에 유효하지 않은 데이터를 전달 받았을 때</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="1-1-exceptionhandler">1-1. @ExceptionHandler</h4>
+
+<blockquote>
+  <p>에러메시지를 응답메시지로 돌려주는 법</p>
+</blockquote>
+
+<p>위 경우 Controller의 HandlerMethod에 데이터가 전달 되는 과정에서 발생하는 오류이기에,
+Controller에서 예외를 받아 처리하는 메서드를 구현하면 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ExceptionHandler</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">handleException</span><span class="o">(</span><span class="nc">MethondArgumentNotValidException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="mi">1</span><span class="o">)</span> <span class="kd">final</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getBindingResult</span><span class="o">().</span><span class="na">getFieldErrors</span><span class="o">;</span>
+
+    <span class="mi">2</span><span class="o">)</span> <span class="k">return</span> <span class="k">new</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">fieldErrors</span><span class="o">,</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>1번의 List의 데이터 타입이 된 FieldError는 스프링 프레임워크의 validation 의존성으로부터 가져온 것이다.
+    org.springframework.validation.FieldError
+그리고
+List로 담는 이유는 에러는 여러개가 한번에 발생할 수 있기 때문이다.
+    DTO의 field 여러 곳에서 동시 다발적으로 유효성 검증에 실패하면 에러메시지는 여러개가 발생한다.</p>
+
+<p>2번을 보면 ResponseEntity에 인스턴스를 담는다. 그 이유는 핸들러메서드에서와 같이 상태메시지를 함께 전달하기 위함이다. 그리고 @ResponseBody 애너테이션을 추가 할 이유도 없다.</p>
+
+<h4 id="1-2-errorresponse">1-2. ErrorResponse</h4>
+
+<blockquote>
+  <p>에러메시지를 골라담아서 만들자.</p>
+</blockquote>
+
+<p>1-1의 ExceptionHandler를 이용하면 뭔가 가시적인 응답으로 에러 메시지를 전달할 수 있지만, 불필요한 필드들을 다 주기 때문에 아직 완전하다고 말할 수 는 없을 것이다.</p>
+
+<p>ExceptionHandler로 돌려준 응답 메시지를 보면
+    codes, arguments, defaultMessage, objectName, field, rejectedValue, bindingFilure</p>
+
+<p>이렇게 많은 내용들이 담겨 있는데</p>
+
+<p>여기서 가독성 향상을 위해 field, rejcetedValue , defaultMessage만 담아보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Getter</span>
+<span class="nd">@AllArgConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorResponse</span>
+    <span class="mi">1</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span><span class="o">;</span>
+
+    <span class="mi">2</span><span class="o">)</span>
+    <span class="nd">@Getter</span>
+    <span class="nd">@AllArgsConstructor</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">FieldError</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">field</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Object</span> <span class="n">rejectedValue</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">reason</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>1번의 FieldError는 validation의존성에서 가져온 것이 아니라, ErrorResponse안에 만든 정적 클래스 2번 FieldError를 뜻한다.</p>
+
+<p>그러면 이를 어떻게 이용해볼까</p>
+
+<h4 id="1-3-exceptionhandler--errorresponse">1-3 @ExceptionHandler + ErrorResponse</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ExceptionHandler</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">handleException</span><span class="o">(</span><span class="nc">MethondArgumentNotValidException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="mi">1</span><span class="o">)</span>
+    <span class="kd">final</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getBindingResult</span><span class="o">().</span><span class="na">getFieldErrors</span><span class="o">;</span>
+
+    <span class="mi">2</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">FieldError</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span>
+            <span class="n">fieldErrors</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">error</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">FieldError</span><span class="o">(</span>
+                            <span class="n">error</span><span class="o">.</span><span class="na">getField</span><span class="o">(),</span>
+                            <span class="n">error</span><span class="o">.</span><span class="na">getRejectedValue</span><span class="o">(),</span>
+                            <span class="n">error</span><span class="o">.</span><span class="na">getDefaultMessage</span><span class="o">()</span>
+                        <span class="o">))</span>
+                        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+                                    <span class="mi">3</span><span class="o">)</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="nc">ErrorResponse</span><span class="o">(</span><span class="n">errors</span><span class="o">),</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>우선 1번과 2번의 FieldError는 다르다. 그 이유는 위에서 설명했고,</p>
+
+<p>흐름으로 보면</p>
+
+<p>1번에서 예외 발생 시 메시지를 날 것 그대로 가져온다.
+그리고 
+2번의 ErrorResponse.FieldError에 담는다. (FieldError는 static 클래스로 ErrorResponse를 인스턴스화 하지 않아도 호출 가능하다.)
+그리고
+3번과 같이 ErrorResponse의 생성자로 errors를 넣어주면서 ResponseEntity에 담는다.</p>
+
+<p><strong>문제 발생</strong>
+생각해보자.</p>
+
+<p>우선, handlerException메서드를 컨트롤러 클래스마다 중복 작성해야 한다.</p>
+
+<p>또한, handlerExcpetion메서드가 두가지 역할을 담당하고있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 예외메시지 전달
+2. 예외메시지 가공
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="2-restcontrolleradvice">2. @RestControllerAdvice</h3>
+
+<blockquote>
+  <p>문제 : 중복작성해야 하며, 하나의 클래스가 두가지 역할을 담당하고 있음</p>
+</blockquote>
+
+<p>문제들을 해결해보자. 일단은 모든 클래스들의 예외상황을 받아서 예외 메시지를 전달만 할 클래스이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionAdvice</span> <span class="o">{</span>
+
+    <span class="mi">1</span><span class="o">)</span>
+    <span class="nd">@ExceptionHandler</span>
+    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ErrorResponse</span> <span class="nf">handleMethodArgumentNotValidException</span><span class="o">(</span>
+            <span class="nc">MethodArgumentNotValidException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">ErrorResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getBindingResult</span><span class="o">());</span>
+
+        <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="mi">2</span><span class="o">)</span>
+    <span class="nd">@ExceptionHandler</span>
+    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ErrorResponse</span> <span class="nf">handleConstraintViolationException</span><span class="o">(</span>
+            <span class="nc">ConstraintViolationException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">ErrorResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getConstraintViolations</span><span class="o">());</span>
+
+        <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>1번의 경우는 유효성 검사 실패시, 2번의 경우는 pathvariable으로 잘못된 값이 전달 되었을 시에 처리를 담당할 메서드가 된다.</p>
+
+<p>그리고 각각의 에러 메시지는 정해진 status가 있기에 @ResponseStatus를 이용한다.</p>
+
+<p>그렇다면 에러메시지를 가공하는 것은 어디서 할까??</p>
+
+<p>그건 바로</p>
+
+<p>ErrorResponse. 아래를 보자</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorResponse</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span><span class="o">;</span> 
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ConstraintViolationError</span><span class="o">&gt;</span> <span class="n">violationErrors</span><span class="o">;</span>  
+
+	<span class="mi">1</span><span class="o">)</span>	
+    <span class="kd">private</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="kd">final</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span><span class="o">,</span>
+                          <span class="kd">final</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ConstraintViolationError</span><span class="o">&gt;</span> <span class="n">violationErrors</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">fieldErrors</span> <span class="o">=</span> <span class="n">fieldErrors</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">violationErrors</span> <span class="o">=</span> <span class="n">violationErrors</span><span class="o">;</span>
+    <span class="o">}</span>
+
+	<span class="mi">2</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ErrorResponse</span> <span class="nf">of</span><span class="o">(</span><span class="nc">BindingResult</span> <span class="n">bindingResult</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="nc">FieldError</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">bindingResult</span><span class="o">),</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+
+		
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ErrorResponse</span> <span class="nf">of</span><span class="o">(</span><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">ConstraintViolation</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">violations</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="nc">ConstraintViolationError</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">violations</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="mi">3</span><span class="o">)</span>
+    <span class="nd">@Getter</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">FieldError</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">field</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Object</span> <span class="n">rejectedValue</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">reason</span><span class="o">;</span>
+
+				<span class="kd">private</span> <span class="nf">FieldError</span><span class="o">(</span><span class="nc">String</span> <span class="n">field</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">rejectedValue</span><span class="o">,</span> <span class="nc">String</span> <span class="n">reason</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">field</span> <span class="o">=</span> <span class="n">field</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">rejectedValue</span> <span class="o">=</span> <span class="n">rejectedValue</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">reason</span> <span class="o">=</span> <span class="n">reason</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FieldError</span><span class="o">&gt;</span> <span class="nf">of</span><span class="o">(</span><span class="nc">BindingResult</span> <span class="n">bindingResult</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="nc">List</span><span class="o">&lt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">validation</span><span class="o">.</span><span class="na">FieldError</span><span class="o">&gt;</span> <span class="n">fieldErrors</span> <span class="o">=</span>
+                                                        <span class="n">bindingResult</span><span class="o">.</span><span class="na">getFieldErrors</span><span class="o">();</span>
+            <span class="k">return</span> <span class="n">fieldErrors</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">error</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">FieldError</span><span class="o">(</span>
+                            <span class="n">error</span><span class="o">.</span><span class="na">getField</span><span class="o">(),</span>
+                            <span class="n">error</span><span class="o">.</span><span class="na">getRejectedValue</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span>
+                                            <span class="s">""</span> <span class="o">:</span> <span class="n">error</span><span class="o">.</span><span class="na">getRejectedValue</span><span class="o">().</span><span class="na">toString</span><span class="o">(),</span>
+                            <span class="n">error</span><span class="o">.</span><span class="na">getDefaultMessage</span><span class="o">()))</span>
+                    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="mi">4</span><span class="o">)</span>
+    <span class="nd">@Getter</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ConstraintViolationError</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">propertyPath</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Object</span> <span class="n">rejectedValue</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">reason</span><span class="o">;</span>
+
+				<span class="kd">private</span> <span class="nf">ConstraintViolationError</span><span class="o">(</span><span class="nc">String</span> <span class="n">propertyPath</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">rejectedValue</span><span class="o">,</span>
+                                   <span class="nc">String</span> <span class="n">reason</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">propertyPath</span> <span class="o">=</span> <span class="n">propertyPath</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">rejectedValue</span> <span class="o">=</span> <span class="n">rejectedValue</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">reason</span> <span class="o">=</span> <span class="n">reason</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ConstraintViolationError</span><span class="o">&gt;</span> <span class="nf">of</span><span class="o">(</span>
+                <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">ConstraintViolation</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">constraintViolations</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">constraintViolations</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">constraintViolation</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">ConstraintViolationError</span><span class="o">(</span>
+                            <span class="n">constraintViolation</span><span class="o">.</span><span class="na">getPropertyPath</span><span class="o">().</span><span class="na">toString</span><span class="o">(),</span>
+                            <span class="n">constraintViolation</span><span class="o">.</span><span class="na">getInvalidValue</span><span class="o">().</span><span class="na">toString</span><span class="o">(),</span>
+                            <span class="n">constraintViolation</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span>
+                    <span class="o">)).</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>1번을 보면 생성자인데 private이 붙었다. 그 소리는 ErrorResponse의 외부에서는 생성자를 호출 못한다는 뜻이 된다. 도대체 왜??</p>
+
+<p>바로 밑의 2번을 보자. 정적 메서드를 오버로딩하고 있다. 그리고 오버로딩한 메서드는 각각 다른 파라미터를 전달 받으며, 메서드 안에서 비로소 생성자를 호출하고 있다.</p>
+
+<p>즉,</p>
+
+<p>of 메서드의 파라미터만 다르게 호출한다면, 필요한 멤버만 전달한 ErrorResponse 인스턴스를 만들 수 있다는 것이다.</p>
+
+<p>그리고 다시</p>
+
+<p>2번 메서드의 반환값을 보면 new ErrorResponse(FieldError.of(bindingResult))이다. 그러면 3번을 가보자.</p>
+
+<p>3번의 경우는 이전 컨트롤러 수준에서 작성했던 핸들러 메서드와 매우 유사하다.</p>
+
+<p>맞다</p>
+
+<p>FieldError멤버 클래스는</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1) 담고자 하는 메시지를 담당하는 멤버변수
+2) 멤버 변수를 가공하는 구체적인 로직 of 가 답겨있다.
+</code></pre></div></div>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week10] 간단정리 @ExceptionHandler를 이용하여 예외를 처리하자. @RestControllerAdvice를 이용하여 예외처리를 통합하자.(중복을 제거하자) 예외의 가공을 담당하는 클래스를 만들자 (여기서는 ErrorResponse)]]></summary></entry><entry><title type="html">Section 3 Spring - Service, Mapper</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/" rel="alternate" type="text/html" title="Section 3 Spring - Service, Mapper" /><published>2022-08-23T00:00:00+09:00</published><updated>2022-08-23T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%203%20SERVICE%20MAPPER</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-SERVICE-MAPPER/"><![CDATA[<p>[week10]</p>
 <h2 id="간단정리">간단정리</h2>
 <ul>
   <li>DTO클래스와 mapper를 통해 Entity를 만든다.</li>
@@ -266,7 +1502,7 @@ patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 
 
 <p><br /></p>
 
-<h2 id="정리">정리</h2>
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
 
 <p>WAS(Web Application Server)를 보면,</p>
 
@@ -330,7 +1566,7 @@ patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 
 
 <p>이러한 이유로 Controller 클래스가 클라이언트와의 정보공유만을 위해 작동하도록 responsebody와의 변환을 담당하는 dto클래스를 따로 만들어 주었다.</p>
 
-<p>이와 마찬가지의 이류로 서비스 클래스에서도 엔티티라는 것이 존재한다.</p>
+<p>이와 마찬가지의 이유로 서비스 클래스에서도 엔티티라는 것이 존재한다.</p>
 
 <p><strong><em>엔티티는 비즈니스 로직을 처리하기 위한, 처리한 데이터를 전달하기 위핸 객체이다.</em></strong></p>
 
@@ -358,7 +1594,7 @@ patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 
 
 <p>마찬가지로 DTO또한 엔티티로 변환해 주어야 할 것인데,</p>
 
-<p>앞서 언급했듯 서비스계층에서는 비즈니스 로직만을 담당하는 것이 옳을 것이다.</p>
+<p>앞서 언급했듯 서비스 계층에서는 비즈니스 로직만을 담당하는 것이 옳을 것이다.</p>
 
 <p>따라서 DTO -&gt; Entity의 역할을 담당하는 클래스를 따로 만들어 주어야 한다.</p>
 
@@ -488,7 +1724,7 @@ patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>DI를 이용하여 service와 mapper를 선언해주고 post핸들러의 내용을 추가시켰다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week9] 간단정리 DTO클래스와 mapper를 통해 Entity를 만든다. @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다. Controller에 Service와 mapper를 DI한다.]]></summary></entry><entry><title type="html">Section 3 Spring MVC - DTO, 유효성 검사</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/" rel="alternate" type="text/html" title="Section 3 Spring MVC - DTO, 유효성 검사" /><published>2022-08-22T00:00:00+09:00</published><updated>2022-08-22T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%203%20DTO</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/"><![CDATA[<p>[week9]</p>
+<p>DI를 이용하여 service와 mapper를 선언해주고 post핸들러의 내용을 추가시켰다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week10] 간단정리 DTO클래스와 mapper를 통해 Entity를 만든다. @Service 애너테이션은 해당 클래스가 서비스 계층임을 알려준다. Controller에 Service와 mapper를 DI한다.]]></summary></entry><entry><title type="html">Section 3 Spring MVC - DTO, 유효성 검사</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/" rel="alternate" type="text/html" title="Section 3 Spring MVC - DTO, 유효성 검사" /><published>2022-08-22T00:00:00+09:00</published><updated>2022-08-22T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%203%20DTO</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-DTO/"><![CDATA[<p>[week10]</p>
 <h2 id="간단정리">간단정리</h2>
 <p>컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다.</p>
 
@@ -509,7 +1745,8 @@ patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 
 
 <p><br /></p>
 
-<h2 id="정리">정리</h2>
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
 <p>DTO는 왜 사용할까??
 현재 리소스의 개별 데이터들의 개수가 적기 때문에, 바인딩을 하는데에 있어 @Requestparam을 이용해도 커버가 가능하다.
 하지만 리소스에 포함되는 데이터의 개수들이 많아진다묜?? 코드가 복잡해지고 이는 즉 유지보수의 어려움으로 직결될 것이다.</p>
@@ -615,369 +1852,4 @@ patch HTTP MESSAGE또한 requestbody를 가지고 있다. post가 CRUD상에서 
 
 <p>방법은 간단하게 DTO클래스의 멤버변수에 애너테이션을 적용해주는 것인데,</p>
 
-<p>애너테이션들과 정규식표현, 그리고 커스텀 애너테이션을 설정하는 것은 따로 정리를 해서 링크를 걸도록 하겠다.(0822)</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week9] 간단정리 컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다.]]></summary></entry><entry><title type="html">Section 3 Spring MVC - Controller</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/" rel="alternate" type="text/html" title="Section 3 Spring MVC - Controller" /><published>2022-08-19T00:00:00+09:00</published><updated>2022-08-19T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%203%20%20Spring%20controller</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/"><![CDATA[<p>[week9]</p>
-<h2 id="간단정리">간단정리</h2>
-<ul>
-  <li>MVC는 model, view, controller의 약자</li>
-  <li>MVC는 Spring에서 웹 계층을 담당하는 프레임워크</li>
-  <li>controller는 클라이언트의 엔드포인트</li>
-</ul>
-
-<p><br /></p>
-
-<h2 id="느낀점">느낀점</h2>
-<p>짧지만 가장 현 기분을 잘 표현한 한마디는 ‘정신 똑바로 차리자’</p>
-
-<p><br /></p>
-
-<h2 id="스스로-답해보기">스스로 답해보기</h2>
-<ul>
-  <li>MVC는 무엇인가?</li>
-  <li>MVC 동작 방식을 설명해보자</li>
-  <li>Controller는 어떤 의미를 갖는가?</li>
-</ul>
-
-<p><br /></p>
-
-<h2 id="정리">정리</h2>
-<p>본격적으로 클라이언트에 요청한 http message를 전달 받아 비즈니스 로직을 실행하여 클라이언트가 원하는 정보를 제공하기 위해서,</p>
-
-<p>서버를 어떻게 구현해야 하는지 알아보는 시간이 다가왔다.</p>
-
-<h3 id="spring-mvc">Spring MVC</h3>
-
-<p>Spring MVC는 Spring에서 웹 계층을 담당하는 모듈이다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M - Model
-
-    디자이너가 모델을 통해서 관객에게 완성된 작품을 보여주듯,
-    서버가 비즈니스 로직을 통하여 클라이언트에게 돌려줄 데이터를 만들었다면
-    그것이 모델이다.
-
-V - View
-
-    클라이언트에게 리소스, 즉 model을 제공하는 역할을 한다.
-    아예 HTML페이지 식으로 전달할수도 있겠고(SSR)
-    XML이나 JSON 형식으로 전달하여 프론트에서 페이지를 랜더링 하게 할 수도 있겠다.(CSR)
-
-C - Controller
-
-    내가 이해한 바로는
-    엔드포인트로써 클라이언트의 요청을 받고,
-    이를 통해 Model을 생성,
-    생성된 Model을 View를 호출하여 다시 클라이언트에게 돌려주는 일을 한다.
-</code></pre></div></div>
-
-<p>위의 추상적으로 설명한것들을 구체화 시키면,</p>
-
-<h3 id="mvc-동작방식">MVC 동작방식</h3>
-
-<p>추후 이해를 심화시키고 사진 첨부할 것 (20220819)</p>
-
-<h3 id="controller">Controller</h3>
-
-<p>@RestController</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-&gt; 클래스 레벨의 애너테이션으로 ***앞으로 해당 클래스가 엔트포인트로 작동할 것이다*** 를 알려줌  
--&gt; 로딩시 spring bean에 등록됨
-</code></pre></div></div>
-
-<p>@RequestMapping(“”)</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-&gt; 클래스 레벨에 적용하면 baseURL을 설정함
--&gt; 괄호 안에 "/mylist/practice"의 형식으로
-</code></pre></div></div>
-
-<p>적용 예시</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/mylist/practice"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerExample</span><span class="o">{</span>
-    <span class="o">~~~~</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="http-message-mapping">HTTP MESSAGE MAPPING</h4>
-
-<p>@PostMapping</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-&gt; CRUD상의 'C-CREATE'를 담당하는 post 요청을 처리하겠다.
--&gt; responsebody를 받기 때문에
-    1. @RequsetParam
-    2. DTO
-    이용
-</code></pre></div></div>
-
-<p>@PatchMapping</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-&gt; CRUD상의 'U-UPDATE'를 담당하는 patch 요청을 처리하겠다.
--&gt; responsebody를 받기 때문에
-    1. @RequestParam
-    2. DTO
-    이용
--&gt; 이미 생성되어 있는 데이터의 id이용
-    @PatchMapping("/{~~}")
-    @PathVariable(~~)
-    ~~은 같아야함    
-</code></pre></div></div>
-
-<p>@GetMapping</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-&gt; CRUD상의 'R-READ'를 담당하는 get 요청을 처리하겠다.
--&gt; 하나의 정보만 조회할 경우
-    @GetMapping("/{~~}")
-    @PathVariabel(~~)
-    ~~는 같아야함
--&gt; 모든 정보 조회는 list로
-</code></pre></div></div>
-
-<p>@DeleteMapping</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-&gt; CRUD상의 'D-DELETE'를 담당하는 delete 요청을 처리하겠다.
-</code></pre></div></div>
-
-<h4 id="responseentity">ResponseEntity</h4>
-
-<p>클라이언트에게 JSON형식으로 직렬화 하여 보내줄 수 있는 객체</p>
-
-<h3 id="여기까지-적용해보면">여기까지 적용해보면</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/mylist/practice"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerExample</span><span class="o">{</span>
-    
-    <span class="nd">@PostMapping</span>
-    <span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">post</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="nc">String</span> <span class="k">this</span><span class="o">){</span>
-        <span class="o">~~~</span>
-    <span class="o">}</span>
-
-    <span class="nd">@PatchMapping</span><span class="o">(</span><span class="s">"/{list-id}"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">patch</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">"list-id"</span><span class="o">)</span> <span class="kt">long</span> <span class="n">listId</span><span class="o">,</span>
-                               <span class="nd">@RequestParam</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="nc">String</span> <span class="k">this</span><span class="o">){</span>
-        <span class="o">~~~</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@GetMapping</span>
-    <span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">get</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">"list-id"</span><span class="o">)</span> <span class="kt">long</span> <span class="n">listId</span><span class="o">){</span>
-        <span class="o">~~~</span>
-    <span class="o">}</span>
-
-    <span class="nd">@PostMapping</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">(){</span>
-        <span class="o">~~~</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week9] 간단정리 MVC는 model, view, controller의 약자 MVC는 Spring에서 웹 계층을 담당하는 프레임워크 controller는 클라이언트의 엔드포인트]]></summary></entry><entry><title type="html">Section 2 회고</title><link href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/" rel="alternate" type="text/html" title="Section 2 회고" /><published>2022-08-18T00:00:00+09:00</published><updated>2022-08-18T00:00:00+09:00</updated><id>http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section%202%20%ED%9A%8C%EA%B3%A0</id><content type="html" xml:base="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-2-%ED%9A%8C%EA%B3%A0/"><![CDATA[<p>[week5]</p>
-
-<h2 id="느낀점">느낀점</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>선선한 바람이 불어와
-나뭇잎이 들썩거리길래
-나뭇잎을 집어보니
-바람은 그곳에 없었다.
-
-하지만 바람에 더해진
-향긋한 향기가 느껴져
-꽃을 마주보았을때
-향기는 더 강해졌다.
-</code></pre></div></div>
-
-<p>나의 바람은 바람만으로 남으면 안 될 것이다. 바람에 노력이라는 향기를 더해서 더더욱 발전해야 겠다. 요즘 나는 바람만 있다. 허풍이다.</p>
-
-<p><br />
-<br /></p>
-
-<h2 id="배운-것들-키워드">배운 것들 키워드</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>재귀함수
-알고리즘
-    그리디
-자료구조
-    스택
-    큐
-    트리
-네트워크
-    TCP/IP
-    HTTP
-    REST API
-데이터베이스
-Spring 기초
-    POJO
-    IoC
-    DI
-    AOP
-    POS
-</code></pre></div></div>
-
-<h2 id="진행-상황">진행 상황</h2>
-<p><br /></p>
-
-<h3 id="1-운동">1. 운동</h3>
-<p>운동은 역시나 지속중이다. 다만 한번 러닝을하다가 다친 이후는 1주일간 운동을 하지 못했었다. 그리고 후유증으로 약간의 나태해짐이 더해진 것을 느낀다. 근 1주일은 아침이 아닌 저녁에 가고 있다.. 다시 아침운동으로 진행해보자.
-<br /></p>
-
-<h3 id="2-페어참여--주말-활용">2. 페어참여 / 주말 활용</h3>
-<p>점점 페어가 재미있으면서도 동시에 부담이 된다. 내가 지식을 확실히 소화하지 못하고 하는 페어는 그 시간을 100퍼센트 활용하지 못하는 것 같다. 주말을 활용해서 조금이라도 더 복습을 해야하는데 이상하게 주말만 되면 뭐같은 안도감에 주말을 효율적으로 활용하지 못하고 있다. 
-<br /></p>
-
-<h3 id="3-git-적응">3. git 적응</h3>
-<p>깃허브 페이지를 통한 블로깅과 여유시간 기초 개인 코딩을 해보면서 깃을 꾸준히 써왔다. 이부분은 잘 하고 있다. 조만간 깃에 대한 추가적인 학습을 할 예정이다.(협업 관련)
-<br /></p>
-
-<h3 id="4-1일-1커밋">4. 1일 1커밋</h3>
-<p>학습이 어려워지면서 1일 1커밋은 잘 못하고 있다. 블로깅 자체에 매몰되지 않으려, 지식을 안 상태에서 나만의 언어로 작성하려 노력하다보니 그것만으로도 벅찬게 사실이다.
-<br /></p>
-
-<h3 id="5-진도-따라가기">5. 진도 따라가기</h3>
-<p>100 중 65퍼센트정도만 따라온 것 같다. 항상 느끼는게 하루 밀리면 부담은 배가 된다. 제발 제대로 하자..</p>
-
-<p><br /></p>
-
-<h3 id="3-영어-공부하기">3. 영어 공부하기</h3>
-<p>아무래도 내 개인적인 공부도 해야 더 알차게 보낼 수 있을 것 같다. 몇년째 미뤄온 숙원사업이다.</p>
-
-<p><br /></p>
-
-<h2 id="다시-나아가자">다시 나아가자</h2>
-
-<h3 id="나태함을-극복하자">나태함을 극복하자</h3>
-<p>항상 초심일 필요는 없다고 생각한다. 스스로를 옭아매는 초심은 더 구렁텅이로 빠지게 만든다고 생각하기 때문이다. 하지만 현재는 초심과 사이가 너무 나빠졌다. 다시 친해져야겠다.</p>
-
-<h3 id="다음을-생각하자section-1과-같다">다음을 생각하자.(Section 1과 같다.)</h3>
-<p>일단 교환학생을 붙으면 좋을 줄 알았었다.
-일단 시험을 붙으면 좋을 줄 알았었다.
-일단 1차 면접을 뚫으면 좋을 줄 알았었다.
-하지만 언제나 다음 단계는 있었다. 한단계 더 보려고 노력하자.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="회고" /><summary type="html"><![CDATA[[week5]]]></summary></entry><entry><title type="html">[개인] 애너테이션(annotation)에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="[개인] 애너테이션(annotation)에 관하여" /><published>2022-08-15T00:00:00+09:00</published><updated>2022-08-15T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
-<ul>
-  <li>애너테이션은 무엇인가??</li>
-</ul>
-
-<h2 id="공부하던-부분">공부하던 부분</h2>
-<ul>
-  <li>자바 복습</li>
-</ul>
-
-<h2 id="의문점">의문점</h2>
-<ol>
-  <li>애너테이션에 대한 체계가 잡히질 않는다. 잡아봐야겠지??</li>
-</ol>
-
-<h2 id="정리">정리</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>애너테이션 - 주석
-</code></pre></div></div>
-
-<p>이라 함은 지금까지는 코드의 가독성을 상승시켜 개발, 유지, 보수에 도움이 되도록 하는 ‘사람’을 위한 글이라고 생각하고 잇었다. 그런데 웬걸?? ‘프로그램’을 위해서 애너테이션을 제공한다라??</p>
-
-<p>학습은 했다. 하지만 나는 멍청하다. 그래서 다시 정리한다. 쓰다보니 문도박사급의 언어력을 구사하고 있는 것 같다.</p>
-
-<p>무튼, 한글을 읽는다고 모든 것이 바로 이해되는 것은 아니다. 그렇다면 나는 이미 위인전에 나왔겠지</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ex) 네 행동의 준칙이 언제나 보편적 입법의 원리가 되도록 하라.
-</code></pre></div></div>
-
-<p>물론 위 급의 글은 아니다. 비슷하다는 이야기다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Java" /><summary type="html"><![CDATA[이 글에 담긴 것 애너테이션은 무엇인가??]]></summary></entry><entry><title type="html">[개인] maven과 gradle에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/maven%EA%B3%BC-gradle%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="[개인] maven과 gradle에 관하여" /><published>2022-08-13T00:00:00+09:00</published><updated>2022-08-13T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/maven%EA%B3%BC%20gradle%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/maven%EA%B3%BC-gradle%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
-<ul>
-  <li>maven과 gradle을 이해하는 것 (파고들어서 분석하고 그런 것은 아니니 그런 것을 원한다면 돌아가세요)</li>
-</ul>
-
-<h2 id="공부하던-부분">공부하던 부분</h2>
-<ul>
-  <li>자바 복습</li>
-</ul>
-
-<h2 id="의문점">의문점</h2>
-<ol>
-  <li>내 머리속의 개념들의 모호함을 구체화해야 하지 않겠는가??</li>
-</ol>
-
-<h2 id="정리">정리</h2>
-<p>어제 정리한 runtime, compiletime, build와 같이 맨날 궁금해 해놓고 구체화 하지 않은 지식 중 하나이다. 마치 맨날 경제 뉴스를 보면서</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>아 이제는 경제용어를 좀 공부해서 활용해봐야지
-</code></pre></div></div>
-
-<p>하면서도 미루고만 있었던 과거의 경영학을 배우던 나와 과거의 나에게 탓을 돌리고 있는 현재의 내가 그래왔듯이</p>
-
-<p>maven과 gradle은 왜 존재하는 것일까??</p>
-
-<h3 id="중간답">중간답</h3>
-<p>일단 찾아보니 생각보다 금방 명료해졌다. build란 무엇인가 정리할때 스택오버플로우에서 다음과 같은 답변을 봤었다.</p>
-
-<p>빌드란</p>
-
-<p>1.Generating sources (sometimes).
-2.Compiling sources.
-3.Compiling test sources.
-4.Executing tests (unit tests, integration tests, etc).
-5.Packaging (into jar, war, ejb-jar, ear).
-6.Running health checks (static analyzers like Checkstyle, Findbugs, PMD, test coverage, etc).
-7.Generating reports.</p>
-
-<p>이와 같은 과정이고, 컴파일은 빌드에 속하는 부분이라고..</p>
-
-<p>maven과 gradle은 위 순서들을 자동으로. 즉, 개발자가 일일이 하지 않아도 되도록 해주는 <strong><em>빌드관리도구</em></strong>이다.</p>
-
-<p>그렇다면 생각보다 답이 금방 나온 김에… maven과 gradle을 조금만 더 파보도록 하자</p>
-
-<p><img src="https://dev-coco.tistory.com/65" alt="이분꺼 보고 같이 공부하시죠" /></p>
-
-<p>나도 추후에 다시 돌아와서 채워보도록 해야겠다.(20220813)</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Java" /><summary type="html"><![CDATA[이 글에 담긴 것 maven과 gradle을 이해하는 것 (파고들어서 분석하고 그런 것은 아니니 그런 것을 원한다면 돌아가세요)]]></summary></entry><entry><title type="html">[개인] Run time, Compile time, Build에 관하여</title><link href="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Runtime,-Compile-time,-build%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/" rel="alternate" type="text/html" title="[개인] Run time, Compile time, Build에 관하여" /><published>2022-08-12T00:00:00+09:00</published><updated>2022-08-12T00:00:00+09:00</updated><id>http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Runtime,%20Compile%20time,%20build%EC%97%90%20%EA%B4%80%ED%95%98%EC%97%AC</id><content type="html" xml:base="http://localhost:4000/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/Runtime,-Compile-time,-build%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/"><![CDATA[<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
-<ul>
-  <li>런타임, 컴파일타임, 빌드를 구분하자</li>
-</ul>
-
-<h2 id="공부하던-부분">공부하던 부분</h2>
-<ul>
-  <li>자바 복습</li>
-</ul>
-
-<h2 id="의문점">의문점</h2>
-<ol>
-  <li>저 세가지 완벽하게 구분을 할 줄 알아?</li>
-</ol>
-
-<h2 id="정리">정리</h2>
-
-<p>학습을 진행하면 할 수록 기초가 부족하다는 생각이 너무 많이 든다. 그렇다고 한가지 한가지 모든 것들을 처음부터 차곡차곡 주춧돌 쌓아 나의 지식의 체계를 건설하자니 시간이 오래 걸린다.(원래는 이런식의 공부를 좋아해서 지금 더 힘들다.)</p>
-
-<p>하지만 코딩 공부는 그런식으로는 할 수 없는 것 같다. 내가 목표로 하는 효율적인 웹 서버를 만드는 것, 그것은 결국 하이퍼링크로 문서들을 뛰어넘는 그런 일종의 데이터들을 위한 것이듯 나의 공부도 그런 식이 되어야 하는 것 같다.</p>
-
-<p>무튼 더 나아가려 하는데 초장부터 내가 확실히 구분하지 못하는 단어들, 정의들이 나온다는 것은 썩 유쾌한 일은 아니다. 그래서 나올때마다 바로바로 정리해서 머릿속에 넣기로 했다. 하이퍼링크를 뛰어넘어 다니듯..</p>
-
-<h2 id="결론">결론</h2>
-
-<p>기초 원리부터 따닥따닥 따져가면서 볼 필요도 없을 것 같다. 위키선생님께 여쭤본 결과 다음과 같이 명료하게 정리가 된다.</p>
-
-<blockquote>
-  <p>런타임 - 사용자에 의해 프로그램이 실행되는 동안</p>
-</blockquote>
-
-<blockquote>
-  <p>컴파일 타임 - 고급언어인 프로그래밍 언어를 컴퓨터가 이해 할 수 있는 기계어로 변환하는 동안</p>
-</blockquote>
-
-<p>그렇게 되면 런타임오류와 컴파일타임 오류의 구분도 이해가 된다.</p>
-
-<p>만약 내가 계산기 프로그램을 만들었는데 나눗셈의 경우 ‘0으로 나누는 경우’를 생각하지 못했다면?? 문법적인 오류는 없으니까 컴파일되고, 사용자에 의해 실행될 것이다. 그리고 사용자에 의해 실행되었을때 0으로 나누면 에러가 발생할 것이다. 이 경우가 런타임 에러가 된다.</p>
-
-<p>하지만 내가 int형 변수를 선언해야 하는데 inf라고 썼다든가, 혹은 if()의 괄호 안에 조건을 채워넣지 않는 등의 syntax으로가 나게 된다면 이는 컴파일 과정에서 오류를 발생시킬 것이다. 이것이 컴파일 오류가 된다.</p>
-
-<p>그렇다면 build는 무엇??   <br />
-스택오버플로우에서 친절한 답변을 찾아왔다.</p>
-
-<p>”
-The “Build” is a process that covers all the steps required to create a “deliverable” of your software. In the Java world, this typically includes:</p>
-
-<p>1.Generating sources (sometimes).
-2.Compiling sources.
-3.Compiling test sources.
-4.Executing tests (unit tests, integration tests, etc).
-5.Packaging (into jar, war, ejb-jar, ear).
-6.Running health checks (static analyzers like Checkstyle, Findbugs, PMD, test coverage, etc).
-7.Generating reports.</p>
-
-<p>So as you can see, compiling is only a (small) part of the build (and the best practice is to fully automate all the steps with tools like Maven or Ant and to run the build continuously which is known as Continuous Integration).
-“</p>
-
-<p>컴파일(프로그래밍언어-&gt;기계어 변환)은 빌드의 한 과정일 뿐이다.</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="개인탐구" /><category term="Java" /><summary type="html"><![CDATA[이 글에 담긴 것 런타임, 컴파일타임, 빌드를 구분하자]]></summary></entry></feed>
+<p>애너테이션들과 정규식표현, 그리고 커스텀 애너테이션을 설정하는 것은 따로 정리를 해서 링크를 걸도록 하겠다.(0822)</p>]]></content><author><name>Shinjae Kim</name><email>lo97729@gmail.com</email></author><category term="코드스테이츠" /><category term="Spring" /><summary type="html"><![CDATA[[week10] 간단정리 컨트롤러의 핸들러 메서드는 클라이언트와의 데이터 전송을 담당하는 계층으로써의 역할을 다해야 한다. 때문에 dto를 만들고, 유효성 검사를 진행하게 한다면 그 기능에 충실하게 해줄 수 있다.]]></summary></entry></feed>

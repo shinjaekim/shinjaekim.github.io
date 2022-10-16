@@ -1,0 +1,8 @@
+I"O<p>[week10]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>@ExceptionHandler를 이용하여 예외를 처리하자.</li>
+  <li>@RestControllerAdvice를 이용하여 예외처리를 통합하자.(중복을 제거하자)</li>
+  <li>예외의 가공을 담당하는 클래스를 만들자 (여기서는 ErrorResponse)</li>
+</ul>
+:ET
