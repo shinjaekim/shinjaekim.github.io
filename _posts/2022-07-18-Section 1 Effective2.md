@@ -53,10 +53,10 @@ first of all, let's see the code. A picture is worth 1000 words.
 1.
 
 void sayMyName(){
-    System.out.print("내 애름이 뭐라고? 코딩 밀당 남");
+    System.out.print("내 이름이 뭐라고?");
 }  
 
-() -> {System.out.println("내 이름이 뭐라고? 코딩 밀당 남");}
+() -> {System.out.println("내 이름이 뭐라고?");}
 // 애초에 반환타입이 없어도 명시해야 했던 void 와 sayMyName이라는 메서드 이름이 생력되었다.
 
 2. in case of parameter
@@ -78,7 +78,7 @@ String getMyName(String name){
 ```java
 new Object() {
     void sayMyName(){
-    System.out.print("내 애름이 뭐라고? 코딩 밀당 남");
+    System.out.print("내 애름이 뭐라고?");
     }  
 }
 ```
@@ -89,7 +89,7 @@ new Object() {
 ```java
 1 Object obj = new Object() {
 2    void sayMyName(){
-3    System.out.print("내 애름이 뭐라고? 코딩 밀당 남");
+3    System.out.print("내 애름이 뭐라고?");
 4    }  
 5 }
 6
@@ -107,12 +107,12 @@ interface SaySomeonesName{
 public Class LamdaTest{
     public static void main(String[] args){
 
-        SaySomeonesName SMN = () -> {System.out.println("내 이름이 뭐라고? 코딩 밀당 남")};
+        SaySomeonesName SMN = () -> {System.out.println("내 이름이 뭐라고?")};
 
         or
 
         SaySomeonesName SMN = () -> {
-            String str = "내 이름이 뭐라고? 코딩 밀당 남");
+            String str = "내 이름이 뭐라고?");
             System.out.println(str);
         }
 

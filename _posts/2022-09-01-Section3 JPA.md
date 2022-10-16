@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Section 3 Spring - Jpa"
+title:  "Section 3 Spring - JPA"
 
 categories:
     - 코드스테이츠
