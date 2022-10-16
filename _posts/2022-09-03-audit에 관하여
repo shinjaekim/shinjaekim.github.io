@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "[개인] PatchDto에 관하여"
+title:  "[개인] audit에 관하여"
 
 categories:
     - 개인탐구
@@ -13,12 +13,65 @@ toc_label: "나의 생각흐름 정리"
 ---
 
 ## 이 글에 담긴 것
-- patchDto의 필드변수 설정
+- audit 그 자체
 
 ## 공부하던 부분
-- API계층 Dto 만들기
+- spring data JPA
 
 ## 의문점
-1. patchdto의 필드변수는 어떤 것들이 들어가야 하는가??
+학습 자료를 보는 중인데, audit은 왜 갑자기 등장했는가??
 
 ## 정리
+
+만약 당신이 JPA 사용을 위한 엔티티(도메인) 필드를 구성하고 있는데, 공통적으로 사용하는 필드가 존재한다면 어떻게 할 것인가??
+
+아직은 미숙하지만, 그래도 항상 유념하며 학습하는 부분이 바로 이것이다.
+
+> 공통 필드들을 하나로 줄여서 쓸 수는 없을까??
+
+예외처리의 경우를 생각해보면, 공통적으로 작성해야하는 핸들러메서드는 @RestControllerAdvice 애너테이션을 이용한 클래스를 작성하여 한 곳에 모을 수 있었다.
+
+audit도 그것이었다.
+
+### 1. 언제??
+
+데이터들은 작성되는 시점과 수정되는 시점이 중요하다.
+
+이 정보를 저장하기 위해 엔티티에 다음과 같은 필드를 추가하게 된다.
+
+```java
+@Column(nullabe = false) / 대신 @CreatedDate -> 대입은 필요 없다.
+private LocalDateTime createdAt = LocalDateTime.now();
+
+@Column(nullabe = false) / 대신 @LastModifiedDate -> 대입은 필요 없다.
+private LocalDateTime modifiedAt = LocalDateTime.now();
+```
+
+---
+
+### 2. 사용법
+
+위의 경우 공통 필드들을 엔티티마다 다 추가하는 것보다는 따로 빼서 다음과 같이 클래스를 하나 만들자
+
+```java
+@Getter
+@MappedSuperclass
+public abstract class Audit{
+    @Column(nullabe = false) / 대신 @CreatedDate -> 대입은 필요 없다.
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullabe = false) / 대신 @LastModifiedDate -> 대입은 필요 없다.
+    private LocalDateTime modifiedAt = LocalDateTime.now();
+}
+```
+특징을 보면
+
+1) 클래스는 abstract, 즉 추상 클래스로 작성된다.
+2) @MappedSuperclass는 이 클래스를 상속받는 JPA 엔티티들이 자동으로 해당 클래스의 필드를 컬럼으로 설정하도록 한다.
+
+이렇게 한 곳으로 빼서 클래스를 만들면
+
+이후 해당 필드들을 필요로 하는 JPA 엔티티를 작성시 audit클래스를 상속받으면 된다.
+
+
+
