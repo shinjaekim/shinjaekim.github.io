@@ -178,3 +178,4 @@ after client get the certificate, client can decrypt it with CA's public key. if
 
     4. salt는 db에 같이 저장된다.
 
+실험 1
