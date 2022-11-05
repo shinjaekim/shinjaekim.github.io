@@ -1,0 +1,152 @@
+I"Z/<p>[week13]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>목 객체를 통해서 서비스 계층과의 흐름을 끊어준다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>이론은 어렵지 않다. 코드를 작성하면서 직접 구현하는데 익숙해지려면 여러번 타이핑해보는 방법밖에는 없겠다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>Mockito.any??</li>
+  <li>Mock은 무엇?</li>
+  <li>given의 역할은??</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
+<p>앞서 API계층의 슬라이스 테스트를 진행 할 때의 문제는 무엇이었을까??</p>
+
+<blockquote>
+  <p>사실상 data계층까지 거쳤다가 돌아온다.</p>
+</blockquote>
+
+<p>이게 과연 API계층만 테스트는 것이라 할 수 있을까??</p>
+
+<p>이를 Mockito를 이용하여 해결해보자.</p>
+
+<h3 id="1-mock-객체">1. Mock 객체</h3>
+
+<p>어릴때 외형만 핸드폰인 장난감을 가지고 전화놀이를 했던 기억이 있다. 전화는 되지 않았지만 실제로 어른이 된 듯한 느낌을 느낌을 가질 수 있었다.</p>
+
+<p>또한 어릴때 주말이면 NG들을 모아서 방영해주는 프로그램이 있었다. 그 프로그램을 떠올려보면 배우들이 소품을 가지고 실제와 같은 연기를 하던 모습이 떠오른다.</p>
+
+<p>나도 그렇고 배우들도 그렇고 실제와 같은 행동을 흉내낼 수 있었던 것은 정교한 가짜때문이었다. 그것을 목업이라고 부른다.</p>
+
+<p>그리고</p>
+
+<p>위에서 말한 api계층 테스트의 단점을 극복하기 위해 Mock객체를 사용해보자.</p>
+
+<hr />
+
+<h3 id="2-mockito">2. Mockito</h3>
+
+<p>위에서 언급한 Mock객체를 코드상에서 구현할 수 있게 해주는 도구라고 생각하자. 정확히 말하면 오픈 소스 라이브러리이다. 이를 슬라이스 테스트에 적용해보자.</p>
+
+<p>일단 앞선 글에서 Mockito 없이 작성했었던 코드는 이렇다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="nd">@AutoConfigurMockMvc</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest</span><span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">Json</span> <span class="n">json</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postMemberTest</span><span class="o">(){</span>
+        <span class="c1">// given - 테스트용 request body</span>
+        <span class="nc">PostDto</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PostDto</span><span class="o">(</span><span class="s">"species"</span><span class="o">,</span><span class="s">"name"</span><span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+        <span class="c1">// when - MockMvc 객체로 대상 Controller 호출</span>
+
+        <span class="nc">ResultActions</span> <span class="n">actions</span> <span class="o">=</span>
+                <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span>
+                    <span class="n">post</span><span class="o">(</span><span class="s">"~~~"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">content</span><span class="o">)</span>
+                <span class="o">);</span>
+        <span class="c1">// then - 응답 상태, response body 검증</span>
+
+        <span class="nc">MvcResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">actions</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isCreated</span><span class="o">())</span> <span class="c1">// 상태를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.species"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getSpecies</span><span class="o">()))</span><span class="c1">// responsebody 데이터를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.name"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getName</span><span class="o">()))</span>
+                                <span class="o">.</span><span class="na">andReturn</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>여기에 Mockito를 적용해보면 이렇게 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="nd">@AutoConfigurMockMvc</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest</span><span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">Json</span> <span class="n">json</span><span class="o">;</span>
+
+    <span class="nd">@MockBean</span>
+    <span class="kd">private</span> <span class="nc">AnimalService</span> <span class="n">animalService</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">AnimalMapper</span> <span class="n">mapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postMemberTest</span><span class="o">(){</span>
+        <span class="c1">// given - 테스트용 request body</span>
+        <span class="nc">PostDto</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PostDto</span><span class="o">(</span><span class="s">"species"</span><span class="o">,</span><span class="s">"name"</span><span class="o">);</span>
+
+        <span class="nc">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">dtoToAnimal</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+
+        <span class="n">given</span><span class="o">(</span><span class="n">animalService</span><span class="o">.</span><span class="na">createAnimal</span><span class="o">(</span><span class="nc">Mockito</span><span class="o">.</span><span class="na">any</span><span class="o">(</span><span class="nc">Animal</span><span class="o">.</span><span class="na">class</span><span class="o">)))</span>
+                <span class="o">.</span><span class="na">willReturn</span><span class="o">(</span><span class="n">animal</span><span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+        <span class="c1">// when - MockMvc 객체로 대상 Controller 호출</span>
+
+        <span class="nc">ResultActions</span> <span class="n">actions</span> <span class="o">=</span>
+                <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span>
+                    <span class="n">post</span><span class="o">(</span><span class="s">"~~~"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">content</span><span class="o">)</span>
+                <span class="o">);</span>
+        <span class="c1">// then - 응답 상태, response body 검증</span>
+
+        <span class="nc">MvcResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">actions</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isCreated</span><span class="o">())</span> <span class="c1">// 상태를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.species"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getSpecies</span><span class="o">()))</span><span class="c1">// responsebody 데이터를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.name"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getName</span><span class="o">()))</span>
+                                <span class="o">.</span><span class="na">andReturn</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Controller계층에서 사용할 animalService객체를 @MockBean애너테이션을 이용하여 주입받는다. 이 때 주입받은 객체는 Mock객체이다.</p>
+
+<p>그리고 service계층은 entity를 이용해야 하니 mapper또한 DI받는다.</p>
+
+<p>given을 보면 메서드가 하나 추가 되었는데 바로 Mockito에서 지원하는 stubbing 메서드이다. given은 <strong><em>Mock객체가 특정 값을 리턴하는 동작을 지정하기에</em></strong> given에 서비스 계층의 메서드를 Mockito타입을 파라미터로 담아서 호출한다. (animalService)</p>
+
+<p>즉 실제 animalService를 호출하는 것이 아닌, mockanimalService를 호출하는 동작을 지정했다고 생각하자.</p>
+
+<hr />
+
+<h3 id="3-서비스-계층에서의-적용">3. 서비스 계층에서의 적용</h3>
+
+<p>추후 추가하도록 하겠다.</p>
+:ET

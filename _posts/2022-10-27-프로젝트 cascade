@@ -1,0 +1,69 @@
+---
+layout: single
+title:  "[프로젝트] cascade 정리"
+
+categories:
+    - 프로젝트
+
+tags:
+     
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+## 이 글에 담긴 것
+- cascade도 잘 알고 쓰자.
+
+## 문제 봉착
+- 엔티티 연관관계 설정 후 테이블들이 내 생각대로 변화하지 않았음.
+
+## 정리
+
+앞선 오류 해결 후 무작정 cascade = CascadeType.All 만 남발하고 다녔다. 그래도 잘 돌아갔기에..
+
+그런다 다음과 같은 문제가 발생한다.
+
+    1. a,b,c 라는 태그를 달아서 질문을 생성한다.
+        - question / questiontag / a,b,c라는 태그 자체 테이블 생성
+
+    2. 1번 질문과 같이 a,b,c 라는 태그를 포함한 질문을 여러개 생성한다.
+
+    3. 그 중 글 하나를 지운다.
+
+나는 분명 글을 하나만 지웠는데 모든 글들이 지워지는 현상이 발생했다. 생각없이 CascadeType을 All로 지정했기 때문이다.
+
+
+### Jpa에서의 엔티티 등록
+
+학습 내용을 거슬러보면 영속성컨텍스트라는 곳에 엔티티를 1차적으로 저장하고, 이 후 데이터베이스에 '실질적으로 반영'되게 된다.
+
+이를 엔티티의 상태 측면으로 바라볼 수 있다.
+
+    Transient - JPA가 모르는 객체
+    Persistent - JPA가 관리중인 객체
+    Detached - JPA가 더이상 관리하지 않는 객체
+    Removed - JPA기 삭제할 객체
+
+그러니 엔티티간의 연관관계를 설정하고, 내 논리적인 생각이 데이터베이스의 변화까지 이어지게 하려면 위의 엔티티 상태를 잘 알고 있어야한다.
+
+
+### Cascade의 옵션 종류
+
+    All : 모두 적용
+    PERSIST : 영속
+    REMOVE : 삭제
+    MERGE : 병합
+    REFRESH 
+    DETACH : 준영속
+
+무턱대고 All을 했으니 위의 옵션들이 다 적용된 것이다. 
+
+Question과 QuestionTag의 관계는 1:N인데
+
+@manyToOne 애너테션을 사용한 N측의 questionTag의 옵션으로 ALL을 해버렸으니
+
+1)하나의 질문을 삭제했는데, 2)해달 질문에 속한 태그들이 삭제되면서, 3)해당 태그를 가진 질문들이 모두 삭제되었다.
+
+다시 Jpa 2.0 specification을 읽어보니 다음과 같은 내용이 눈에 띄인다.
+    
+> The cascade=REMOVE specification should only be applied to associations that are specified as OneToOne or OneToMany

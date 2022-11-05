@@ -1,0 +1,90 @@
+I"8<h2 id="이-글에-담긴-것">이 글에 담긴 것</h2>
+<ul>
+  <li>H2 db의 의미와 설정</li>
+</ul>
+
+<h2 id="공부하던-부분">공부하던 부분</h2>
+<ul>
+  <li>Spring Data JDBC</li>
+</ul>
+
+<h2 id="의문점">의문점</h2>
+<ol>
+  <li>h2 db를 사용한다면 단순히 따라하는게 아니라 알고 써야하지 않겠는가?</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<p>웹 애플리케이션 구현을 위한 계층들을 구축했다고 가정하자. 그리고 이를 테스트 해봐야한다면 굳이 mysql과 같은 db를 연동시켜야 할까??</p>
+
+<p>이 문제에 대한 답은 정해져 있지 않지만 하나의 해결갈래가 존재하는데</p>
+
+<p>그것이 바로 h2 memory이다.</p>
+
+<h3 id="1-h2특징">1. h2특징</h3>
+
+<blockquote>
+  <p>h2는 인메모리 DB</p>
+</blockquote>
+
+<p>인메모리 DB라 함은 모순적인 조합일수도 있다.</p>
+
+<p>DB는 기본적으로 시스템이 종료되어도 저장된 데이터가 소실되거나 변경되는 일은 없어야 한다.</p>
+
+<p>하지만 h2의 경우, 위에서 말했듯 인메모리DB이기 때문에</p>
+
+<p><strong><em>휘발성</em></strong>의 특징을 가진다.</p>
+
+<p>이런 모순된 특징은 <strong><em>테스트</em></strong>시에 큰 장점을 발휘할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>db에 새로운 정보를 저장하기 위해 post 요청을 담당하는 핸들러 메서드를 작성했다고 가정하자.
+
+만약 이때 지속성을 가지는 db를 이용하여 테스트를 진행한다면
+
+다음 테스트에서는 메서드 자체에는 아무런 문제가 없음에도 불구하고
+
+post 핸들러 메서드는 오류메시지를 보낼 것이다.
+</code></pre></div></div>
+
+<p>때문에 지속적인 테스트를 필요로 한다면 h2 db를 이용하는 것이 많은 이점을 가진다.</p>
+
+<hr />
+
+<h3 id="2-사용법">2. 사용법</h3>
+
+<p>dependecies에 다음의 코드를 기입하자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>runtimeOnly 'com.h2database:h2'
+</code></pre></div></div>
+
+<p>어플리케이션에 따른 db가 연동되지 않았따면, 애플리케이션 실행 시 자동으로 h2 db에 접근이 가능해진다.</p>
+
+<p>그리고 application.yml에 다음의 코드를 작성하자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring:
+    h2:
+        console:
+            enabled: true
+</code></pre></div></div>
+
+<p>위 코드는 H2 browser를 활성화 한다.</p>
+
+<p>로컬 실행시,</p>
+
+<p><strong><em>localhost:8080/h2-console</em></strong> 에 접속하면 브라우져에서 db를 사용할 수 있다.</p>
+
+<p>또한 jdbc와 연동한 경우 datasource를 추가하자. 이러면 url이 매번 랜덤생성되는 것을 막고, 내가 설정한 url로 접근 가능하다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring:
+    h2:
+        console:
+             enabled: true
+             path: /h2     # (1) Context path 변경
+     datasource:
+        url: jdbc:h2:mem:test     # (2) JDBC URL 변경
+</code></pre></div></div>
+
+<p>이렇게 설정했을 경우에는</p>
+
+<p><strong><em>localhost:8080/h2</em></strong> 로 접속.</p>
+:ET

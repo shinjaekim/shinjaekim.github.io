@@ -306,7 +306,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Section 3 Spring MVC - Controller",
-        "excerpt":"[week9] 간단정리 MVC는 model, view, controller의 약자 MVC는 Spring에서 웹 계층을 담당하는 프레임워크 controller는 클라이언트의 엔드포인트 느낀점 짧지만 가장 현 기분을 잘 표현한 한마디는 ‘정신 똑바로 차리자’ 스스로 답해보기 MVC는 무엇인가? MVC 동작 방식을 설명해보자 Controller는 어떤 의미를 갖는가? 정리 본격적으로 클라이언트에 요청한 http message를 전달 받아 비즈니스 로직을 실행하여...","categories": ["코드스테이츠"],
+        "excerpt":"[week9] 간단정리 MVC는 model, view, controller의 약자 MVC는 Spring에서 웹 계층을 담당하는 프레임워크 controller는 클라이언트의 엔드포인트 느낀점 짧지만 가장 현 기분을 잘 표현한 한마디는 ‘정신 똑바로 차리자’ 스스로 답해보기 MVC는 무엇인가? MVC 동작 방식을 설명해보자 Controller는 어떤 의미를 갖는가? 정리 - 들어가며 본격적으로 클라이언트에 요청한 http message를 전달 받아 비즈니스...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section-3-Spring-controller/",
         "teaser": null
@@ -347,16 +347,52 @@ var store = [{
         "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/PatchDto%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
         "teaser": null
       },{
+        "title": "[개인] H2에 관하여",
+        "excerpt":"이 글에 담긴 것 H2 db의 의미와 설정 공부하던 부분 Spring Data JDBC 의문점 h2 db를 사용한다면 단순히 따라하는게 아니라 알고 써야하지 않겠는가? 정리 웹 애플리케이션 구현을 위한 계층들을 구축했다고 가정하자. 그리고 이를 테스트 해봐야한다면 굳이 mysql과 같은 db를 연동시켜야 할까?? 이 문제에 대한 답은 정해져 있지 않지만 하나의 해결갈래가...","categories": ["개인탐구"],
+        "tags": ["Spring"],
+        "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/h2%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
+        "teaser": null
+      },{
+        "title": "[개인] pageable에 관하여",
+        "excerpt":"이 글에 담긴 것 pageable 공부하던 부분 JDBC, JDBC 의문점 page로 나눠서 목록을 전달하는 방법은?? 정리 구글에서 검색을 해보자. 그러면 어떠한 모습으로 우리에게 보이는가?? 페이지별로 정해진 갯수의 글 목록이 보인다. 정보 제공의 편의성도 생각해보면서 코드를 작성하면 더할나위 없겠다. 한번 계층을 역으로 살펴보면서 적용해보자. 1. Jpa에서 적용할 것 //1. public interface...","categories": ["개인탐구"],
+        "tags": ["Spring"],
+        "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/pageable%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
+        "teaser": null
+      },{
         "title": "Section 3 Spring - JPA",
         "excerpt":"[week11] 간단정리 spring data jdbc는 단방향, spring data jpa는 양방향 다대일을 먼저 매핑하고 일대다는 필요할때 매핑하자 @Entity와 @Id는 꼭 붙이자. 느낀점 JDBC를 보고 JPA를 보니, 솔직히 spring data jpa가 더 어렵다고 자료에 적혀있긴 했지만, 쌩초보 입장에서는 뭐가 어려운건지는 분간이 안된다. 아무래도 더 깊게 사용하지 않아서 그런거겠지.. 스스로 답해보기 jdbc api와...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Section3-JPA/",
         "teaser": null
       },{
+        "title": "[개인] audit에 관하여",
+        "excerpt":"이 글에 담긴 것 audit이 무엇인지, 사용법 공부하던 부분 spring data JPA 의문점 학습 자료를 보는 중인데, audit은 왜 갑자기 등장했는가?? 정리 만약 당신이 JPA 사용을 위한 엔티티(도메인) 필드를 구성하고 있는데, 공통적으로 사용하는 필드가 존재한다면 어떻게 할 것인가?? 아직은 미숙하지만, 그래도 항상 유념하며 학습하는 부분이 바로 이것이다. 공통 필드들을 하나로...","categories": ["개인탐구"],
+        "tags": ["Spring"],
+        "url": "/%EA%B0%9C%EC%9D%B8%ED%83%90%EA%B5%AC/audit%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC/",
+        "teaser": null
+      },{
         "title": "Section 3 Spring - 트랜잭션",
         "excerpt":"[week12] 간단정리 선언형 방식으로 구현 가능하다 클래스와 메서드 레벨에 붙은 애너테이션은 메서드 레벨이 우위이다. 전파레벨과 격리레벨을 설정할 수 있다. AOP를 적용하여 코드에서 완전히 분리할 수 있다. 느낀점 이론상 이해는 가장 쉬운데, 적용할때 이게 맞나?? 내가 놓친게 있지 않나 싶은 생각이 많이 든다. 물론 다른 챕터도 마찬가지이긴 하지만.. 특히나 더.. 스스로...","categories": ["코드스테이츠"],
         "tags": ["Spring"],
         "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/",
+        "teaser": null
+      },{
+        "title": "Section 3 Spring - 테스팅(단위테스트)",
+        "excerpt":"[week12] 간단정리 테스트의 범위는 단위, 슬라이스, 통합, 기능 테스트로 나뉜다. 테스트를 작성할때는 given when then으로 나누어 작성해보자 JUnit은 자바 애플리케이션을 테스트 하기 위한 오픈소스 프레임워크이다. Hamcrest의 매쳐를 이용하면 가독성이 향상된 assertion을 작성할 수 있다. 느낀점 테스트 코드는 궁금했던 영역이긴 했다. 내가 작성한 코드를 내가 테스트 할 수 있도록 직접 테스트...","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/section3-test/",
+        "teaser": null
+      },{
+        "title": "Section 3 Spring - 테스팅(슬라이스 테스트)",
+        "excerpt":"[week12] 간단정리 Controller테스트를 위해서 @SpringBootTest, @AutoConfigureMockMvc 애너테이션을 이용하자. Controller의 결과는 MockMvc객체의 peform메서드를 이용하자. @DataJpaTest는 데이터 접근 계층만을 위한 설정을 해준다. 느낀점 계층의 테스트는 약간의 복잡함이 보이지만, 설정만 잘 해준다면 사실상 중요한 것은 given when then이 작성되는 테스트 케이스일 것이다. API계층과 Data Access계층의 설정을 위한 애너테이션들을 잘 알아두는 것이 중요하겠다. 스스로...","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/testing2/",
+        "teaser": null
+      },{
+        "title": "Section 3 Spring - 테스팅(Mokito)",
+        "excerpt":"[week13] 간단정리 목 객체를 통해서 서비스 계층과의 흐름을 끊어준다. 느낀점 이론은 어렵지 않다. 코드를 작성하면서 직접 구현하는데 익숙해지려면 여러번 타이핑해보는 방법밖에는 없겠다. 스스로 답해보기 Mockito.any?? Mock은 무엇? given의 역할은?? 정리 - 들어가며 앞서 API계층의 슬라이스 테스트를 진행 할 때의 문제는 무엇이었을까?? 사실상 data계층까지 거쳤다가 돌아온다. 이게 과연 API계층만 테스트는 것이라...","categories": ["코드스테이츠"],
+        "tags": ["Spring"],
+        "url": "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Mokito/",
         "teaser": null
       },{
         "title": "Section 4 인증/보안 기초",

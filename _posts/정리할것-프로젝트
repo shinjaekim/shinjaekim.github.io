@@ -1,0 +1,85 @@
+1. getmapping의 경우 entity에 기본생성자가 없으면 오류가 발생한다. 
+InstantiationException: No default constructor for entity:
+
+2. transientvalueexception
+object references an unsaved transient instance - save the transient instance before flushing
+question과 vote를 연결하던 도중
+vote는 생성되지 않고 - 정확히는 pk가 안 만들어졌는데 넣고 넣으려니 안된것
+http://jaynewho.com/post/39
+https://readinggeneral.tistory.com/entry/Hibernate-Error-TransientPropertyValueException-object-references-an-unsaved-transient-instance
+
+
+3. wrapper클래서 - entity - post - nullpointerexception
+
+4. cascade 2 연관
+상위 엔터티에서 하위 엔터티로 모든 작업을 전파
+https://data-make.tistory.com/668
+
+5. multiresonsedto에 @getter가 없어서 not acceptable 406
+https://zzang9ha.tistory.com/320
+dto에 getter가 꼭 있어야 하는 이유는?
+
+6. @RequiredArgsConstructor
+https://velog.io/@developerjun0615/Spring-RequiredArgsConstructor-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%83%9D%EC%84%B1%EC%9E%90-%EC%A3%BC%EC%9E%85
+팀원이 사용하는 것을 보고 알아버림
+
+7. map을 테이블화시키기
+https://gunju-ko.github.io/jpa/2019/06/15/JPA-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%9E%85%EB%AC%B8-chapter09.-%EA%B0%92-%EC%BB%AC%EB%A0%89%EC%85%98-%EB%A7%A4%ED%95%91.html
+vote객체를 등록하기 위해선- 기능을 완벽히 구현하기 위해서는 map을 이용해야 했는데 이를 jpa에 어떻게 등록시킬까
+
+8. could not initialize proxy - no Session
+lazy -> eager로 해결
+https://cantcoding.tistory.com/78
+
+jwt로그인 기능 구현 중. memberrole에서 이러한 에러가 떴다.
+
+9. test 제외 빌드
+https://amagrammer91.tistory.com/109
+
+10. /logout
+예약어
+컨트롤러에서 로그아웃 url을 사용할 경우 스프링 시큐리티에서 /logout을 인터셉트하여 /login?logout으로 리다이렉트
+
+
+싱글턴 - 스프링 싱글턴
+
+특정 클래스가 하나의 인스턴스만 생성하고,
+이 클래스를 참조하는 다른 클래스들이 생성된 하나의 인스턴스만 참조하는 것을 싱글턴이라고한다.
+클래스 로더에 의해 관리되고
+
+자바에서 일반적인 싱글턴을 구현하기위해서는
+생성자를 private화 하여 외부에서 생성 불가하게하고,
+생성자를 내부의 static method에서 이용하면 된다.
+
+한가지 문제점은 static method는 클래스 로드시에 한번 만들어지는데, 이를 사용하는 클라이언트가 없다면 불필요한 인스턴스를 생성한 것이 된다.
+즉, 오히려 메모리 효율성을 올리려다가 효율성이 떨어진 상황이다.
+
+하지만 스프링 싱글턴은 다르다.
+application context에 의해 관리된다. 클래스로더보다 범위가 적기에
+해당 빈이 호출될 때 인스턴스를 생성하여 준다.
+
+
+tcp udp
+
+메시지를 전송하는 방법에서 차이가 있다.
+tcp는 연결자와 3way handshaking을 통해 연결이 확인 되면 데이터를 패킷으로 쪼개서 전달한다.
+따라서 신뢰성은 높으며, 패킷을 순서대로 보내게 된다
+
+udp는 상호연결과정이 없이, 송신자가 데이터들을 전송하며
+이 과정에서 순서는 보장되지 않는다. 속도는 더 빠르지만 신뢰성이 약하다.
+
+네트워크에서 ip주소는 구체적인 지번 집주소, 도메인 주소는 집주소의 별칭
+http메시지는 택배물품,  tcp/ip나 udp는 전달행위를 생각하면 되겟다.
+
+
+
+
+리이슈
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidGVzdEBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTY2NzQ2NjkxNCwiZXhwIjoxNjY3NDY3ODE0fQ.rsX_w1ycSyerdDzwJ_NpopwJu2CF6P5XiYndV3uWG3o-tRdMBpg7Oi2Z4kKHJouOtXaRAf9bFV1jPxHyqVlY2Q
+
+RefreshToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTY2NzQ2NjkxNCwiZXhwIjoxNjY3NDY4NzE0fQ.xcmtch4vGBOe7qvYC2u_xssfcmj7al7wOPLlqERIvKPdHmA7qQNTHU_FdqeBAjUK6ESP49lP9sXk2Vx5YxNUfg; Path=/; HttpOnly
+
+로그인
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidGVzdEBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTY2NzQ2Njg4OSwiZXhwIjoxNjY3NDY3Nzg5fQ.FSld81p7fi_AeyvnjKpHI_ncVahGyM7p551XxD9uwZBfOMvKILTWYP5ReTyTORz6P7HIsDQ31vGWXXuhYvWOOg
+
+RefreshToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTY2NzQ2Njg4OSwiZXhwIjoxNjY3NDY4Njg5fQ.T_ZDtxuUDp-Efp5xgc9J_0Ft9XBH1A9bA78e4YBOCMVAjykFElS3oRJ3X1liki3oHjJPDekBj76cQm1zOKbVYw; Path=/; HttpOnly

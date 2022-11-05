@@ -1,0 +1,77 @@
+백엔드 웹 애플리케이션은 사용자에게 보이지 않는다.
+직접 보인다면 그것은 프론트엔드 측 애플리케이션이다. 프론트엔드 <- 백엔드의 클라이언트
+
+서버용 웹 애플리케이션 -> 서버에서 돌아가는 웹 애플리케이션 -> 클라이언트에게 정보를 제공하기 위함
+
+서블릿 - 기존 html, 이미지 등의 정적인 자료 말고 동적인 페이지를 생성하기 위한 것
+서블릿 컨테이너에 의해 관리 (이파치, 톰캣 같은)
+
+모델 - 결과 데이터, 뷰 - 클라이언트에게 전달한 결과데이터로 만든 리소스
+    리소스 전달에서
+        xml - XML은 HTML처럼 데이터를 보여주는 목적이 아닌, 데이터를 저장하고 전달할 목적
+        http://www.tcpschool.com/json/json_intro_xml
+        강점 https://www.coovil.net/xml-vs-json/
+
+비동기 클라이언트 애플리케이션??
+
+컨트롤러 - 모델을 만들고 뷰에 전달
+
+애너테이션 https://hirlawldo.tistory.com/43
+
+https://papimon.tistory.com/81
+jvm
+
+https://papimon.tistory.com/82
+reflection
+
+https://joel-dev.site/83?category=1018629
+annotation
+  view <----  controller ---->Service ----> db
+                        <---->
+                         model
+
+스프링 모듈 중에서 웹 모듈이 SPRING WEB MVC
+이걸 spring mvc라고 한다.
+
+dispatcherservlet / handlermapping / hanleradapter / controller / view resolver / view
+
+
+,,,
+
+애플리케이션의 경계를 설정하고, 요구사항을 수집하자
+
+경계 - 여러 음식중에서 커피로 정했다.
+요구사항 - 커피 등록, 조회, 주문, 주문정보 등등
+
+...
+
+main
+@SpringBootApplicaition  -> component, confinguration의 bean 등록 / 자동설정
+SpringApplication.run -> 부트스트랩(실행가능한 애플리케이션으로 만드는 것), 실행
+
+...
+
+controller
+@RestController -> controller -> component
+@RequestMapping()   --> 핸들러메서드 매핑을 도와줌
+    value, produces
+    그냥 string
+
+
+
+api계층과 service계층 연결 - DI
+연동한다함은
+api계층이 service계층의 메서드를 호출해서 사용한다.
+
+Lives
+kimcoding
+노트북
+
+https://aws.amazon.com/ko/devops/what-is-devops/
+https://d2.naver.com/home
+https://techblog.woowahan.com/
+https://toss.tech/
+https://blog.banksalad.com/tech/become-an-organization-that-deploys-1000-times-a-day/
+Code 김세윤 to Everyone (9:25)
+https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+https://docs.aws.amazon.com/ko_kr/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html

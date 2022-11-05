@@ -1,0 +1,792 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 3 Spring - 테스팅(Mokito) | KSJ Archive</title>
+<meta name="description" content="[week13] 간단정리    목 객체를 통해서 서비스 계층과의 흐름을 끊어준다.">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 3 Spring - 테스팅(Mokito)">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Mokito/">
+
+
+  <meta property="og:description" content="[week13] 간단정리    목 객체를 통해서 서비스 계층과의 흐름을 끊어준다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-09-13T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Mokito/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Section or 개인탐구</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">백엔드 로드맵 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 3 Spring - 테스팅(Mokito)">
+    <meta itemprop="description" content="[week13]간단정리  목 객체를 통해서 서비스 계층과의 흐름을 끊어준다.">
+    <meta itemprop="datePublished" content="2022-09-13T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Mokito/" class="u-url" itemprop="url">Section 3 Spring - 테스팅(Mokito)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-13T00:00:00+09:00">13 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리---들어가며">정리 - 들어가며</a><ul><li><a href="#1-mock-객체">1. Mock 객체</a></li><li><a href="#2-mockito">2. Mockito</a></li><li><a href="#3-서비스-계층에서의-적용">3. 서비스 계층에서의 적용</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week13]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>목 객체를 통해서 서비스 계층과의 흐름을 끊어준다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>이론은 어렵지 않다. 코드를 작성하면서 직접 구현하는데 익숙해지려면 여러번 타이핑해보는 방법밖에는 없겠다.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>Mockito.any??</li>
+  <li>Mock은 무엇?</li>
+  <li>given의 역할은??</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
+<p>앞서 API계층의 슬라이스 테스트를 진행 할 때의 문제는 무엇이었을까??</p>
+
+<blockquote>
+  <p>사실상 data계층까지 거쳤다가 돌아온다.</p>
+</blockquote>
+
+<p>이게 과연 API계층만 테스트는 것이라 할 수 있을까??</p>
+
+<p>이를 Mockito를 이용하여 해결해보자.</p>
+
+<h3 id="1-mock-객체">1. Mock 객체</h3>
+
+<p>어릴때 외형만 핸드폰인 장난감을 가지고 전화놀이를 했던 기억이 있다. 전화는 되지 않았지만 실제로 어른이 된 듯한 느낌을 느낌을 가질 수 있었다.</p>
+
+<p>또한 어릴때 주말이면 NG들을 모아서 방영해주는 프로그램이 있었다. 그 프로그램을 떠올려보면 배우들이 소품을 가지고 실제와 같은 연기를 하던 모습이 떠오른다.</p>
+
+<p>나도 그렇고 배우들도 그렇고 실제와 같은 행동을 흉내낼 수 있었던 것은 정교한 가짜때문이었다. 그것을 목업이라고 부른다.</p>
+
+<p>그리고</p>
+
+<p>위에서 말한 api계층 테스트의 단점을 극복하기 위해 Mock객체를 사용해보자.</p>
+
+<hr />
+
+<h3 id="2-mockito">2. Mockito</h3>
+
+<p>위에서 언급한 Mock객체를 코드상에서 구현할 수 있게 해주는 도구라고 생각하자. 정확히 말하면 오픈 소스 라이브러리이다. 이를 슬라이스 테스트에 적용해보자.</p>
+
+<p>일단 앞선 글에서 Mockito 없이 작성했었던 코드는 이렇다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="nd">@AutoConfigurMockMvc</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest</span><span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">Json</span> <span class="n">json</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postMemberTest</span><span class="o">(){</span>
+        <span class="c1">// given - 테스트용 request body</span>
+        <span class="nc">PostDto</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PostDto</span><span class="o">(</span><span class="s">"species"</span><span class="o">,</span><span class="s">"name"</span><span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+        <span class="c1">// when - MockMvc 객체로 대상 Controller 호출</span>
+
+        <span class="nc">ResultActions</span> <span class="n">actions</span> <span class="o">=</span>
+                <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span>
+                    <span class="n">post</span><span class="o">(</span><span class="s">"~~~"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">content</span><span class="o">)</span>
+                <span class="o">);</span>
+        <span class="c1">// then - 응답 상태, response body 검증</span>
+
+        <span class="nc">MvcResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">actions</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isCreated</span><span class="o">())</span> <span class="c1">// 상태를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.species"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getSpecies</span><span class="o">()))</span><span class="c1">// responsebody 데이터를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.name"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getName</span><span class="o">()))</span>
+                                <span class="o">.</span><span class="na">andReturn</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>여기에 Mockito를 적용해보면 이렇게 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="nd">@AutoConfigurMockMvc</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest</span><span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">Json</span> <span class="n">json</span><span class="o">;</span>
+
+    <span class="nd">@MockBean</span>
+    <span class="kd">private</span> <span class="nc">AnimalService</span> <span class="n">animalService</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">AnimalMapper</span> <span class="n">mapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postMemberTest</span><span class="o">(){</span>
+        <span class="c1">// given - 테스트용 request body</span>
+        <span class="nc">PostDto</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PostDto</span><span class="o">(</span><span class="s">"species"</span><span class="o">,</span><span class="s">"name"</span><span class="o">);</span>
+
+        <span class="nc">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">dtoToAnimal</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+
+        <span class="n">given</span><span class="o">(</span><span class="n">animalService</span><span class="o">.</span><span class="na">createAnimal</span><span class="o">(</span><span class="nc">Mockito</span><span class="o">.</span><span class="na">any</span><span class="o">(</span><span class="nc">Animal</span><span class="o">.</span><span class="na">class</span><span class="o">)))</span>
+                <span class="o">.</span><span class="na">willReturn</span><span class="o">(</span><span class="n">animal</span><span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+        <span class="c1">// when - MockMvc 객체로 대상 Controller 호출</span>
+
+        <span class="nc">ResultActions</span> <span class="n">actions</span> <span class="o">=</span>
+                <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span>
+                    <span class="n">post</span><span class="o">(</span><span class="s">"~~~"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">content</span><span class="o">)</span>
+                <span class="o">);</span>
+        <span class="c1">// then - 응답 상태, response body 검증</span>
+
+        <span class="nc">MvcResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">actions</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isCreated</span><span class="o">())</span> <span class="c1">// 상태를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.species"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getSpecies</span><span class="o">()))</span><span class="c1">// responsebody 데이터를 검증</span>
+                                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.data.name"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">getName</span><span class="o">()))</span>
+                                <span class="o">.</span><span class="na">andReturn</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Controller계층에서 사용할 animalService객체를 @MockBean애너테이션을 이용하여 주입받는다. 이 때 주입받은 객체는 Mock객체이다.</p>
+
+<p>그리고 service계층은 entity를 이용해야 하니 mapper또한 DI받는다.</p>
+
+<p>given을 보면 메서드가 하나 추가 되었는데 바로 Mockito에서 지원하는 stubbing 메서드이다. given은 <strong><em>Mock객체가 특정 값을 리턴하는 동작을 지정하기에</em></strong> given에 서비스 계층의 메서드를 Mockito타입을 파라미터로 담아서 호출한다. (animalService)</p>
+
+<p>즉 실제 animalService를 호출하는 것이 아닌, mockanimalService를 호출하는 동작을 지정했다고 생각하자.</p>
+
+<hr />
+
+<h3 id="3-서비스-계층에서의-적용">3. 서비스 계층에서의 적용</h3>
+
+<p>추후 추가하도록 하겠다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-09-13T00:00:00+09:00">13 Sep, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+3+Spring+-+%ED%85%8C%EC%8A%A4%ED%8C%85%28Mokito%29%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FMokito%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FMokito%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2FMokito%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/testing2/" class="pagination--pager" title="Section 3 Spring - 테스팅(슬라이스 테스트)
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/" class="pagination--pager" title="Section 4 인증/보안 기초
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie-session/" rel="permalink">Section 4 인증/보안 - 쿠키, 세션
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-21T00:00:00+09:00">21 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/" rel="permalink">Section 4 인증/보안 기초
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-20T00:00:00+09:00">20 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/testing2/" rel="permalink">Section 3 Spring - 테스팅(슬라이스 테스트)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-08T00:00:00+09:00">08 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week12]
+간단정리
+
+  Controller테스트를 위해서 @SpringBootTest, @AutoConfigureMockMvc 애너테이션을 이용하자.
+  Controller의 결과는 MockMvc객체의 peform메서드를 이용하자.
+  @DataJpaTest는 데이터 접근 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/section3-test/" rel="permalink">Section 3 Spring - 테스팅(단위테스트)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-07T00:00:00+09:00">07 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week12]
+간단정리
+
+  테스트의 범위는 단위, 슬라이스, 통합, 기능 테스트로 나뉜다.
+  테스트를 작성할때는 given when then으로 나누어 작성해보자
+  JUnit은 자바 애플리케이션을 테스트 하기 위한 오픈소스 프레임워크이다.
+  Hamcrest의 매쳐를 이용하...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Mokito/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Mokito"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

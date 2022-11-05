@@ -29,3 +29,128 @@ toc_label: "나의 생각흐름 정리"
 <br>
 
 ## 정리 - 들어가며
+
+백엔드에서 구축하는 웹 애플리케이션 서버는 사용자의 눈에 보이지 않는다.
+
+프론트에서 구축한 환경에 동적으로 모델 데이터를 가공하여 리소스를 제공할 뿐이다.
+
+이에 대해서는 Controller에서 이미 인지하였는데,
+
+> 구축한 애플리케이션을 프론트엔드 개발에 사용하기 위해서는 어떻게 할까??
+
+프론트엔드 개발에 집중해야 하는 개발팀은 백엔드 개발팀이 구축한 서버를 상세히 알 필요가 없다.
+
+*** 웹 애플리케이션을 사용하기 위한 설명서, 로드맵만 있으면 된다. ***
+
+---
+
+### 1. API 문서화
+
+위에서 말한 목적을 바탕으로 API문서화를 하는 방법을 떠올려보자
+
+어떤 방법들이 있을까??
+
+    1. 처음부터 프론트 개발팀과 url을 설계하고 간다.
+    2. 웹 애플리케이션을 개발하면서 수기로 작성해 나간다.
+    3. 자동으로 api문서를 만들 방법을 찾는다.
+
+현업 경험이 없기 때문에 1번은 확실히 모르겠으나, 어느정도의 틀은 잡고 가면 좋을 것 같다.
+
+다만,
+
+2번은 정말 아니다. 비효율적이며, 사람의 실수가 없을 것이라고 단언할 수 없기 때문이다.
+
+따라서 3번처럼 ***자동으로*** 문서화 할 수 있는 방법이 가장 좋을 것이다.
+
+위 목적을 달성하도록 돕는 툴은 크게 두가지이다.
+
+    Swagger와 Spring Rest Docs
+
+이 글을 Spring Rest Docs를 알아볼 것인데, 그 이유는 Swagger를 사용한다면 필수기능을 담당하는 코드에 @ApiResponses와 같은 애너테이션을 엄청나게 작성해야 하기 때문이다. 항상 유지보수, 가독성을 생각하자.
+
+물론 swagger로 생성된 api문서는 추후 postman과 같은 역할을 하며 테스트의 기능을 담당 할 수도 있긴 하다.
+
+---
+
+### 2. Spring Rest Docs
+
+Spring Rest Docs의 장점은 여러가지다.
+
+    1. 필수기능을 담당하는 코드와 분리된다.
+        테스트코드에 작성하기 때문
+
+    2. 테스트가 통과되어야 문서가 생성된다.
+        너무나 합리적이다.
+
+장점을 보면 테스트 코드와의 연관이 있는 점을 확인 할 수 있는 것처럼 Spring Rest Api는 다음의 흐름을 거쳐 만들어진다.
+
+    테스트 코드 작성 -> API스펙 정보코드 작성 -> (테스트 성공시에만) 각 메서드멸 스니핏 생성
+    -> API문서 생성 -> HTML로 변환
+
+
+#### 2-1 build.gradle에 추가할 것
+
+```java
+plugins {
+	id 'org.springframework.boot' version '2.7.1'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "org.asciidoctor.jvm.convert" version "3.3.2" // 1. Asciidoctor를 사용하기 위함
+	id 'java'
+} // Asciidoctor는 .adoc 확장자의 AsciiDoc문서를 생성한다.
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+} // 2. 생성된 스니핏이 저장될 경로를 지정한다.
+
+
+configurations {
+	asciidoctorExtensions
+}// 3 asciidoctor에서 사용되는 의존그룹 그룹화
+
+
+dependencies{
+    .
+    .
+    .
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    // 4.
+    .
+    .
+    .
+}
+
+tasks.named('test') {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+} // 5. API 문서 생성 스니핏 디렉토리 경로를 설정
+
+
+tasks.named('asciidoctor') {
+	configurations "asciidoctorExtensions"
+	inputs.dir snippetsDir
+	dependsOn test
+} // 6 asciidoctorExtensions 을 설정 - asciidoctor 기능을 사용하기 위해
+
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor            
+	from file("${asciidoctor.outputDir}")   
+	into file("src/main/resources/static/docs")   
+} // 7. intofile로 html문서가 카피됨 -> 외부에 제공하기 위함
+
+build {
+	dependsOn copyDocument  
+} // 8. 빌드 전 7번이 실행되도록
+
+
+bootJar {
+	dependsOn copyDocument    
+	from ("${asciidoctor.outputDir}") {  
+		into 'static/docs'     
+	}
+} // 9. 실행파일 생성 정 7번이 실행되도록
+``` 
+
+#### 2-2 테스트케이스에 적용
+

@@ -1,0 +1,108 @@
+---
+layout: single
+title:  "Section 4 Spring security"
+
+categories:
+    - 코드스테이츠
+
+tags:
+    - Spring
+    
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+[week9]
+## 간단정리
+- 
+
+<br> 
+
+## 느낀점
+
+
+<br>
+
+## 스스로 답해보기
+- Spring security framework란?
+- Spring security 의 필요성
+- Spring security 의 동작 방식
+
+<br>
+
+## 정리
+
+spring security로 할 수 있는 보안강화
+    폼 로그인 인증
+    토큰 기반 인증
+    OAuth2 rlqks dlswmd
+    LDAP 인증
+
+    사용자의 역할에 따른 권한 레벨
+
+    리소스에 대한 접근 제어
+
+    민감한 정보 데이터 암호화
+
+    SSL
+
+    웹 보안 공격 차단
+
+    SSO
+
+    클라이언트 인증서 기반 인증
+
+    메서드 보안
+
+    접근 제어 목록(Access Control List)
+
+
+보안 관련 용어 정리
+
+principal(주체)
+    어플리케이션을 사용하는 주체
+    어플리케이션을 사용하는 주체라 함은 사용자, 디바이스, 시스템 등
+    '인증 프로세스가 성공적으로 수행된 사용자의 계정 정보'
+
+authentication(인증)
+    어플리케이션을 사용하는 사용자가 '나'다
+    주민등록증 같은 것 -> credential
+
+authorization(인가)
+    인증 이후 진행되는 것
+    사용자의 레벨에 따라 리소스의 접근 권한을 설정하는 과정(허가하는 과정)
+    역할의 형태
+
+access control(접근 제어)
+    인가에 따른 권한 레벨이 있다고 할때
+    자신의 권한에 맞지 않는 리소스에 접근한다고 하자
+    그러면 접근이 제한되어야 할 것인데
+    이것을 접근 제어라고 한다.
+
+
+spring security의 당위성
+혼자 모든것을 만드는 것은 어렵다 - 보안이 가장 어려운 분야
+
+이만한 놈이 없다
+
+apahce shiro OACC -> 다 아우른다
+
+기본 요구사항을 제공한다 -> 부족할때는 커스터마이징이 용이하다
+
+
+보안
+
+이건 유저 정보를 암호화하고 로그인시에 사용하기 위함이고
+userDetail(인터페이스)을 구현하는건 user
+그리고 이 userDetail을 관리하는 애가 userDetailservice(인터페이스)인데 이걸 inmemoryuserdetailservice가 구현
+
+보안은
+securityfilterchain - 파라미터는 HttpSecurity
+
+회원가입을 하면 spring sercurity가 알게 해줘야한다. 뭐를? 회원가입의 정보를
+PasswordEncoder bcryt 방식으로 패스워드 암호화
+    passwordEncoder - createDelegatingPasswordEncoder
+MemberService 
+InMemoryMemberService
+
+ROLE_USER 

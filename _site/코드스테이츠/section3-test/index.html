@@ -1,0 +1,898 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Section 3 Spring - 테스팅(단위테스트) | KSJ Archive</title>
+<meta name="description" content="[week12] 간단정리    테스트의 범위는 단위, 슬라이스, 통합, 기능 테스트로 나뉜다.   테스트를 작성할때는 given when then으로 나누어 작성해보자   JUnit은 자바 애플리케이션을 테스트 하기 위한 오픈소스 프레임워크이다.   Hamcrest의 매쳐를 이용하면 가독성이 향상된 assertion을 작성할 수 있다.">
+
+
+  <meta name="author" content="Shinjae Kim">
+  
+  <meta property="article:author" content="Shinjae Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="KSJ Archive">
+<meta property="og:title" content="Section 3 Spring - 테스팅(단위테스트)">
+<meta property="og:url" content="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/section3-test/">
+
+
+  <meta property="og:description" content="[week12] 간단정리    테스트의 범위는 단위, 슬라이스, 통합, 기능 테스트로 나뉜다.   테스트를 작성할때는 given when then으로 나누어 작성해보자   JUnit은 자바 애플리케이션을 테스트 하기 위한 오픈소스 프레임워크이다.   Hamcrest의 매쳐를 이용하면 가독성이 향상된 assertion을 작성할 수 있다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-09-07T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/section3-test/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "StoutKimsj",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="KSJ Archive Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          KSJ Archive
+          <span class="site-subtitle">brainstorm everyting at the time</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Section or 개인탐구</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">백엔드 로드맵 분류</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/ksj.png" alt="Shinjae Kim" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Shinjae Kim</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>일단은 해보는 사람</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:lo97729@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="lo97729@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Section 3 Spring - 테스팅(단위테스트)">
+    <meta itemprop="description" content="[week12]간단정리  테스트의 범위는 단위, 슬라이스, 통합, 기능 테스트로 나뉜다.  테스트를 작성할때는 given when then으로 나누어 작성해보자  JUnit은 자바 애플리케이션을 테스트 하기 위한 오픈소스 프레임워크이다.  Hamcrest의 매쳐를 이용하면 가독성이 향상된 assertion을 작성할 수 있다.">
+    <meta itemprop="datePublished" content="2022-09-07T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/section3-test/" class="u-url" itemprop="url">Section 3 Spring - 테스팅(단위테스트)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-07T00:00:00+09:00">07 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 나의 생각흐름 정리</h4></header>
+              <ul class="toc__menu"><li><a href="#간단정리">간단정리</a></li><li><a href="#느낀점">느낀점</a></li><li><a href="#스스로-답해보기">스스로 답해보기</a></li><li><a href="#정리---들어가며">정리 - 들어가며</a><ul><li><a href="#1테스트의-분류">1.테스트의 분류</a></li><li><a href="#2-단위-테스트">2. 단위 테스트</a><ul><li><a href="#2-1-given---when---then">2-1. given - when - then</a></li></ul></li><li><a href="#3-junit-적용하기">3. JUnit 적용하기</a><ul><li><a href="#3-1-기본구조">3-1. 기본구조</a></li><li><a href="#3-2-assertion-메서드">3-2. Assertion 메서드</a></li></ul></li><li><a href="#4-hamcrest의-매쳐">4. Hamcrest의 매쳐</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>[week12]</p>
+<h2 id="간단정리">간단정리</h2>
+<ul>
+  <li>테스트의 범위는 단위, 슬라이스, 통합, 기능 테스트로 나뉜다.</li>
+  <li>테스트를 작성할때는 given when then으로 나누어 작성해보자</li>
+  <li>JUnit은 자바 애플리케이션을 테스트 하기 위한 오픈소스 프레임워크이다.</li>
+  <li>Hamcrest의 매쳐를 이용하면 가독성이 향상된 assertion을 작성할 수 있다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="느낀점">느낀점</h2>
+<p>테스트 코드는 궁금했던 영역이긴 했다. 내가 작성한 코드를 내가 테스트 할 수 있도록 직접 테스트 코드를 작성한다 함은, 내가 코드를 구현함에 있어서 생각해내고 사용한 로직이 전부 내 것이라는 것을 방증하기 때문이다. 일단은 이번 글에서는 단위테스트만 다뤘다. 추후 사이드프로젝트를 진행할때 비즈니스로직을 설계한다면 테스트코드도 함께 구현해보도록 노력해보자.</p>
+
+<p><br /></p>
+
+<h2 id="스스로-답해보기">스스로 답해보기</h2>
+<ul>
+  <li>테스팅의 범위 나열해보기</li>
+  <li>given when then??</li>
+  <li>JUnit이란?</li>
+  <li>Hamcrest는?</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리---들어가며">정리 - 들어가며</h2>
+
+<p>테스트 한다는 것은 무엇일까??</p>
+
+<blockquote>
+  <p>어떤 결과를 예상하고 부합하는지 확인한다.</p>
+</blockquote>
+
+<p>웹 애플리케이션 코드를 구성했다 함은, 어떠한 결과를 예상했음을 내포하고 있다.</p>
+
+<p>그러면,</p>
+
+<p>내가 작성한 코드가 내 예상대로 작동하는지는 어떻게 알 수 있을까??</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1) 빌드 후 실행시켜본다
+2) postman과 같은 툴을 이용해서 테스트 한다.
+3) 테스트 코드를 짜서 확인해본다.
+</code></pre></div></div>
+
+<p>3번이 이번 글에서 다루고자 하는 주제이다.</p>
+
+<h3 id="1테스트의-분류">1.테스트의 분류</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>단위 테스트
+슬라이스 테스트
+통합 테스트
+기능 테스트
+</code></pre></div></div>
+
+<p>하위로 갈수록 테스트의 범위가 넓어진다.</p>
+
+<p>단위테스트에서는 쉽게 말해 비즈니스 로직을 위하여 작성된 메서드를 테스트한다.</p>
+
+<p>슬라이스 테스트는 웹 애플리케이션 서버를 구성하는 각 계층을 테스트하며</p>
+
+<p>통합 테스트는 계층의 흐름을 전체적으로 테스트 한다.</p>
+
+<p>그리고 기능 테스트는 사용자의 관점에서 의도한 기능이 제대로 작동하는지를 테스트 한다.</p>
+
+<hr />
+
+<h3 id="2-단위-테스트">2. 단위 테스트</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>원칙
+
+    1. Fast - 테스트는 빠르게
+    2. Independent - 테스트끼리는 독립적이며
+    3. Repeatable - 여러번 실행 가능해야하고
+    4. Self-validating - 자체적으로 검증결과를 보여주어야 하며
+    5. Timely - 기능 구현 전에 작성해야 한다.
+</code></pre></div></div>
+
+<p>여기서 5번을 보면 ‘시기적절함’의 의미가 ‘기능 구현 전’이다. 이렇게 기능 구현 전에 먼저 테스트코드(테스트 케이스)를 작성하고 시작하는 것을 TDD(Test Driven Development) 테스트 주도 개발이라고 한다.</p>
+
+<h4 id="2-1-given---when---then">2-1. given - when - then</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>given - 테스트를 위한 사전 준비
+when - 테스트하고자 하는 메서드 호출
+then - 결과 도출
+</code></pre></div></div>
+
+<p>이해를 위해 짧막한 코드를 만들어 보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span><span class="o">{</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calSum</span><span class="o">(</span><span class="kt">int</span> <span class="n">first</span><span class="o">,</span> <span class="kt">int</span> <span class="n">second</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+<p>위 클래스의 calSum은 이번에 테스트하고자 하는 메서드이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorTest</span><span class="o">{</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">calSumTest</span><span class="o">(){</span>
+        <span class="c1">//given</span>
+        <span class="kt">int</span> <span class="n">first</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+
+        <span class="c1">// when</span>
+
+        <span class="kt">int</span> <span class="n">actual</span> <span class="o">=</span> <span class="nc">Calculator</span><span class="o">.</span><span class="na">calSum</span><span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">second</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">expected</span> <span class="o">=</span> <span class="mi">13</span><span class="o">;</span>
+
+        <span class="c1">//then</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">expected</span> <span class="o">==</span> <span class="n">actual</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>given에 검사를 위한 임의의 값을 변수에 대입하고,
+when에서 실제로 메서드에 설정 변수들을 파라미터로 전달한 후
+then에서 예상 값과 비교한다.</p>
+
+<hr />
+
+<h3 id="3-junit-적용하기">3. JUnit 적용하기</h3>
+
+<p>위에서 단위테스트와 단위테스트에서의 given - when - then을 알아보았다.</p>
+
+<p>하지만,</p>
+
+<p>스프링 애플리케이션이라면 엔트리포인트 main은 이미 작성되어 있을 터인데, test를 위해 main 메서드를 포함한 클래스를 하나 더 작성해야했다.</p>
+
+<p>이는 JUnit을 적용함으로써 해결 가능하다.</p>
+
+<blockquote>
+  <p>JUnit - 자바언어 기반 애플리케이션을 테스트하기위한 오픈 소스 프레임워크</p>
+</blockquote>
+
+<h4 id="3-1-기본구조">3-1. 기본구조</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JunitDefaultStructure</span> <span class="o">{</span>
+		<span class="c1">// (1)</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 테스트 하고자 하는 대상에 대한 테스트 로직 작성</span>
+    <span class="o">}</span>
+
+		<span class="c1">// (2)</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 테스트 하고자 하는 대상에 대한 테스트 로직 작성</span>
+    <span class="o">}</span>
+
+		<span class="c1">// (3)</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test3</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 테스트 하고자 하는 대상에 대한 테스트 로직 작성</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="3-2-assertion-메서드">3-2. Assertion 메서드</h4>
+
+<blockquote>
+  <p>Assertion : 예상 결과 값이 참이길 바라는 논리적인 표현</p>
+</blockquote>
+
+<p>JUnit에는 이 Assertion을 이용한 메서드가 존재한다. 그럼 이를 통해 2-1에서 작성한 테스트 코드를 수정해보자</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JunitDefaultStructure</span> <span class="o">{</span>
+    
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"CALSUM_TEST"</span><span class="o">)</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calSumTest</span><span class="o">()</span> <span class="o">{</span>
+        
+        <span class="c1">//given</span>
+
+        <span class="kt">int</span> <span class="n">frist</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">8</span><span class="o">;</span>
+
+        <span class="c1">//when</span>
+        <span class="kt">int</span> <span class="n">actual</span> <span class="o">=</span> <span class="nc">Calculator</span><span class="o">.</span><span class="na">calSum</span><span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">second</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">expected</span> <span class="o">=</span> <span class="mi">11</span><span class="o">;</span>
+
+        <span class="c1">//then</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="n">expected</span><span class="o">,</span> <span class="n">actual</span><span class="o">);</span>
+    <span class="o">}</span>
+
+</code></pre></div></div>
+<p>@DisplayName의 애트리뷰트에 이름을 지정하면 테스트 실행시 지정한 이름이 표시되며
+@Test 애너테이션을 활용하여 테스트 코드임을 밝혔고
+마지막, assetEquals 메서드를 이용하여 expected와 actual을 비교하였다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>그 밖의 메서드
+
+    assertNotNull(대상, "null일경우 메시지")
+        Null 여부를 테스트한다.
+
+    assertThrows(발생 예상 예외클래스, 테스트 메서드(람다식))
+        예상되는 예외클래스가 발생하는지 테스트한다.
+
+
+@BeforeEach, @BeforeAll, @AfterEach, @AfterAll
+
+    전처리와 후처리 메서드이다.
+    each는 테스트메서드 하나가 실행되기전의 전/후처리
+    all은 한번만 하는 전/후처리 
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="4-hamcrest의-매쳐">4. Hamcrest의 매쳐</h3>
+
+<p>Junit의 Assertion 메서드를 더욱 가독성있게, 세련되게 바꿀수 있다.</p>
+
+<p>3-2의 코드를 수정하면 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HamcrestTest</span> <span class="o">{</span>
+    
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"CALSUM_TEST"</span><span class="o">)</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calSumTest</span><span class="o">()</span> <span class="o">{</span>
+        
+        <span class="c1">//given</span>
+
+        <span class="kt">int</span> <span class="n">frist</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">8</span><span class="o">;</span>
+
+        <span class="c1">//when</span>
+        <span class="kt">int</span> <span class="n">actual</span> <span class="o">=</span> <span class="nc">Calculator</span><span class="o">.</span><span class="na">calSum</span><span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">second</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">expected</span> <span class="o">=</span> <span class="mi">11</span><span class="o">;</span>
+
+        <span class="c1">//then</span>
+        <span class="c1">//assertEquals(expected, actual);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">actual</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">equalTo</span><span class="o">(</span><span class="n">expected</span><span class="o">)));</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>then에서의 변화를 보면 기존의 코드가</p>
+
+<p><em>** assert That actual is equal to expected **</em></p>
+
+<p>를 그대로 녹인 메서드로 변환되었다. 이것이 Hamcrest</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertNotNull
+    -&gt; assertThat(대상, is(NotNullValue()))
+
+assertThrows
+    -&gt; assertThrows를 Throwable 타입 변수에 담고,
+       assertThat(변수.getCause(), is(equalTo(null)))
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0" class="page__taxonomy-item p-category" rel="tag">코드스테이츠</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-09-07T00:00:00+09:00">07 Sep, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Section+3+Spring+-+%ED%85%8C%EC%8A%A4%ED%8C%85%28%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8%29%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2Fsection3-test%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2Fsection3-test%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25BD%2594%25EB%2593%259C%25EC%258A%25A4%25ED%2585%258C%25EC%259D%25B4%25EC%25B8%25A0%2Fsection3-test%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" class="pagination--pager" title="Section 3 Spring - 트랜잭션
+">이전</a>
+    
+    
+      <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/testing2/" class="pagination--pager" title="Section 3 Spring - 테스팅(슬라이스 테스트)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/cookie-session/" rel="permalink">Section 4 인증/보안 - 쿠키, 세션
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-21T00:00:00+09:00">21 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/security-basic/" rel="permalink">Section 4 인증/보안 기초
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-20T00:00:00+09:00">20 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week9]
+간단정리
+
+  
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/Mokito/" rel="permalink">Section 3 Spring - 테스팅(Mokito)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-13T00:00:00+09:00">13 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week13]
+간단정리
+
+  목 객체를 통해서 서비스 계층과의 흐름을 끊어준다.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/testing2/" rel="permalink">Section 3 Spring - 테스팅(슬라이스 테스트)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-09-08T00:00:00+09:00">08 Sep, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">[week12]
+간단정리
+
+  Controller테스트를 위해서 @SpringBootTest, @AutoConfigureMockMvc 애너테이션을 이용하자.
+  Controller의 결과는 MockMvc객체의 peform메서드를 이용하자.
+  @DataJpaTest는 데이터 접근 ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets --> 
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/shinjaekim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 StoutKimsj. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/section3-test/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0/section3 test"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://KSJ-backend.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
