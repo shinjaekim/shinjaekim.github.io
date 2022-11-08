@@ -1,0 +1,21 @@
+---
+layout: single
+title:  "[에러] test코드 제외하고 빌드하는 법"
+
+categories:
+    - 프로젝트
+
+tags:
+     
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+## 이 글에 담긴 것
+- transientvalueexception
+
+## 문제 봉착
+- 컴파일 완료 후 postman으로 vote테이블에 데이터를 저장하고자 하는데 오류를 마주함
+
+## 의문점
+1. 진짜 감도 안잡혀서 따로 정리해야겠다고 생각했다.

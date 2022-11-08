@@ -1,0 +1,21 @@
+---
+layout: single
+title:  "[프로젝트] 필드의 map(collection)과 테이블의 연관관계 설정"
+
+categories:
+    - 프로젝트
+
+tags:
+     
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+## 이 글에 담긴 것
+- 필드의 map(collection)과 테이블의 연관관계 설정
+
+## 문제 봉착
+- Vote 로직상 map이 필요했는데 일반적인 매핑과의 차이를 보임.
+
+## 의문점
+1. 진짜 감도 안잡혀서 따로 정리해야겠다고 생각했다.
