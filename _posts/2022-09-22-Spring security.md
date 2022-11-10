@@ -127,7 +127,7 @@ public class SecurityConfiguration{
 후자의 Bean으로 등록된 필터들이 2번에서 작성한 SecurityConfiguration 클래스 안에 속한 @Bean으로 명시된 메서드이다.
 
 
-### 3-1. 여기서 의문점이 생긴다.
+#### 3-1. 여기서 의문점이 생긴다.
 
 Spring 프레임워크에 속하는 영역에서는 applicationContext(스프링 컨테이너)에 Bean을 등록하고 이를 이용하여 DI함으로써 제어의 흐름을 프레임워크가 관리한다.
 
