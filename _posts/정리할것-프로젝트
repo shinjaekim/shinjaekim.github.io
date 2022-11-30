@@ -40,8 +40,50 @@ https://amagrammer91.tistory.com/109
 예약어
 컨트롤러에서 로그아웃 url을 사용할 경우 스프링 시큐리티에서 /logout을 인터셉트하여 /login?logout으로 리다이렉트
 
+11 서블릿
+https://sgcomputer.tistory.com/232
 
+
+12 애너테이션 사용 지양할 것들
+https://www.nowwatersblog.com/springboot/springstudy/lombok
+https://junyharang.tistory.com/59
+
+
+13 @builder
+
+14 orphanRemoval
+변경된 자식을 insert, 기존 자식을 NULL로 하는데 이 애트리뷰트 지정하면 NULL을 delete한다.
+고아객체란??
+
+15.
+비밀번호 변경시 리프레시토큰 만료
+sliding session
+https://seungwoolog.tistory.com/95
+
+16. 임베디드 디폴트값 설정
+
+17. 로그
+
+18. 레디스
+https://sabarada.tistory.com/103
+https://wlswoo.tistory.com/44
+
+19. challenge를 팀으로하는건??
+
+20. adapter - authentication principal
+
+21 - equalsandhashcode - 복합키
+
+22 vo
+
+23. inputstream io exception은 왜
+
+24. 메모리
+
+25. 복합키
 싱글턴 - 스프링 싱글턴
+
+26. redis get key. 블랙리스트를 가져오는 과정에서 npe 발생
 
 특정 클래스가 하나의 인스턴스만 생성하고,
 이 클래스를 참조하는 다른 클래스들이 생성된 하나의 인스턴스만 참조하는 것을 싱글턴이라고한다.
