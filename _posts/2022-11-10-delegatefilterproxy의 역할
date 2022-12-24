@@ -1,0 +1,31 @@
+---
+layout: single
+title:  "[프로젝트] @Data 애너테이션"
+
+categories:
+    - 프로젝트
+
+tags:
+     
+toc: true
+toc_sticky: true
+toc_label: "나의 생각흐름 정리"    
+---
+## 이 글에 담긴 것
+- 서블릿 컨테이너 영역과 스프링 컨테이너 영역
+
+
+## 알고 있던 것
+
+프리때 보안을 그냥 주먹구구식으로 해보았다. (내가 했어야 했다. 상황상...)
+
+그래서 알고 있는것을 정리해보자면
+
+    보안은 filter상에서 처리된다.
+    이 때 DelegatingFilterPorxy가 보안의 시작점이며 후에 FilterChainPorxy를 통하게 된다.
+
+>쓸거면 제대로 알고 쓰자 (이상향)
+
+를 추구하는 개발자로서 더 파고들고 싶어졌다.
+
+## Servlet Container
