@@ -1,31 +1,55 @@
+/* src/styles/style.css */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    display: flex;
+    height: 100vh;
 }
 
-header, footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
+.app-container {
+    display: flex;
+    width: 100%;
+}
+
+/* 좌측 사이드바 스타일 */
+.sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
     padding: 1em;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    position: fixed;
 }
 
-nav a {
-    color: #fff;
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.sidebar h3 {
+    font-size: 1.2em;
+    margin-top: 1em;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 0.5em 0;
+}
+
+.sidebar ul li a {
     text-decoration: none;
-    margin: 0 10px;
-}
-
-main {
-    padding: 20px;
-}
-
-.tags .tag {
-    display: inline-block;
-    background-color: #eee;
     color: #333;
-    padding: 0.2em 0.5em;
-    margin: 0.2em;
-    border-radius: 5px;
+}
+
+/* 메인 콘텐츠 영역 */
+.main-content {
+    margin-left: 250px; /* 사이드바 너비만큼 여백 */
+    padding: 2em;
+    flex: 1;
 }
