@@ -1,0 +1,2 @@
+body{display:flex;font-family:Arial,sans-serif;height:100vh;margin:0;padding:0}.app-container{display:flex;width:100%}.sidebar{background-color:#f4f4f4;border-right:1px solid #ddd;height:100vh;padding:1em;position:fixed;width:250px}.sidebar h2{font-size:1.5em;margin-bottom:.5em}.sidebar h3{font-size:1.2em;margin-top:1em}.sidebar ul{list-style:none;padding:0}.sidebar ul li{margin:.5em 0}.sidebar ul li a{color:#333;text-decoration:none}.main-content{flex:1 1;margin-left:250px;padding:2em}
+/*# sourceMappingURL=main.e120733e.css.map*/
