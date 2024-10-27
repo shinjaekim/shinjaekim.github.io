@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
@@ -11,9 +10,18 @@ function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <div className="app-container">
+        {/* 상단 헤더 */}
+        <header className="header">
+          <Link to="/" className="blog-title">My Dev Blog</Link>
+          <div className="header-links">
+            <Link to="/review">복습</Link>
+            <Link to="/tags">태그</Link>
+          </div>
+        </header>
+
         {/* 좌측 사이드 메뉴 */}
         <aside className="sidebar">
-          <h2>'제목 미정'</h2>
+          <h2>Full-Stack Developer Notes</h2>
           <nav>
             <h3>Frontend</h3>
             <ul>
@@ -28,14 +36,9 @@ function App() {
               <li><Link to="/backend/spring">Spring</Link></li>
             </ul>
 
-            <h3>형상 관리</h3>
-            <ul>
-              <li><Link to="/version-control/git">Git</Link></li>
-              <li><Link to="/version-control/github">GitHub</Link></li>
-            </ul>
-
             <h3>DevOps</h3>
             <ul>
+              <li><Link to="/devops/git">Git</Link></li>
               <li><Link to="/devops/ci-cd">CI/CD</Link></li>
               <li><Link to="/devops/docker">Docker</Link></li>
               <li><Link to="/devops/kubernetes">Kubernetes</Link></li>

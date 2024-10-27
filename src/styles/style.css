@@ -1,17 +1,61 @@
 /* src/styles/style.css */
 
+/* 전체 레이아웃 설정 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     height: 100vh;
 }
 
 .app-container {
     display: flex;
     width: 100%;
-    height: 100vh; /* 화면 전체 높이 차지 */
+    height: 100%;
+    padding-top: 60px; /* 헤더 높이만큼 여백 */
+}
+
+/* 상단 헤더 스타일 */
+.header {
+    display: flex;
+    justify-content: center; /* 제목을 중앙에 위치 */
+    align-items: center;
+    padding: 1em;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 60px; /* 헤더 높이 고정 */
+    box-sizing: border-box;
+}
+
+.blog-title {
+    font-size: 1.8em;
+    flex-grow: 1;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-links {
+    position: absolute;
+    right: 2em; /* 오른쪽 여백 추가 */
+    display: flex;
+    gap: 1em; /* 링크 간격 */
+}
+
+.header-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9em; /* 링크 크기 조정 */
+}
+
+.header-links a:hover {
+    text-decoration: underline;
 }
 
 /* 좌측 사이드바 스타일 */
@@ -20,9 +64,10 @@ body {
     background-color: #f4f4f4;
     padding: 1em;
     border-right: 1px solid #ddd;
-    height: 100vh; /* 화면 전체 높이 */
+    height: calc(100vh - 60px); /* 헤더 높이 제외 */
     position: fixed;
-    overflow-y: auto; /* 사이드바 스크롤 추가 */
+    top: 60px; /* 헤더 아래로 배치 */
+    overflow-y: auto;
 }
 
 .sidebar h2 {
@@ -54,6 +99,6 @@ body {
     margin-left: 250px; /* 사이드바 너비만큼 여백 */
     padding: 2em;
     flex: 1;
-    height: 100vh; /* 화면 전체 높이 */
-    overflow-y: auto; /* 메인 콘텐츠 스크롤 추가 */
+    height: calc(100vh - 60px); /* 헤더 높이 제외 */
+    overflow-y: auto;
 }
