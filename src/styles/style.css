@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+main {
+    padding: 20px;
+}
+
+.tags .tag {
+    display: inline-block;
+    background-color: #eee;
+    color: #333;
+    padding: 0.2em 0.5em;
+    margin: 0.2em;
+    border-radius: 5px;
+}
